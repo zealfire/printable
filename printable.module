@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * @file
+ * Provides printer friendly content entities.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\entity\Entity\EntityDisplay;
+
+/**
+ * Implements hook_permission().
+ */
+function printable_permission() {
+  return array(
+    'view printer friendly versions' => array(
+      'title' => t('View Printer Friendly Versions'),
+    ),
+    'administer printable' => array(
+      'title' => t('Administer printable'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function printable_menu() {
+  $items = array();
+
+  $items['admin/config/user-interface/printable'] = array(
+    'title' => 'printable Configuration',
+    'route_name' => 'printable.configure',
+  );
+
+  $items['admin/config/user-interface/printable/%'] = array(
+    'title' => 'printable Format Configuration',
+    'route_name' => 'printable.format_configure',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function printable_theme() {
+  return array(
+    'printable' => array(
+      'template' => 'printable',
+      'pattern' => 'printable__',
+      'variables' => array(
+        'header' => NULL,
+        'content' => NULL,
+        'footer' => NULL,
+      ),
+      'path' => drupal_get_path('module', 'printable') . '/theme',
+    ),
+    'printable_header' => array(
+      'template' => 'printable-header',
+      'pattern' => 'printable_header__',
+      'variables' => array(),
+      'path' => drupal_get_path('module', 'printable') . '/theme',
+    ),
+    'printable_footer' => array(
+      'template' => 'printable-footer',
+      'pattern' => 'printable_footer__',
+      'variables' => array(),
+      'path' => drupal_get_path('module', 'printable') . '/theme',
+    ),
+  );
+}
+
+/**
+*/
+function template_preprocess_printable(&$variables) {
+  global $base_url;
+  $variables['base_url'] = $base_url.'/'.drupal_get_path('module', 'printable');
+}
+/**
+ * Implements hook_entity_view_mode_alter().
+ */
+function printable_entity_view_mode_info_alter(&$view_modes) {
+  $printable_manager = \Drupal::service('printable.entity_manager');
+  foreach($printable_manager->getprintableEntities() as $entity_type => $entity_definition) {
+    // Add an additional view mode to this entity.
+    $view_modes[$entity_type]['printable'] = array(
+      'label' => t('printable'),
+      'custom_settings' => FALSE,
+      'cache' => TRUE,
+    );
+  }
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function printable_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode, $langcode) {
+  // Load the printable manager and check if a printable is available for this
+  // entity.
+  $printable_manager = \Drupal::service('printable.entity_manager');
+  $link_builder = \Drupal::service('printable.link_builder');
+  if ($printable_manager->isprintableEntity($entity)) {
+    // Add the built links to the entity being rendered.
+    $entity->content['links']['printable'] = array(
+      '#theme' => 'links__entity__printable',
+      '#links' => $link_builder->buildLinks($entity),
+    );
+  }
+}
+
