@@ -1,0 +1,13 @@
+printable.configure:
+  path: '/admin/config/user-interface/printable'
+  defaults:
+    _form: '\Drupal\printable\Form\printableConfigurationForm'
+  requirements:
+    _permission: 'administer printable'
+printable.format_configure:
+  path: '/admin/config/user-interface/printable/{printable_format}'
+  defaults:
+    _form: '\Drupal\printable\Form\FormatConfigurationForm'
+  requirements:
+    _permission: 'administer printable'
+
