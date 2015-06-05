@@ -1,0 +1,6 @@
+name: Printable
+type: module
+description: 'Generates a printer-friendly version of Drupal content entities.'
+package: printable
+core: 8.x
+configure: printable.configure
