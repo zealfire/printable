@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\Controller\PrintableController
+ * Contains \Drupal\printable\Controller\PrintableController.
  */
 
 namespace Drupal\printable\Controller;
@@ -30,7 +30,7 @@ class PrintableController extends ControllerBase implements ContainerInjectionIn
   /**
    * Constructs a \Drupal\printable\Controller\PrintableController object.
    *
-   * @param \Drupal\printable\PrintableFormatPluginManager
+   * @param \Drupal\printable\PrintableFormatPluginManager $printable_format_manager
    *   The printable format plugin manager.
    */
   public function __construct(PrintableFormatPluginManager $printable_format_manager) {
@@ -50,12 +50,12 @@ class PrintableController extends ControllerBase implements ContainerInjectionIn
    * Returns the entity rendered via the given printable format.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
-   *  The entity to be printed.
-   * @param string $printable_format.
-   *  The identifier of the hadcopy format plugin.
+   *   The entity to be printed.
+   * @param string $printable_format
+   *   The identifier of the hadcopy format plugin.
    *
    * @return \Symfony\Component\HttpFoundation\Response
-   *  The printable response.
+   *   The printable response.
    */
   public function showFormat(EntityInterface $entity, $printable_format) {
     if ($this->printableFormatManager->getDefinition($printable_format)) {
@@ -68,5 +68,5 @@ class PrintableController extends ControllerBase implements ContainerInjectionIn
       throw new NotFoundHttpException();
     }
   }
-}
 
+}
