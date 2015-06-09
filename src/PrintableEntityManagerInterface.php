@@ -2,39 +2,39 @@
 
 /**
  * @file
- * Contains \Drupal\hardcopy\HardcopyEntityManagerInterface
+ * Contains \Drupal\printable\PrintableEntityManagerInterface
  */
 
-namespace Drupal\hardcopy;
+namespace Drupal\printable;
 
 use Drupal\Core\Entity\EntityInterface;
 
 /**
- * Entity manager interface for the hardcopy module.
+ * Entity manager interface for the printable module.
  */
-interface HardcopyEntityManagerInterface {
+interface PrintableEntityManagerInterface {
 
   /**
-   * Get the entities that hardcopy is available for.
+   * Get the entities that printable is available for.
    *
    * @return array
    *  An array of entity definitions keyed by the entity type.
    */
-  public function getHardcopyEntities();
+  public function getPrintableEntities();
 
   /**
-   * Check if an entity has a hardcopy version available for it.
+   * Check if an entity has a printable version available for it.
    *
    * @param EntityInterface $entity
-   *  The entity to check a hardcopy version is available for.
+   *  The entity to check a printable version is available for.
    *
    * @return bool
-   *  TRUE if the entity has a hardcopy version available, FALSE if not.
+   *  TRUE if the entity has a printable version available, FALSE if not.
    */
-  public function isHardcopyEntity(EntityInterface $entity);
+  public function isPrintableEntity(EntityInterface $entity);
 
   /**
-   * Get the entities that Hardcopy can generate hardcopies for.
+   * Get the entities that Printable can generate hardcopies for.
    *
    * @return array
    *  An array of entity definitions keyed by the entity type.

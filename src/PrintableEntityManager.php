@@ -2,19 +2,19 @@
 
 /**
  * @file
- * Contains \Drupal\hardcopy\HardcopyEntityManager
+ * Contains \Drupal\printable\PrintableEntityManager
  */
 
-namespace Drupal\hardcopy;
+namespace Drupal\printable;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityInterface;
 
 /**
- * Helper class for the hardcopy module.
+ * Helper class for the printable module.
  */
-class HardcopyEntityManager implements HardcopyEntityManagerInterface {
+class PrintableEntityManager implements PrintableEntityManagerInterface {
 
   /**
    * The entity manager service.
@@ -31,14 +31,14 @@ class HardcopyEntityManager implements HardcopyEntityManagerInterface {
   protected $configFactory;
 
   /**
-   * The entity definitions of entities that have hardcopy versions available.
+   * The entity definitions of entities that have printable versions available.
    *
    * @var array
    */
   protected $compatibleEntities = array();
 
   /**
-   * Constructs a new HardcopyEntityManager object.
+   * Constructs a new PrintableEntityManager object.
    *
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    *  The entity manager service.
@@ -53,19 +53,12 @@ class HardcopyEntityManager implements HardcopyEntityManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getHardcopyEntities() {
+  public function getPrintableEntities() {
     $compatible_entities = $this->getCompatibleEntities();
-    //print_r($compatible_entities['node']);
-    /*foreach($compatible_entities as $entity_type => $entity_definition){
-      echo "first: ".$entity_type." second: ".$entity_definition."<br/>";
-    }*/
-    //echo "jola";
-    //print_r($compatible_entities);
     $entities = array();
-    //$entity_type= $this->configFactory->get('hardcopy.settings')->get('hardcopy_entities');
-    foreach($this->configFactory->get('hardcopy.settings')->get('hardcopy_entities') as $entity_type) {
+    foreach($this->configFactory->get('printable.settings')->get('printable_entities') as $entity_type) {
       if (isset($compatible_entities[$entity_type])) {
-        echo "printing from inside getHardcopyEntities".$entity_type."<br>";
+        echo "printing from inside getPrintableEntities".$entity_type."<br>";
         $entities[$entity_type] = $compatible_entities[$entity_type];
       }
     }
@@ -75,8 +68,8 @@ class HardcopyEntityManager implements HardcopyEntityManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function isHardcopyEntity(EntityInterface $entity) {
-    return array_key_exists($entity->getEntityTypeId(), $this->getHardcopyEntities());
+  public function isPrintableEntity(EntityInterface $entity) {
+    return array_key_exists($entity->getEntityTypeId(), $this->getPrintableEntities());
   }
 
   /**
@@ -87,7 +80,7 @@ class HardcopyEntityManager implements HardcopyEntityManagerInterface {
     // the entity manager.
     if (empty($this->compatibleEntities)) {
       foreach($this->entityManager->getDefinitions() as $entity_type => $entity_definition) {
-        // If this entity has a render controller, it has a hardcopy version.
+        // If this entity has a render controller, it has a printable version.
         if ($entity_definition->hasHandlerClass('view_builder')) {
           $this->compatibleEntities[$entity_type] = $entity_definition;
         }
