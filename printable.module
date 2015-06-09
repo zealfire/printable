@@ -24,25 +24,6 @@ function printable_permission() {
 }
 
 /**
- * Implements hook_menu().
- */
-function printable_menu() {
-  $items = array();
-
-  $items['admin/config/user-interface/printable'] = array(
-    'title' => 'printable Configuration',
-    'route_name' => 'printable.configure',
-  );
-
-  $items['admin/config/user-interface/printable/%'] = array(
-    'title' => 'printable Format Configuration',
-    'route_name' => 'printable.format_configure',
-  );
-
-  return $items;
-}
-
-/**
  * Implements hook_theme().
  */
 function printable_theme() {
