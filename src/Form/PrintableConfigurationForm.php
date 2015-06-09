@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\Form\PrintableConfigurationForm
+ * Contains \Drupal\printable\Form\PrintableConfigurationForm.
  */
 
 namespace Drupal\printable\Form;
@@ -46,7 +46,7 @@ class PrintableConfigurationForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormID() {
+  public function getFormId() {
     return 'printable_configuration';
   }
 
@@ -64,14 +64,12 @@ class PrintableConfigurationForm extends FormBase {
       '#default_value' => array(),
     );
     // Build the options array.
-    foreach($this->printableEntityManager->getCompatibleEntities() as $entity_type => $entity_definition) {
-     // echo "hello<br>"+$entity_definition->getLabel()+"<br>";
-
+    foreach ($this->printableEntityManager->getCompatibleEntities() as $entity_type => $entity_definition) {
       $form['printable_entities']['#options'][$entity_type] = $entity_definition->getLabel();
     }
     // Build the default values array.
-    foreach($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {
-            $form['printable_entities']['#default_value'][] = $entity_type;
+    foreach ($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {
+      $form['printable_entities']['#default_value'][] = $entity_type;
     }
 
     // Provide option to open printable page in a new tab/window.
@@ -115,4 +113,5 @@ class PrintableConfigurationForm extends FormBase {
     \Drupal::service('config.factory')->getEditable('printable.settings')->set('css_include', $form_state->getValue('css_include'))->save();
     \Drupal::service('config.factory')->getEditable('printable.settings')->set('extract_links', $form_state->getValue('extract_links'))->save();
   }
+
 }
