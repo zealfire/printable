@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Contains \Drupal\hardcopy\Plugin\HardcopyFormat\PrintFormat
+ * Contains \Drupal\printable\Plugin\PrintableFormat\PrintFormat
  */
 
-namespace Drupal\hardcopy\Plugin\HardcopyFormat;
+namespace Drupal\printable\Plugin\PrintableFormat;
 
-use Drupal\hardcopy\Plugin\HardcopyFormatBase;
-use Drupal\hardcopy\Annotation\HardcopyFormat;
+use Drupal\printable\Plugin\PrintableFormatBase;
+use Drupal\printable\Annotation\PrintableFormat;
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -17,14 +17,14 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Provides a plugin to display a printable version of a page.
  *
- * @HardcopyFormat(
+ * @PrintableFormat(
  *   id = "print",
- *   module = "hardcopy",
+ *   module = "printable",
  *   title = @Translation("Print"),
  *   description = @Translation("Print description.")
  * )
  */
-class PrintFormat extends HardcopyFormatBase {
+class PrintFormat extends PrintableFormatBase {
 
   /**
    * {@inheritdoc}
@@ -69,12 +69,10 @@ class PrintFormat extends HardcopyFormatBase {
    * {@inheritdoc}
    */
   protected function buildContent() {
-    echo "<br>four<br>";
     $build = parent::buildContent();
-    echo "<br>seven<br>";
     $config = $this->getConfiguration();
-    if ($this->configFactory->get('hardcopy.settings')->get('send_to_printer')) {
-      echo "hello";
+    if ($this->configFactory->get('printable.settings')->get('send_to_printer')) {
+      //@todo afterwards this is just for testing
       $build['#attached']['js'][] = array(
         'type' => 'inline',
         'data' => '(function ($) {
@@ -86,8 +84,6 @@ class PrintFormat extends HardcopyFormatBase {
 })(jQuery);',
       );
     }
-      echo "<br>nine<br>";
-      
     return $build;
   }
 }
