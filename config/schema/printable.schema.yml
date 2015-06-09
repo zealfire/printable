@@ -1,0 +1,36 @@
+# Schema for the configuration files of the Printable module.
+
+printable.settings:
+  type: mapping
+  label: 'Printable settings'
+  mapping:
+    printable_entities:
+      type: sequence
+      label: 'Printable Enabled Entities'
+      sequence:
+        - type: string
+          label: 'Entity'
+    open_target_blank:
+      type: boolean
+      label: 'Open in New Tab'
+    css_include:
+      type: string
+      label: 'CSS Include'
+    extract_links:
+      type: string
+      label: 'Extract Links'
+    save_pdf:
+      type: boolean
+      label: 'Save or inline pdf'
+    paper_size:
+      type: string
+      label: 'Page size'
+    page_orientation:
+      type: string
+      label: 'Page orientation'
+    pdf_location:
+      type: string
+      label: 'Pdf location'
+    send_to_printer:
+      type: boolean
+      label: 'Send to printer'
