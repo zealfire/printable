@@ -150,7 +150,6 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
           array('system', 'jquery'),
           array('system', 'drupal'),
           array('printable/css','drupal-printable'),
-          array('printable/js','script'),
         ),
       ),
     );
