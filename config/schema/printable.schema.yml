@@ -34,3 +34,6 @@ printable.settings:
     send_to_printer:
       type: boolean
       label: 'Send to printer'
+    close_window:
+      type: boolean
+      label: 'Close the window'
