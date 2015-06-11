@@ -5,3 +5,9 @@ printable_entities:
 open_target_blank: TRUE
 css_include: ''
 extract_links: ''
+save_pdf: FALSE
+paper_size: 'A4'
+page_orientation: 'Portrait'
+pdf_location: ''
+send_to_printer: FALSE
+close_window: FALSE
