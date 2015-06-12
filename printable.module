@@ -54,7 +54,12 @@ function printable_theme() {
 }
 
 /**
-*/
+ * Preprocess variables for list of printable printer friendly page.
+ *
+ * @param array $variables
+ *  An associative array containing:
+ *  - items: Array of participant names.
+ */
 function template_preprocess_printable(&$variables) {
   global $base_url;
   $variables['base_url'] = $base_url.'/'.drupal_get_path('module', 'printable');
