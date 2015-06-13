@@ -112,7 +112,7 @@ class PrintableConfigurationForm extends FormBase {
     \Drupal::service('config.factory')->getEditable('printable.settings')->set('open_target_blank', $form_state->getValue('open_target_blank'))->save();
     \Drupal::service('config.factory')->getEditable('printable.settings')->set('css_include', $form_state->getValue('css_include'))->save();
     \Drupal::service('config.factory')->getEditable('printable.settings')->set('extract_links', $form_state->getValue('extract_links'))->save();
-    //Invalidate the block cache to update custom block-based derivatives.
+    // Invalidate the block cache to update custom block-based derivatives.
     \Drupal::service('plugin.manager.block')->clearCachedDefinitions();
   }
 
