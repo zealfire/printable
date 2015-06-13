@@ -57,19 +57,19 @@ function printable_theme() {
  * Preprocess variables for list of printable printer friendly page.
  *
  * @param array $variables
- *  An associative array containing:
- *  - items: Array of participant names.
+ *   An associative array containing:
+ *   - items: Array of participant names.
  */
 function template_preprocess_printable(&$variables) {
   global $base_url;
-  $variables['base_url'] = $base_url.'/'.drupal_get_path('module', 'printable');
+  $variables['base_url'] = $base_url. '/' .drupal_get_path('module', 'printable');
 }
 /**
  * Implements hook_entity_view_mode_alter().
  */
 function printable_entity_view_mode_info_alter(&$view_modes) {
   $printable_manager = \Drupal::service('printable.entity_manager');
-  foreach($printable_manager->getprintableEntities() as $entity_type => $entity_definition) {
+  foreach ($printable_manager->getprintableEntities() as $entity_type => $entity_definition) {
     // Add an additional view mode to this entity.
     $view_modes[$entity_type]['printable'] = array(
       'label' => t('printable'),
@@ -95,4 +95,3 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
     );
   }
 }
-

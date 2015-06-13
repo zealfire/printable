@@ -70,6 +70,7 @@ class PrintFormat extends PrintableFormatBase {
    */
   protected function buildContent() {
     $build = parent::buildContent();
+    //this may be used afterwards
     $config = $this->getConfiguration();
     if ($this->configFactory->get('printable.settings')->get('send_to_printer')) {
       //@todo afterwards this is just for testing

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\PrintableEntityManager
+ * Contains \Drupal\printable\PrintableEntityManager.
  */
 
 namespace Drupal\printable;
@@ -41,9 +41,9 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
    * Constructs a new PrintableEntityManager object.
    *
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *  The entity manager service.
+   *   The entity manager service.
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
-   *  The configuration factory service.
+   *   The configuration factory service.
    */
   public function __construct(EntityManagerInterface $entity_manager, ConfigFactory $config_factory) {
     $this->entityManager = $entity_manager;
@@ -56,9 +56,8 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
   public function getPrintableEntities() {
     $compatible_entities = $this->getCompatibleEntities();
     $entities = array();
-    foreach($this->configFactory->get('printable.settings')->get('printable_entities') as $entity_type) {
+    foreach ($this->configFactory->get('printable.settings')->get('printable_entities') as $entity_type) {
       if (isset($compatible_entities[$entity_type])) {
-        echo "printing from inside getPrintableEntities".$entity_type."<br>";
         $entities[$entity_type] = $compatible_entities[$entity_type];
       }
     }
@@ -79,7 +78,7 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
     // If the entities are yet to be populated, get the entity definitions from
     // the entity manager.
     if (empty($this->compatibleEntities)) {
-      foreach($this->entityManager->getDefinitions() as $entity_type => $entity_definition) {
+      foreach ($this->entityManager->getDefinitions() as $entity_type => $entity_definition) {
         // If this entity has a render controller, it has a printable version.
         if ($entity_definition->hasHandlerClass('view_builder')) {
           $this->compatibleEntities[$entity_type] = $entity_definition;
@@ -88,4 +87,6 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
     }
     return $this->compatibleEntities;
   }
+
 }
+
