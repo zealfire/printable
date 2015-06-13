@@ -11,3 +11,4 @@ page_orientation: 'Portrait'
 pdf_location: ''
 send_to_printer: FALSE
 close_window: FALSE
+list_attribute: FALSE

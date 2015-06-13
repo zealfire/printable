@@ -37,3 +37,6 @@ printable.settings:
     close_window:
       type: boolean
       label: 'Close the window'
+    list_attribute:
+      type: boolean
+      label: 'List the attributes'
