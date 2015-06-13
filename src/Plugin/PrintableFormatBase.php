@@ -135,7 +135,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    * @return array
    *  A render array representing the themed output of the content.
    */
-  protected function buildContent() 
+  protected function buildContent() {
     $build = array(
       '#theme' => array('printable__' . $this->getPluginId(), 'printable'),
       '#header' => array(
