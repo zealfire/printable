@@ -36,19 +36,19 @@ function printable_theme() {
         'content' => NULL,
         'footer' => NULL,
       ),
-      'path' => drupal_get_path('module', 'printable') . '/theme',
+      'path' => drupal_get_path('module', 'printable') . '/template',
     ),
     'printable_header' => array(
       'template' => 'printable-header',
       'pattern' => 'printable_header__',
       'variables' => array(),
-      'path' => drupal_get_path('module', 'printable') . '/theme',
+      'path' => drupal_get_path('module', 'printable') . '/template',
     ),
     'printable_footer' => array(
       'template' => 'printable-footer',
       'pattern' => 'printable_footer__',
       'variables' => array(),
-      'path' => drupal_get_path('module', 'printable') . '/theme',
+      'path' => drupal_get_path('module', 'printable') . '/template',
     ),
   );
 }
