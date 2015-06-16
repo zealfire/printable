@@ -1,0 +1,15 @@
+{
+    "name": "drupal/printable",
+    "description": "Generates printer friendly version of nodes",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alok Pandey",
+            "email": "iamalok185@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "wa72/htmlpagedom": "dev-master"
+    }
+}
