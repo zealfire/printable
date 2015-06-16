@@ -61,31 +61,17 @@ class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
   public function buildLinks(EntityInterface $entity=NULL) {
     // Build the array of links to be added to the entity.
     $links = array();
-    foreach($this->printableFormatManager->getDefinitions() as $key => $definition) {
-      //print_r("hotu ".$key);
-      //print_r("<br>zealfire ".$this->urlGenerator->generateFromRoute('printable.show_format.' . $entity->getEntityTypeId(), array('printable_format' => $key, 'entity' => $entity->id())));
-      //echo "<br>";
-      //echo "kite<br>".$entity->id()."break<br>".$entity->getEntityTypeId()."<br>";
-      /*$links[$key] = array(
-        'title' => t('<a href="!url">%title</a>',array('%title' => $definition['title'],
-        '!url' => $this->urlGenerator->generateFromRoute('printable.show_format.' . $entity->getEntityTypeId(), array('printable_format' => $key, 'entity' => $entity->id())))
-      ));*/
-/*$links[$key] = array(
-        'title' => $definition['title'],
-        'href' => $this->urlGenerator->generateFromRoute('printable.show_format.' . $entity->getEntityTypeId(), array('printable_format' => $key, 'entity' => $entity->id())),
-      );*/
-$links[$key] = array(
-  'title' => $definition['title'],
-  'url' => Url::fromRoute('printable.show_format.' . $entity->getEntityTypeId(), array('printable_format' => $key, 'entity' => $entity->id())),
-);
+    foreach ($this->printableFormatManager->getDefinitions() as $key => $definition) {
+      $links[$key] = array(
+      'title' => $definition['title'],
+      'url' => Url::fromRoute('printable.show_format.' . $entity->getEntityTypeId(), array('printable_format' => $key, 'entity' => $entity->id())),
+      );
+
       // Add target "blank" if the configuration option is set.
       if ($this->configFactory->get('printable.settings')->get('open_target_blank')) {
         $links[$key]['attributes']['target'] = '_blank';
       }
     }
-    echo "checkout";
-    //print_r($links);
-    //var_dump($links);
     return $links;
   }
 }
