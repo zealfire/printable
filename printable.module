@@ -29,6 +29,7 @@ function printable_permission() {
  * Implements hook_theme().
  */
 function printable_theme() {
+  $module_path = drupal_get_path('module', 'printable');
   return array(
     'printable' => array(
       'template' => 'printable',
@@ -38,7 +39,7 @@ function printable_theme() {
         'content' => NULL,
         'footer' => NULL,
       ),
-      'path' => drupal_get_path('module', 'printable') . '/templates',
+      'path' => $module_path . '/templates',
     ),
     'printable_header' => array(
       'template' => 'printable-header',
@@ -46,7 +47,7 @@ function printable_theme() {
       'variables' => array(
         'logo_url' => NULL,
         ),
-      'path' => drupal_get_path('module', 'printable') . '/templates',
+      'path' => $module_path . '/templates',
     ),
     'printable_footer' => array(
       'template' => 'printable-footer',
@@ -54,7 +55,7 @@ function printable_theme() {
       'variables' => array(
         'footer_content' => NULL,
         ),
-      'path' => drupal_get_path('module', 'printable') . '/templates',
+      'path' => $module_path . '/templates',
     ),
   );
 }
