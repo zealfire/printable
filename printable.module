@@ -130,13 +130,10 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
   $link_builder = \Drupal::service('printable.link_builder');
   //$entity=\Drupal::routeMatch()->getParameter('node');
   if ($printable_manager->isPrintableEntity($entity)) {
-    print_r("please print");//print_r(\Drupal::routeMatch()->getParameter('node'));//echo "$entity <br>nb vncv";
     // Add the built links to the entity being rendered.
     $entity->content['links']['printable'] = array(
       '#theme' => 'links__entity__printable',
       '#links' => $link_builder->buildLinks($entity),
     );
   }
-  else
-    print_r("I don't know why it's not working");
 }
