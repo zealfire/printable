@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\PrintableEntityManager
+ * Contains \Drupal\printable\PrintableEntityManager.
  */
 
 namespace Drupal\printable;
@@ -55,17 +55,9 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
    */
   public function getPrintableEntities() {
     $compatible_entities = $this->getCompatibleEntities();
-    //print_r($compatible_entities['node']);
-    /*foreach($compatible_entities as $entity_type => $entity_definition){
-      echo "first: ".$entity_type." second: ".$entity_definition."<br/>";
-    }*/
-    //echo "jola";
-    //print_r($compatible_entities);
     $entities = array();
-    //$entity_type= $this->configFactory->get('printable.settings')->get('printable_entities');
     foreach($this->configFactory->get('printable.settings')->get('printable_entities') as $entity_type) {
       if (isset($compatible_entities[$entity_type])) {
-        //echo "printing from inside getPrintableEntities".$entity_type."<br>";
         $entities[$entity_type] = $compatible_entities[$entity_type];
       }
     }
@@ -95,4 +87,5 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
     }
     return $this->compatibleEntities;
   }
+
 }
