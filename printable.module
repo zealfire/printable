@@ -75,14 +75,21 @@ function template_preprocess_printable(&$variables) {
     $title = \Drupal::service('title_resolver')->getTitle($request, $route);
   }
   $variables['title'] = $title;
-  $variables['source_url'] = 'chvc';//\Drupal::service('path.current')->getPath();
+  
+  // use this to render block in twig template
   $block = \Drupal\block\Entity\Block::load('printablelinksblockcontent');
-  //use this to render blovk in twig template
   $variables['block_output'] = \Drupal::entityManager()
   ->getViewBuilder('block')
   ->view($block);
-  //trying this to render views in template
-  $variables['view_output']=views_embed_view("comments_recent");
+
+  // trying this to render views in template
+  $variables['view_output'] = views_embed_view("comments_recent");
+  
+  // create source url over here
+  $source_url = $base_url.\Drupal::service('path.current')->getPath();
+  $pos = strpos($source_url, "printable");
+  $source_url = substr($source_url, 0,$pos);
+  $variables['source_url'] = $source_url;
 
   // HTML element attributes.
   $attributes = array();
