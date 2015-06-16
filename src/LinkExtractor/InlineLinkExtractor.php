@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\LinkExtractor\InlineLinkExtractor.
+ * Contains \Drupal\printable\LinkExtractor\InlineLinkExtractor;
  */
 
 namespace Drupal\printable\LinkExtractor;
@@ -41,7 +41,7 @@ class InlineLinkExtractor implements LinkExtractorInterface {
   /**
    * {@inheritdoc}
    */
-  public function extract( $string) {
+  public function extract($string) {
     $this->crawler->addContent($string);
 
     $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
@@ -55,7 +55,10 @@ class InlineLinkExtractor implements LinkExtractorInterface {
     return (string) $this->crawler;
   }
 
-  public function removeAttribute( $content, $attr) {
+  /**
+   * {@inheritdoc}
+   */
+  public function removeAttribute($content, $attr) {
     //echo ($content);
     //echo "hola starts";
     $this->crawler->addContent($content);
@@ -65,4 +68,26 @@ class InlineLinkExtractor implements LinkExtractorInterface {
    return (string) $this->crawler;// $this->crawler->removeAttribute($string);
     //return (string) $this->crawler;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function listAttribute($content) {
+    $this->crawler->addContent($content);
+    $this->links = "";
+    $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
+      $href = $anchor->attr('href');
+      // This method is deprecated, however it is the correct method to use here
+      // as we only have the path
+      $href = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
+      //array_push($this->links, $href);
+      //echo "catch<br>";
+      //print_r($href);
+      //echo "<br>block<br>";
+      $this->links.=$href.",";
+    });
+$this->crawler->remove();
+    return substr($this->links,0,strlen($this->links)-1);
+  }
+
 }

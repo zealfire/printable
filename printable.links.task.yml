@@ -1,0 +1,11 @@
+printable.configure:
+  route_name: printable.configure
+  title: 'Configuration'
+  base_route: printable.configure
+  tab_root_id: printable.configure
+
+printable.format_configure:
+  title: 'Printable Format Configuration'
+  base_route: printable.configure
+  tab_root_id: printable.configure
+  deriver: 'Drupal\printable\Plugin\Derivative\PrintableFormatConfigureTabs'

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\Plugin\PrintableFormatInterface.
+ * Contains \Drupal\printable\Plugin\PrintableFormatInterface
  */
 
 namespace Drupal\printable\Plugin;
@@ -19,7 +19,6 @@ interface PrintableFormatInterface extends ConfigurablePluginInterface, PluginFo
    * Returns the administrative label for this format plugin.
    *
    * @return string
-   *    Administrative label for plugin.
    */
   public function getLabel();
 
@@ -27,7 +26,6 @@ interface PrintableFormatInterface extends ConfigurablePluginInterface, PluginFo
    * Returns the administrative description for this format plugin.
    *
    * @return string
-   *   Administrative description for the plugin
    */
   public function getDescription();
 
@@ -35,7 +33,7 @@ interface PrintableFormatInterface extends ConfigurablePluginInterface, PluginFo
    * Set the content for the printable response.
    *
    * @param array $content
-   *   A render array of the content to be output by the printable format.
+   *  A render array of the content to be output by the printable format.
    */
   public function setContent(array $content);
 
@@ -43,8 +41,7 @@ interface PrintableFormatInterface extends ConfigurablePluginInterface, PluginFo
    * Returns the response object for this format plugin.
    *
    * @return \Symfony\Component\HttpFoundation\Response
-   *   The response object.
+   *  The response object.
    */
   public function getResponse();
-
 }

@@ -1,13 +1,18 @@
 printable.configure:
   path: '/admin/config/user-interface/printable'
   defaults:
-    _form: '\Drupal\printable\Form\printableConfigurationForm'
+    _form: '\Drupal\printable\Form\PrintableConfigurationForm'
   requirements:
     _permission: 'administer printable'
-printable.format_configure:
-  path: '/admin/config/user-interface/printable/{printable_format}'
+printable.format_configure_print:
+  path: '/admin/config/user-interface/printable/print'
   defaults:
-    _form: '\Drupal\printable\Form\FormatConfigurationForm'
+    _form: '\Drupal\printable\Form\FormatConfigurationFormPrint'
   requirements:
     _permission: 'administer printable'
-
+printable.format_configure_pdf:
+  path: '/admin/config/user-interface/printable/pdf'
+  defaults:
+    _form: '\Drupal\printable\Form\FormatConfigurationFormPdf'
+  requirements:
+    _permission: 'administer printable'

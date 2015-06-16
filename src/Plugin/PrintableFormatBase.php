@@ -16,6 +16,7 @@ use Drupal\printable\PrintableCssIncludeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Wa72\HtmlPageDom\HtmlPage;
 use Wa72\HtmlPageDom\HtmlPageCrawler;
+ 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -119,7 +120,12 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    * {@inheritdoc}
    */
   public function setContent(array $content) {
+    //echo "<br>one<br>";
     $this->content = $content;
+    $this->footer_content= NULL;
+    if ($this->configFactory->get('printable.settings')->get('list_attribute')) {
+      $this->footer_content = $this->linkExtractor->listAttribute((string) render($this->content));
+    }
   }
 
   /**
@@ -140,23 +146,37 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
       '#theme' => array('printable__' . $this->getPluginId(), 'printable'),
       '#header' => array(
         '#theme' => array('printable_header__' . $this->getPluginId(), 'printable_header'),
+        '#logo_url' => theme_get_setting('logo.url'),
       ),
       '#content' => $this->content,
       '#footer' => array(
         '#theme' => array('printable_footer__' . $this->getPluginId(), 'printable_footer'),
+        '#footer_content' => $this->footer_content,
       ),
       '#attached' => array(
+        '#library' => array(
+          '#css' => array(drupal_get_path('module', 'printable') . '/css/drupal-printable.css'),
+          '#js'  => array('core/jquery'),
+        ),
+      ),
+
+
+      /*'#attached' => array(
         'library' => array(
           array('system', 'jquery'),
           array('system', 'drupal'),
           array('printable/css','drupal-printable'),
+          array('printable/js','script'),
         ),
-      ),
+      ),*/
     );
 
     if ($include_path = $this->printableCssInclude->getCssIncludePath()) {
       $build['#attached']['css'][] = $include_path;
     }
+
+    // Eeeew. @todo remove this so we can unit test this method.
+    //system_page_build($build);
     return $build;
   }
 
@@ -168,6 +188,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    *  The HTML string representing the output of this printable format.
    */
   protected function getOutput() {
+    //echo "<br>three<br>";
     $content = $this->buildContent();
     $rendered_page = render($content);
    if ($this->configFactory->get('printable.settings')->get('extract_links')) {

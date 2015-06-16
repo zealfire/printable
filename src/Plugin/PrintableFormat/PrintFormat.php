@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\Plugin\PrintableFormat\PrintFormat.
+ * Contains \Drupal\printable\Plugin\PrintableFormat\PrintFormat
  */
 
 namespace Drupal\printable\Plugin\PrintableFormat;
@@ -34,10 +34,6 @@ class PrintFormat extends PrintableFormatBase {
       'show_print_dialogue' => TRUE,
     );
   }
-
-  /**
-   * {@inheritdoc}
-   */
   public function calculateDependencies(){}
 
   /**
@@ -59,6 +55,7 @@ class PrintFormat extends PrintableFormatBase {
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state){}
 
+  
   /**
    * {@inheritdoc}
    */
@@ -66,6 +63,7 @@ class PrintFormat extends PrintableFormatBase {
     $this->setConfiguration(array(
       'show_print_dialogue' => $form_state->getValue('show_print_dialogue'),
     ));
+    $this->blockSubmit($form, $form_state);
   }
 
   /**
@@ -73,13 +71,10 @@ class PrintFormat extends PrintableFormatBase {
    */
   protected function buildContent() {
     $build = parent::buildContent();
-    // this may be used afterwards
     $config = $this->getConfiguration();
+    //@todo add scripts over here and not in printable.module
     if ($this->configFactory->get('printable.settings')->get('send_to_printer')) {
-      // @todo afterwards this is just for testing
-      $build['#attached']['js'][] = array();
     }
     return $build;
   }
-
 }

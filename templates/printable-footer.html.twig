@@ -1,0 +1,19 @@
+<hr/>
+<strong>Source URL:</strong> {{ source_url }}
+{% if footer_content is not null %}
+<b> List of links present in page </b>
+{% set links= footer_content %}
+{% set split_links = links | split(',') %}
+{% set newArray = [] %}
+
+{% for name in split_links %}
+   {% if name not in newArray %}
+   {% set newArray = newArray|merge([name]) %}
+   {% endif %}
+{% endfor %}
+<ul>
+{% for key in newArray %}
+    <li>{{ key }}</li>
+{% endfor %}
+</ul>
+{% endif %}

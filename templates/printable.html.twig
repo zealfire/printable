@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Default theme implementation for printer friendly version of entities.
+ *
+ * Available variables:
+ * - title: Top level node title.
+ * - head: Header tags.
+ * - language: Language object.
+ * - language_rtl: A flag indicating whether the current display language is a
+ *   right to left language.
+ * - base_url: URL to the home page.
+ * - contents: Nodes within the current outline rendered through
+ *   book-node-export-html.html.twig.
+ *
+ * @see template_preprocess_printable()
+ *
+ * @ingroup themeable
+ */
+#}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+  <head>
+    <title>{{ title }}</title>
+    <base href="{{ base_url }}" />
+    <link type="text/css" rel="stylesheet" href="printable/css/drupal-printable.css" />
+    {% if jquery is defined %}
+      <script src="{{ jquery }}"></script>
+      {% if close_script is defined %}
+        <script src="{{ close_script }}"></script>
+      {% else %}
+        <script src="printable/js/script.js"></script>
+      {% endif %}
+    {% endif %}
+  </head>
+  <body>
+  {{ header }}
+  {{ content }}
+  {{ footer }}
+  {{ block_output }}
+  </body>
+</html>

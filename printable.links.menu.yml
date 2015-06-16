@@ -1,0 +1,10 @@
+printable.configure:
+  title: Printable
+  description: 'Manage your printable module'
+  parent: system.admin_structure
+  route_name: printable.configure
+#printable.show_format.node:
+ # title: PrintNow
+  #weight: 4
+  #route_name: printable.show_format.node
+  #base_route: node.view

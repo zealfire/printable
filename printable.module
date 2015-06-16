@@ -5,8 +5,10 @@
  * Provides printer friendly content entities.
  */
 
+use Drupal\Component\Utility\String;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Template\Attribute;
 use Drupal\entity\Entity\EntityDisplay;
 
 /**
@@ -18,7 +20,7 @@ function printable_permission() {
       'title' => t('View Printer Friendly Versions'),
     ),
     'administer printable' => array(
-      'title' => t('Administer printable'),
+      'title' => t('Administer Printable'),
     ),
   );
 }
@@ -36,19 +38,23 @@ function printable_theme() {
         'content' => NULL,
         'footer' => NULL,
       ),
-      'path' => drupal_get_path('module', 'printable') . '/template',
+      'path' => drupal_get_path('module', 'printable') . '/templates',
     ),
     'printable_header' => array(
       'template' => 'printable-header',
       'pattern' => 'printable_header__',
-      'variables' => array(),
-      'path' => drupal_get_path('module', 'printable') . '/template',
+      'variables' => array(
+        'logo_url' => NULL,
+        ),
+      'path' => drupal_get_path('module', 'printable') . '/templates',
     ),
     'printable_footer' => array(
       'template' => 'printable-footer',
       'pattern' => 'printable_footer__',
-      'variables' => array(),
-      'path' => drupal_get_path('module', 'printable') . '/template',
+      'variables' => array(
+        'footer_content' => NULL,
+        ),
+      'path' => drupal_get_path('module', 'printable') . '/templates',
     ),
   );
 }
@@ -57,12 +63,39 @@ function printable_theme() {
  * Preprocess variables for list of printable printer friendly page.
  *
  * @param array $variables
- *   An associative array containing:
- *   - items: Array of participant names.
+ *  An associative array containing:
+ *  - items: Array of participant names.
  */
 function template_preprocess_printable(&$variables) {
   global $base_url;
-  $variables['base_url'] = $base_url. '/' .drupal_get_path('module', 'printable');
+  $language_interface = \Drupal::languageManager()->getCurrentLanguage();
+  $variables['base_url'] = $base_url.'/'.drupal_get_path('module', 'printable');
+  $request = \Drupal::request();
+  if ($route = $request->attributes->get(\Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_OBJECT)) {
+    $title = \Drupal::service('title_resolver')->getTitle($request, $route);
+  }
+  $variables['title'] = $title;
+  $variables['source_url'] = 'chvc';//\Drupal::service('path.current')->getPath();
+  $block = \Drupal\block\Entity\Block::load('printablelinksblockcontent');
+  //use this to render blovk in twig template
+  $variables['block_output'] = \Drupal::entityManager()
+  ->getViewBuilder('block')
+  ->view($block);
+  //trying this to render views in template
+  $variables['block_output']=views_embed_view("comments_recent");
+
+  // HTML element attributes.
+  $attributes = array();
+  $attributes['lang'] = $language_interface->getId();
+  $attributes['dir'] = $language_interface->getDirection();
+  $variables['html_attributes'] = new Attribute($attributes);
+
+  if(\Drupal::service('config.factory')->get('printable.settings')->get('send_to_printer')) {
+    //@todo make this automate
+    $variables['jquery'] = $base_url.'/core/assets/vendor/jquery/jquery.min.js';
+   if(\Drupal::service('config.factory')->get('printable.settings')->get('close_window'))
+   $variables['close_script']='printable/js/close.js';//@todo close.js showing error
+  }
 }
 
 /**
@@ -70,10 +103,10 @@ function template_preprocess_printable(&$variables) {
  */
 function printable_entity_view_mode_info_alter(&$view_modes) {
   $printable_manager = \Drupal::service('printable.entity_manager');
-  foreach ($printable_manager->getprintableEntities() as $entity_type => $entity_definition) {
+  foreach($printable_manager->getPrintableEntities() as $entity_type => $entity_definition) {
     // Add an additional view mode to this entity.
     $view_modes[$entity_type]['printable'] = array(
-      'label' => t('printable'),
+      'label' => t('Printable'),
       'custom_settings' => FALSE,
       'cache' => TRUE,
     );
@@ -88,11 +121,15 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
   // entity.
   $printable_manager = \Drupal::service('printable.entity_manager');
   $link_builder = \Drupal::service('printable.link_builder');
-  if ($printable_manager->isprintableEntity($entity)) {
+  //$entity=\Drupal::routeMatch()->getParameter('node');
+  if ($printable_manager->isPrintableEntity($entity)) {
+    print_r("please print");//print_r(\Drupal::routeMatch()->getParameter('node'));//echo "$entity <br>nb vncv";
     // Add the built links to the entity being rendered.
     $entity->content['links']['printable'] = array(
       '#theme' => 'links__entity__printable',
       '#links' => $link_builder->buildLinks($entity),
     );
   }
+  else
+    print_r("I don't know why it's not working");
 }
