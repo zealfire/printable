@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\LinkExtractor\InlineLinkExtractor;
+ * Contains \Drupal\printable\LinkExtractor\InlineLinkExtractor.
  */
 
 namespace Drupal\printable\LinkExtractor;
@@ -59,14 +59,11 @@ class InlineLinkExtractor implements LinkExtractorInterface {
    * {@inheritdoc}
    */
   public function removeAttribute($content, $attr) {
-    //echo ($content);
-    //echo "hola starts";
     $this->crawler->addContent($content);
     $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
       $anchor->removeAttribute('href');
     });
-   return (string) $this->crawler;// $this->crawler->removeAttribute($string);
-    //return (string) $this->crawler;
+   return (string) $this->crawler;
   }
 
   /**
@@ -80,13 +77,9 @@ class InlineLinkExtractor implements LinkExtractorInterface {
       // This method is deprecated, however it is the correct method to use here
       // as we only have the path
       $href = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
-      //array_push($this->links, $href);
-      //echo "catch<br>";
-      //print_r($href);
-      //echo "<br>block<br>";
       $this->links.=$href.",";
     });
-$this->crawler->remove();
+    $this->crawler->remove();
     return substr($this->links,0,strlen($this->links)-1);
   }
 

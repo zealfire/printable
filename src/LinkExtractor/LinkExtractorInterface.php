@@ -33,5 +33,15 @@ interface LinkExtractorInterface {
    *   The HTML string, with links removed.
    */
   public function removeAttribute( $content, $attr);
+
+  /**
+   * List the links at the bottom of page.
+   *
+   * @param string $content
+   *   The HTML string which has links present.
+   * @return string
+   *   The HTML string, containing links.
+   */
+  public function listAttribute($content);
   
 }
