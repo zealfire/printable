@@ -82,7 +82,7 @@ function template_preprocess_printable(&$variables) {
   ->getViewBuilder('block')
   ->view($block);
   //trying this to render views in template
-  $variables['block_output']=views_embed_view("comments_recent");
+  $variables['view_output']=views_embed_view("comments_recent");
 
   // HTML element attributes.
   $attributes = array();
