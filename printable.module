@@ -31,6 +31,9 @@ function printable_permission() {
 function printable_theme() {
   $module_path = drupal_get_path('module', 'printable');
   return array(
+    'printable_navigation' => array(
+      'variables' => array('printable_link' => NULL),
+    ),
     'printable' => array(
       'template' => 'printable',
       'pattern' => 'printable__',
@@ -99,11 +102,15 @@ function template_preprocess_printable(&$variables) {
   $variables['html_attributes'] = new Attribute($attributes);
 
   if(\Drupal::service('config.factory')->get('printable.settings')->get('send_to_printer')) {
+    echo "hello";
     //@todo make this automate
-    $variables['jquery'] = $base_url.'/core/assets/vendor/jquery/jquery.min.js';
+    $variables['jquery'] = $base_url.'/core/assets/vendor/jquery/jquery.js';
+    $variables['send_script'] = 'printable/js/script.js';
    if(\Drupal::service('config.factory')->get('printable.settings')->get('close_window'))
    $variables['close_script']='printable/js/close.js';//@todo close.js showing error
   }
+  //else
+    //echo "not ok";
 }
 
 /**
@@ -129,12 +136,17 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
   // entity.
   $printable_manager = \Drupal::service('printable.entity_manager');
   $link_builder = \Drupal::service('printable.link_builder');
-  //$entity=\Drupal::routeMatch()->getParameter('node');
   if ($printable_manager->isPrintableEntity($entity)) {
+    $printable_navigation = array( '#theme' => 'links__entity__printable', '#links' => $link_builder->buildLinks($entity));
+    
     // Add the built links to the entity being rendered.
-    $entity->content['links']['printable'] = array(
-      '#theme' => 'links__entity__printable',
-      '#links' => $link_builder->buildLinks($entity),
-    );
+    $build['printable_navigation'] = array(
+        '#markup' => drupal_render($printable_navigation),
+        '#weight' => 100,
+        '#cache' => [
+          'tags' => $entity->getEntityType()->getListCacheTags(),
+        ],
+      );
   }
 }
+
