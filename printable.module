@@ -80,14 +80,14 @@ function template_preprocess_printable(&$variables) {
   }
   $variables['title'] = $title;
   
-  // use this to render block in twig template
-  $block = \Drupal\block\Entity\Block::load('printablelinksblockcontent');
+  // use this to render block in twig template, uncomment when need to test
+  /*$block = \Drupal\block\Entity\Block::load('printablelinksblockcontent');
   $variables['block_output'] = \Drupal::entityManager()
   ->getViewBuilder('block')
-  ->view($block);
+  ->view($block);*/
 
-  // trying this to render views in template
-  $variables['view_output'] = views_embed_view("comments_recent");
+  // trying this to render views in template, uncomment when need to test
+  //$variables['view_output'] = views_embed_view("comments_recent");
   
   // create source url over here
   $source_url = $base_url.\Drupal::service('path.current')->getPath();
