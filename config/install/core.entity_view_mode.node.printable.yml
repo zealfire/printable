@@ -1,8 +1,12 @@
 langcode: en
-status: true
+status: false
 dependencies:
   module:
+    - printable
     - node
+  enforced:
+    module:
+      - printable
 id: node.printable
 label: printable
 targetEntityType: node
