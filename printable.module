@@ -139,8 +139,8 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
     $build['printable_navigation'] = array(
       '#markup' => '<b class="node_view">'.drupal_render($printable_navigation).'<b>',
       '#attached' => array(
-           'library' => 'printable/entity-links',
-        ),
+        'library' => 'printable/entity-links',
+       ),
       '#weight' => 100,
       '#cache' => [
       'tags' => $entity->getEntityType()->getListCacheTags(),
