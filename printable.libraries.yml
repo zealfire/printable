@@ -4,3 +4,8 @@ libraryname:
     js/script.js: {}
   dependencies:
     - core/jquery
+entity-links:
+  version: 1.x
+  css:
+    theme:
+      css/entity-links.css: {}
