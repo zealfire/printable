@@ -26,7 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInterface {
- /**
+  /**
    * The request service.
    *
    * @var \Symfony\Component\HttpFoundation\Request;
@@ -43,12 +43,10 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
   /**
    * {@inheritdoc}
    *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *  The request service.
    * @param \Drupal\printable\PrintableLinkBuilderInterface $link_builder
-   *  The printable link builder.
+   *   The printable link builder.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition,/* Request $request,*/ PrintableLinkBuilderInterface $link_builder) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, PrintableLinkBuilderInterface $link_builder) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->request = \Drupal::request();
     $this->linkBuilder = $link_builder;
@@ -63,19 +61,19 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
       $container->get('printable.link_builder')
     );
   }
-  
+
   /**
    * {@inheritdoc}
    */
   public function build() {
     $entity_type = $this->getDerivativeId();
-    if(\Drupal::routeMatch()->getMasterRouteMatch()->getParameter($entity_type) && $entity_type == 'comment') {
+    if (\Drupal::routeMatch()->getMasterRouteMatch()->getParameter($entity_type) && $entity_type == 'comment') {
       return array(
         '#theme' => 'links__entity__printable',
         '#links' => $this->linkBuilder->buildLinks(\Drupal::routeMatch()->getMasterRouteMatch()->getParameter('comment')),
       );
     }
-    if ($this->request->attributes->has($entity_type)) { 
+    if ($this->request->attributes->has($entity_type)) {
       return array(
         '#theme' => 'links__entity__printable',
         '#links' => $this->linkBuilder->buildLinks($this->request->attributes->get($entity_type)),

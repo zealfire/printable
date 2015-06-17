@@ -73,14 +73,12 @@ class PrintableConfigurationForm extends ConfigFormBase {
     );
 
     // Build the options array.
-    foreach($this->printableEntityManager->getCompatibleEntities() as $entity_type => $entity_definition) {
-     // echo "hello<br>"+$entity_definition->getLabel()+"<br>";
-
-      $form['settings']['printable_entities']['#options'][$entity_type] = $entity_definition->getLabel();
+    foreach ($this->printableEntityManager->getCompatibleEntities() as $entity_type => $entity_definition) {
+     $form['settings']['printable_entities']['#options'][$entity_type] = $entity_definition->getLabel();
     }
     // Build the default values array.
-    foreach($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {
-            $form['settings']['printable_entities']['#default_value'][] = $entity_type;
+    foreach ($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {
+      $form['settings']['printable_entities']['#default_value'][] = $entity_type;
     }
 
     // Provide option to open printable page in a new tab/window.
@@ -119,9 +117,9 @@ class PrintableConfigurationForm extends ConfigFormBase {
     \Drupal::service('config.factory')->getEditable('printable.settings')->set('css_include', $form_state->getValue('css_include'))->save();
     \Drupal::service('config.factory')->getEditable('printable.settings')->set('extract_links', $form_state->getValue('extract_links'))->save();
     // Invalidate the block cache to update custom block-based derivatives.
-    // @todo try to make configsaveevent later
+    // @todo try to make configsaveevent later.
     \Drupal::service('plugin.manager.block')->clearCachedDefinitions();
     parent::submitForm($form, $form_state);
   }
-  
+
 }

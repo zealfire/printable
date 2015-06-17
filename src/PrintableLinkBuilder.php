@@ -43,11 +43,11 @@ class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
    * Constructs a new PrintableLinkBuilder object.
    *
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
-   *  The configuration factory service.
+   *   The configuration factory service.
    * @param \Drupal\Core\Routing\UrlGeneratorInterface $url_generator
-   *  The URL generator service.
+   *   The URL generator service.
    * @param \Drupal\printable\PrintableFormatPluginManager $printable_format_manager
-   *  The printable format plugin manager.
+   *   The printable format plugin manager.
    */
   public function __construct(ConfigFactory $config_factory, UrlGeneratorInterface $url_generator, PrintableFormatPluginManager $printable_format_manager) {
     $this->configFactory = $config_factory;
@@ -58,13 +58,13 @@ class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
   /**
    * {@inheritdoc}
    */
-  public function buildLinks(EntityInterface $entity=NULL) {
+  public function buildLinks(EntityInterface $entity = NULL) {
     // Build the array of links to be added to the entity.
     $links = array();
     foreach ($this->printableFormatManager->getDefinitions() as $key => $definition) {
       $links[$key] = array(
-      'title' => $definition['title'],
-      'url' => Url::fromRoute('printable.show_format.' . $entity->getEntityTypeId(), array('printable_format' => $key, 'entity' => $entity->id())),
+        'title' => $definition['title'],
+        'url' => Url::fromRoute('printable.show_format.' . $entity->getEntityTypeId(), array('printable_format' => $key, 'entity' => $entity->id())),
       );
 
       // Add target "blank" if the configuration option is set.
@@ -74,5 +74,5 @@ class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
     }
     return $links;
   }
-  
+
 }

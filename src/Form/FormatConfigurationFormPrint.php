@@ -54,7 +54,7 @@ class FormatConfigurationFormPrint extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $printable_format = NULL) {
-    
+
     $form['settings'] = array(
       '#type' => 'fieldset',
       '#title' => $this->t('Web page options'),
@@ -79,7 +79,7 @@ class FormatConfigurationFormPrint extends FormBase {
       '#default_value' => $this->config('printable.settings')->get('list_attribute'),
       '#description' => $this->t('Enabling this option will display a list of printer-friendly destination URLs at the bottom of the page.'),
     );
-    
+
     $form['settings']['submit'] = array(
       '#type' => 'submit',
       '#value' => 'Submit',
@@ -91,9 +91,9 @@ class FormatConfigurationFormPrint extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-  \Drupal::service('config.factory')->getEditable('printable.settings')->set('send_to_printer', $form_state->getValue('print_html_sendtoprinter'))->save();
-  \Drupal::service('config.factory')->getEditable('printable.settings')->set('close_window', $form_state->getValue('print_html_windowclose'))->save();
-  \Drupal::service('config.factory')->getEditable('printable.settings')->set('list_attribute', $form_state->getValue('print_html_display_sys_urllist'))->save();
+    \Drupal::service('config.factory')->getEditable('printable.settings')->set('send_to_printer', $form_state->getValue('print_html_sendtoprinter'))->save();
+    \Drupal::service('config.factory')->getEditable('printable.settings')->set('close_window', $form_state->getValue('print_html_windowclose'))->save();
+    \Drupal::service('config.factory')->getEditable('printable.settings')->set('list_attribute', $form_state->getValue('print_html_display_sys_urllist'))->save();
   }
 
 }

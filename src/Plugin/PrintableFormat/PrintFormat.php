@@ -59,7 +59,7 @@ class PrintFormat extends PrintableFormatBase {
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state){}
 
-  
+
   /**
    * {@inheritdoc}
    */
@@ -76,7 +76,7 @@ class PrintFormat extends PrintableFormatBase {
   protected function buildContent() {
     $build = parent::buildContent();
     $config = $this->getConfiguration();
-    //@todo add scripts over here and not in printable.module
+    // @todo add scripts over here and not in printable.module
     if ($this->configFactory->get('printable.settings')->get('send_to_printer')) {
     }
     return $build;

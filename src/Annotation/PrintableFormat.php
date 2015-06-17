@@ -49,5 +49,5 @@ class PrintableFormat extends Plugin {
    * @var \Drupal\Core\Annotation\Translation (optional)
    */
   public $description = '';
-  
+
 }
