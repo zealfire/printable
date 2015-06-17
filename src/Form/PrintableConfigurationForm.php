@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\Form\PrintableConfigurationForm
+ * Contains \Drupal\printable\Form\PrintableConfigurationForm.
  */
 
 namespace Drupal\printable\Form;
@@ -71,6 +71,7 @@ class PrintableConfigurationForm extends ConfigFormBase {
       '#options' => array(),
       '#default_value' => array(),
     );
+
     // Build the options array.
     foreach($this->printableEntityManager->getCompatibleEntities() as $entity_type => $entity_definition) {
      // echo "hello<br>"+$entity_definition->getLabel()+"<br>";
@@ -106,35 +107,21 @@ class PrintableConfigurationForm extends ConfigFormBase {
       '#default_value' => $this->config('printable.settings')->get('extract_links'),
     );
 
-   /* $form['settings']['submit'] = array(
-      '#type' => 'submit',
-      '#value' => 'Submit',
-    );*/
-
-return parent::buildForm($form, $form_state);
+    return parent::buildForm($form, $form_state);
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    //$config = \Drupal::configFactory()->getEditable('printable.settings');
-        //$userInputValues = $form_state->getUserInput();
-       //echo "alok<br>";
-        //print_r($form_state->getValue('printable_entities'));echo "<br>";
-        //print_r($userInputValues['printable_entities']);
-       // $this->config('printable.settings')
-    // Remove unchecked types.
-      //->set('printable_entities', $form_state->getValue('printable_entities'))
-      //->save();
-    //$config->set('printable_entities', $userInputValues['printable_entities'])->save();
     \Drupal::service('config.factory')->getEditable('printable.settings')->set('printable_entities', $form_state->getValue('printable_entities'))->save();
     \Drupal::service('config.factory')->getEditable('printable.settings')->set('open_target_blank', $form_state->getValue('open_target_blank'))->save();
     \Drupal::service('config.factory')->getEditable('printable.settings')->set('css_include', $form_state->getValue('css_include'))->save();
     \Drupal::service('config.factory')->getEditable('printable.settings')->set('extract_links', $form_state->getValue('extract_links'))->save();
-  //Invalidate the block cache to update custom block-based derivatives.
-    //@todo try to make configsaveevent later
+    // Invalidate the block cache to update custom block-based derivatives.
+    // @todo try to make configsaveevent later
     \Drupal::service('plugin.manager.block')->clearCachedDefinitions();
-  parent::submitForm($form, $form_state);
+    parent::submitForm($form, $form_state);
   }
+  
 }

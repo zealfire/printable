@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\Annotation\PrintableFormat
+ * Contains \Drupal\printable\Annotation\PrintableFormat.
  */
 
 namespace Drupal\printable\Annotation;
@@ -49,4 +49,5 @@ class PrintableFormat extends Plugin {
    * @var \Drupal\Core\Annotation\Translation (optional)
    */
   public $description = '';
+  
 }
