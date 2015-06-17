@@ -8,12 +8,31 @@ th {
   color: #006;
   border-bottom: 1px solid #ccc;
 }
-tr.odd {background-color: #ddd;}
-tr.even {background-color: #fff;}
-td {padding: 5px;}
-#menu {visibility: hidden;}
-#main {margin: 1em;}
-a:link {color: #000;}
-a:visited {color: #000;}
-a:hover {color: #00f;}
-a:link img, a:visited img {border: 0;}
+tr.odd {
+  background-color: #ddd;
+}
+tr.even {
+  background-color: #fff;
+}
+td {
+  padding: 5px;
+}
+#menu {
+  visibility: hidden;
+}
+#main {
+  margin: 1em;
+}
+a:link {
+  color: #000;
+}
+a:visited {
+  color: #000;
+}
+a:hover {
+  color: #00f;
+}
+a:link img,
+a:visited img {
+  border: 0;
+}
