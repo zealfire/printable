@@ -23,6 +23,6 @@ interface PrintableLinkBuilderInterface {
    * @return array
    *   The render array of printable links for the passed in entity.
    */
-  public function buildLinks(EntityInterface $entity= NULL);
+  public function buildLinks(EntityInterface $entity = NULL);
 
 }

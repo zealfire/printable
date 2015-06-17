@@ -34,9 +34,9 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
    * Constructs a new PrintableCssInclude object.
    *
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
-   *  The configuration factory service.
+   *   The configuration factory service.
    * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
-   *  The theme handler service.
+   *   The theme handler service.
    */
   public function __construct(ConfigFactory $config_factory, ThemeHandlerInterface $theme_handler) {
     $this->configFactory = $config_factory;
@@ -59,12 +59,12 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
   /**
    * Extract the theme token from a CSS include path.
    *
-   * @param $path
+   * @param string $path
    *   An include path (optionally) with a taken to extract in the form:
-   *  "[theme:theme_machine_name]".
+   *   "[theme:theme_machine_name]".
    * @return string|NULL
-   *   The extracted token in the form "[theme:theme_machine_name]" or NULL if no
-   *   token exists in the string.
+   *   The extracted token in the form "[theme:theme_machine_name]" or NULL if
+   *   no token exists in the string.
    */
   protected function extractCssIncludeToken($path) {
     $start = '[theme:';
@@ -72,12 +72,12 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
 
     // Fail fast.
     if (strpos($path, $start) === FALSE) {
-      return;
+      return NULL;
     }
 
     $index = strpos($path, $start);
-
-    $length = strpos($path, $end, $index) + 1; // strpos is zero indexed
+    // Here strpos is zero indexed.
+    $length = strpos($path, $end, $index) + 1;
 
     return substr($path, $index, $length);
   }
@@ -85,8 +85,9 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
   /**
    * Get the path to a theme.
    *
-   * @param $theme
+   * @param string $theme
    *   The machine name of the theme to get the path for.
+   *
    * @return string
    *   The path to the given theme.
    *
@@ -101,5 +102,5 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
     }
     return $path;
   }
-  
+
 }

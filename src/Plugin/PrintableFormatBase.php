@@ -16,7 +16,7 @@ use Drupal\printable\PrintableCssIncludeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Wa72\HtmlPageDom\HtmlPage;
 use Wa72\HtmlPageDom\HtmlPageCrawler;
- 
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -66,7 +66,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id,  $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $configuration, $plugin_id, $plugin_definition,
       $container->get('config.factory'),
@@ -121,7 +121,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    */
   public function setContent(array $content) {
     $this->content = $content;
-    $this->footer_content= NULL;
+    $this->footer_content = NULL;
     if ($this->configFactory->get('printable.settings')->get('list_attribute')) {
       $this->footer_content = $this->linkExtractor->listAttribute((string) render($this->content));
     }
@@ -138,7 +138,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    * Build a render array of the content, wrapped in the printable theme.
    *
    * @return array
-   *  A render array representing the themed output of the content.
+   *   A render array representing the themed output of the content.
    */
   protected function buildContent() {
     $build = array(
@@ -170,8 +170,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   }
 
   /**
-   * Get the HTML output of the whole page, ready to pass to the response
-   * object.
+   * Get the HTML output of the whole page and pass to the response object.
    *
    * @return string
    *   The HTML string representing the output of this printable format.
@@ -179,11 +178,11 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   protected function getOutput() {
     $content = $this->buildContent();
     $rendered_page = render($content);
-   if ($this->configFactory->get('printable.settings')->get('extract_links')) {
+    if ($this->configFactory->get('printable.settings')->get('extract_links')) {
       $rendered_page = $this->linkExtractor->extract((string) $rendered_page);
     }
     else {
-      $rendered_page = $this->linkExtractor->removeAttribute((string) $rendered_page,'href');
+      $rendered_page = $this->linkExtractor->removeAttribute((string) $rendered_page, 'href');
     }
     return $rendered_page;
   }

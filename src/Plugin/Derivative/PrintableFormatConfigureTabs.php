@@ -28,7 +28,7 @@ class PrintableFormatConfigureTabs extends DeriverBase implements ContainerDeriv
    * Construct a new printable format configuration tab plugin derivative.
    *
    * @param \Drupal\printable\PrintableFormatPluginManager $printable_format_manager
-   *  The printable format plugin manager.
+   *   The printable format plugin manager.
    */
   public function __construct(PrintableFormatPluginManager $printable_format_manager) {
     $this->printableFormatManager = $printable_format_manager;
@@ -51,9 +51,9 @@ class PrintableFormatConfigureTabs extends DeriverBase implements ContainerDeriv
       $this->derivatives[$key] = $base_plugin_definition;
       $this->derivatives[$key]['title'] = $definition['title'];
       $this->derivatives[$key]['route_parameters'] = array('printable_format' => $key);
-      $this->derivatives[$key]['route_name'] = 'printable.format_configure_'.$key;
+      $this->derivatives[$key]['route_name'] = 'printable.format_configure_' .$key;
     }
     return $this->derivatives;
   }
-  
+
 }

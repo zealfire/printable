@@ -15,7 +15,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 
 /**
- * Defines a route subscriber to generate a print route for all content entities.
+ * Defines a route subscriber to generate a print route for all content 
+ * entities.
  */
 class RouteSubscriber implements EventSubscriberInterface {
 
@@ -30,7 +31,7 @@ class RouteSubscriber implements EventSubscriberInterface {
    * Constructs a printable RouteSubscriber object.
    *
    * @param \Drupal\printable\PrintableEntityManagerInterface $printable_entity_manager
-   *   The printable entity manager service
+   *   The printable entity manager service.
    */
   public function __construct(PrintableEntityManagerInterface $printable_entity_manager) {
     $this->printableEntityManager = $printable_entity_manager;
@@ -52,7 +53,7 @@ class RouteSubscriber implements EventSubscriberInterface {
    */
   public function routes(RouteBuildEvent $event) {
     $collection = $event->getRouteCollection();
-    foreach($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {
+    foreach ($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {
       $route = new Route(
         "/$entity_type/{entity}/printable/{printable_format}",
         array(
@@ -60,7 +61,7 @@ class RouteSubscriber implements EventSubscriberInterface {
           '_title' => 'Printable',
         ),
         array(
-          //'_entity_access' => 'entity.view',
+          // '_entity_access' => 'entity.view',
           '_permission' => 'view printer friendly versions',
         ),
         array(
@@ -72,5 +73,5 @@ class RouteSubscriber implements EventSubscriberInterface {
       $collection->add('printable.show_format.' . $entity_type, $route);
     }
   }
-  
+
 }
