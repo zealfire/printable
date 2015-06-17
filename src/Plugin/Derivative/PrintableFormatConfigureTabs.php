@@ -51,7 +51,7 @@ class PrintableFormatConfigureTabs extends DeriverBase implements ContainerDeriv
       $this->derivatives[$key] = $base_plugin_definition;
       $this->derivatives[$key]['title'] = $definition['title'];
       $this->derivatives[$key]['route_parameters'] = array('printable_format' => $key);
-      $this->derivatives[$key]['route_name'] = 'printable.format_configure_' .$key;
+      $this->derivatives[$key]['route_name'] = 'printable.format_configure_'. $key;
     }
     return $this->derivatives;
   }

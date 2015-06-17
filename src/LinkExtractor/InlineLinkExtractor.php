@@ -77,7 +77,7 @@ class InlineLinkExtractor implements LinkExtractorInterface {
       // This method is deprecated, however it is the correct method to use here
       // as we only have the path.
       $href = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
-      $this->links .= $href.",";
+      $this->links .= $href. ",";
     });
     $this->crawler->remove();
     return substr($this->links, 0, strlen($this->links) - 1);

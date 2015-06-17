@@ -74,7 +74,7 @@ class PrintableConfigurationForm extends ConfigFormBase {
 
     // Build the options array.
     foreach ($this->printableEntityManager->getCompatibleEntities() as $entity_type => $entity_definition) {
-     $form['settings']['printable_entities']['#options'][$entity_type] = $entity_definition->getLabel();
+      $form['settings']['printable_entities']['#options'][$entity_type] = $entity_definition->getLabel();
     }
     // Build the default values array.
     foreach ($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {

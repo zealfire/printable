@@ -15,8 +15,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 
 /**
- * Defines a route subscriber to generate a print route for all content 
- * entities.
+ * Defines a route subscriber to generate print route for all content entities.
  */
 class RouteSubscriber implements EventSubscriberInterface {
 

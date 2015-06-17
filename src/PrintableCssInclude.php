@@ -62,6 +62,7 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
    * @param string $path
    *   An include path (optionally) with a taken to extract in the form:
    *   "[theme:theme_machine_name]".
+   *
    * @return string|NULL
    *   The extracted token in the form "[theme:theme_machine_name]" or NULL if
    *   no token exists in the string.
