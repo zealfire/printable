@@ -12,7 +12,7 @@ use Drupal\printable\LinkExtractor\LinkExtractorInterface;
 use wa72\htmlpagedom\HtmlPageCrawler;
 
 /**
- * Link extractor
+ * Link extractor.
  */
 class InlineLinkExtractor implements LinkExtractorInterface {
 
@@ -47,7 +47,7 @@ class InlineLinkExtractor implements LinkExtractorInterface {
     $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
       $href = $anchor->attr('href');
       // This method is deprecated, however it is the correct method to use here
-      // as we only have the path
+      // as we only have the path.
       $href = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
       $anchor->append(' (' . $href . ')');
     });
@@ -63,7 +63,7 @@ class InlineLinkExtractor implements LinkExtractorInterface {
     $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
       $anchor->removeAttribute('href');
     });
-   return (string) $this->crawler;
+    return (string) $this->crawler;
   }
 
   /**
@@ -75,12 +75,12 @@ class InlineLinkExtractor implements LinkExtractorInterface {
     $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
       $href = $anchor->attr('href');
       // This method is deprecated, however it is the correct method to use here
-      // as we only have the path
+      // as we only have the path.
       $href = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
-      $this->links.=$href.",";
+      $this->links .= $href.",";
     });
     $this->crawler->remove();
-    return substr($this->links,0,strlen($this->links)-1);
+    return substr($this->links, 0, strlen($this->links) - 1);
   }
 
 }

@@ -88,7 +88,6 @@ function template_preprocess_printable(&$variables) {
 
   // trying this to render views in template, uncomment when need to test
   // $variables['view_output'] = views_embed_view("comments_recent");
-  
   // create source url over here
   $source_url = $base_url.\Drupal::service('path.current')->getPath();
   $pos = strpos($source_url, "printable");
