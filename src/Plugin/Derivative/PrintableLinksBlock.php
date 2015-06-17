@@ -28,7 +28,7 @@ class PrintableLinksBlock extends DeriverBase implements ContainerDeriverInterfa
    * Construct a new printable format links block.
    *
    * @param \Drupal\printable\PrintableEntityManagerInterface $printable_entity_manager
-   *  The printable entity manager.
+   *   The printable entity manager.
    */
   public function __construct(PrintableEntityManagerInterface $printable_entity_manager) {
     $this->printableEntityManager = $printable_entity_manager;
@@ -50,8 +50,8 @@ class PrintableLinksBlock extends DeriverBase implements ContainerDeriverInterfa
     foreach ($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {
       $this->derivatives[$entity_type] = $base_plugin_definition;
       $this->derivatives[$entity_type]['admin_label'] .= ' (' . $entity_definition->getLabel() . ')';
-      //$this->derivatives[$entity_type]['cache'] = -1;
     }
     return $this->derivatives;
   }
+  
 }

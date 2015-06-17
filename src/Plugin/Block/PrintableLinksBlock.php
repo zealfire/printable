@@ -51,7 +51,6 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
   public function __construct(array $configuration, $plugin_id, $plugin_definition,/* Request $request,*/ PrintableLinkBuilderInterface $link_builder) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->request = \Drupal::request();
-    //$this->request = $request;
     $this->linkBuilder = $link_builder;
   }
 
@@ -61,7 +60,6 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $configuration, $plugin_id, $plugin_definition,
-      //$container->get('request')
       $container->get('printable.link_builder')
     );
   }

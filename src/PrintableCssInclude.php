@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\PrintableCssInclude
+ * Contains \Drupal\printable\PrintableCssInclude.
  */
 
 namespace Drupal\printable;
@@ -60,11 +60,11 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
    * Extract the theme token from a CSS include path.
    *
    * @param $path
-   *  An include path (optionally) with a taken to extract in the form:
+   *   An include path (optionally) with a taken to extract in the form:
    *  "[theme:theme_machine_name]".
    * @return string|NULL
-   *  The extracted token in the form "[theme:theme_machine_name]" or NULL if no
-   *  token exists in the string.
+   *   The extracted token in the form "[theme:theme_machine_name]" or NULL if no
+   *   token exists in the string.
    */
   protected function extractCssIncludeToken($path) {
     $start = '[theme:';
@@ -86,9 +86,9 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
    * Get the path to a theme.
    *
    * @param $theme
-   *  The machine name of the theme to get the path for.
+   *   The machine name of the theme to get the path for.
    * @return string
-   *  The path to the given theme.
+   *   The path to the given theme.
    *
    * @todo replace this with an injectable version of drupal_get_path() when/if
    *  it lands.
@@ -101,4 +101,5 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
     }
     return $path;
   }
+  
 }

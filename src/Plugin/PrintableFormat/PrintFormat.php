@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\Plugin\PrintableFormat\PrintFormat
+ * Contains \Drupal\printable\Plugin\PrintableFormat\PrintFormat.
  */
 
 namespace Drupal\printable\Plugin\PrintableFormat;
@@ -34,6 +34,10 @@ class PrintFormat extends PrintableFormatBase {
       'show_print_dialogue' => TRUE,
     );
   }
+
+  /**
+   * {@inheritdoc}
+   */
   public function calculateDependencies(){}
 
   /**
@@ -77,4 +81,5 @@ class PrintFormat extends PrintableFormatBase {
     }
     return $build;
   }
+
 }

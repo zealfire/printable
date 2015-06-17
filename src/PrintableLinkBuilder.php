@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\PrintableLinkBuilder
+ * Contains \Drupal\printable\PrintableLinkBuilder.
  */
 
 namespace Drupal\printable;
@@ -74,4 +74,5 @@ class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
     }
     return $links;
   }
+  
 }

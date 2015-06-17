@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\Routing\RouteSubscriber
+ * Contains \Drupal\printable\Routing\RouteSubscriber.
  */
 
 namespace Drupal\printable\Routing;
@@ -30,7 +30,7 @@ class RouteSubscriber implements EventSubscriberInterface {
    * Constructs a printable RouteSubscriber object.
    *
    * @param \Drupal\printable\PrintableEntityManagerInterface $printable_entity_manager
-   *  The printable entity manager service
+   *   The printable entity manager service
    */
   public function __construct(PrintableEntityManagerInterface $printable_entity_manager) {
     $this->printableEntityManager = $printable_entity_manager;
@@ -52,11 +52,7 @@ class RouteSubscriber implements EventSubscriberInterface {
    */
   public function routes(RouteBuildEvent $event) {
     $collection = $event->getRouteCollection();
-    echo "hola";
-    //print_r($this->printableEntityManager->getPrintableEntities());
-    //$collection->remove('printable.show_format.comment');
     foreach($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {
-      echo "hello ".$entity_type." world<br>";
       $route = new Route(
         "/$entity_type/{entity}/printable/{printable_format}",
         array(
@@ -75,20 +71,6 @@ class RouteSubscriber implements EventSubscriberInterface {
       );
       $collection->add('printable.show_format.' . $entity_type, $route);
     }
-
-    //echo "bhaiya<br>";
-    //var_dump($collection->all());
-    //echo "<br> chalja<br>";
-    /*$route=new Route(
-       "/killer",
-       array(
-        '_controller' => 'Drupal\printable\Controller\PrintableController::demo',
-          '_title' => 'Printable',
-        ),
-       array(
-        '_permission' => 'access content',
-        )
-      );*/
-    //$collection->add('printable.show_format', $route);
   }
+  
 }

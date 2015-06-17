@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\PrintableCssIncludeInterface
+ * Contains \Drupal\printable\PrintableCssIncludeInterface.
  */
 
 namespace Drupal\printable;
@@ -16,7 +16,7 @@ interface PrintableCssIncludeInterface {
    * Get the configured CSS include path for printable pages.
    *
    * @return string
-   *  The include path, relative to the root of the Drupal install.
+   *   The include path, relative to the root of the Drupal install.
    */
   public function getCssIncludePath();
 

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\PrintableEntityManagerInterface
+ * Contains \Drupal\printable\PrintableEntityManagerInterface.
  */
 
 namespace Drupal\printable;
@@ -18,7 +18,7 @@ interface PrintableEntityManagerInterface {
    * Get the entities that printable is available for.
    *
    * @return array
-   *  An array of entity definitions keyed by the entity type.
+   *   An array of entity definitions keyed by the entity type.
    */
   public function getPrintableEntities();
 
@@ -26,10 +26,10 @@ interface PrintableEntityManagerInterface {
    * Check if an entity has a printable version available for it.
    *
    * @param EntityInterface $entity
-   *  The entity to check a printable version is available for.
+   *   The entity to check a printable version is available for.
    *
    * @return bool
-   *  TRUE if the entity has a printable version available, FALSE if not.
+   *   TRUE if the entity has a printable version available, FALSE if not.
    */
   public function isPrintableEntity(EntityInterface $entity);
 
@@ -37,7 +37,7 @@ interface PrintableEntityManagerInterface {
    * Get the entities that Printable can generate hardcopies for.
    *
    * @return array
-   *  An array of entity definitions keyed by the entity type.
+   *   An array of entity definitions keyed by the entity type.
    */
   public function getCompatibleEntities();
 
