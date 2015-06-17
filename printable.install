@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the printable module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function printable_uninstall() {
+  // Clear printable data out of the cache.
+  \Drupal::cache('data')->deleteAll();
+}
