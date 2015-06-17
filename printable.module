@@ -67,8 +67,8 @@ function printable_theme() {
  * Preprocess variables for list of printable printer friendly page.
  *
  * @param array $variables
- *  An associative array containing:
- *  - items: Array of participant names.
+ *   An associative array containing:
+ *   - items: Array of participant names.
  */
 function template_preprocess_printable(&$variables) {
   global $base_url;
@@ -87,7 +87,7 @@ function template_preprocess_printable(&$variables) {
   ->view($block);*/
 
   // trying this to render views in template, uncomment when need to test
-  //$variables['view_output'] = views_embed_view("comments_recent");
+  // $variables['view_output'] = views_embed_view("comments_recent");
   
   // create source url over here
   $source_url = $base_url.\Drupal::service('path.current')->getPath();
@@ -102,15 +102,12 @@ function template_preprocess_printable(&$variables) {
   $variables['html_attributes'] = new Attribute($attributes);
 
   if(\Drupal::service('config.factory')->get('printable.settings')->get('send_to_printer')) {
-    echo "hello";
-    //@todo make this automate
+    // @todo make this automate
     $variables['jquery'] = $base_url.'/core/assets/vendor/jquery/jquery.js';
     $variables['send_script'] = 'printable/js/script.js';
    if(\Drupal::service('config.factory')->get('printable.settings')->get('close_window'))
    $variables['close_script']='printable/js/close.js';//@todo close.js showing error
   }
-  //else
-    //echo "not ok";
 }
 
 /**
@@ -149,4 +146,3 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
       );
   }
 }
-
