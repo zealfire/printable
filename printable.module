@@ -49,7 +49,7 @@ function printable_theme() {
       'pattern' => 'printable_header__',
       'variables' => array(
         'logo_url' => NULL,
-        ),
+      ),
       'path' => $module_path . '/templates',
     ),
     'printable_footer' => array(
@@ -57,7 +57,7 @@ function printable_theme() {
       'pattern' => 'printable_footer__',
       'variables' => array(
         'footer_content' => NULL,
-        ),
+      ),
       'path' => $module_path . '/templates',
     ),
   );
@@ -73,25 +73,24 @@ function printable_theme() {
 function template_preprocess_printable(&$variables) {
   global $base_url;
   $language_interface = \Drupal::languageManager()->getCurrentLanguage();
-  $variables['base_url'] = $base_url.'/'.drupal_get_path('module', 'printable');
+  $variables['base_url'] = $base_url .'/' .drupal_get_path('module', 'printable');
   $request = \Drupal::request();
   if ($route = $request->attributes->get(\Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_OBJECT)) {
     $title = \Drupal::service('title_resolver')->getTitle($request, $route);
   }
   $variables['title'] = $title;
-  
+
   // use this to render block in twig template, uncomment when need to test
   /*$block = \Drupal\block\Entity\Block::load('printablelinksblockcontent');
   $variables['block_output'] = \Drupal::entityManager()
   ->getViewBuilder('block')
   ->view($block);*/
-
-  // trying this to render views in template, uncomment when need to test
+  // Trying this to render views in template, uncomment when need to test.
   // $variables['view_output'] = views_embed_view("comments_recent");
-  // create source url over here
-  $source_url = $base_url.\Drupal::service('path.current')->getPath();
+  // Create source url over here.
+  $source_url = $base_url .\Drupal::service('path.current')->getPath();
   $pos = strpos($source_url, "printable");
-  $source_url = substr($source_url, 0,$pos);
+  $source_url = substr($source_url, 0, $pos);
   $variables['source_url'] = $source_url;
 
   // HTML element attributes.
@@ -100,12 +99,12 @@ function template_preprocess_printable(&$variables) {
   $attributes['dir'] = $language_interface->getDirection();
   $variables['html_attributes'] = new Attribute($attributes);
 
-  if(\Drupal::service('config.factory')->get('printable.settings')->get('send_to_printer')) {
+  if (\Drupal::service('config.factory')->get('printable.settings')->get('send_to_printer')) {
     // @todo make this automate
-    $variables['jquery'] = $base_url.'/core/assets/vendor/jquery/jquery.js';
+    $variables['jquery'] = $base_url .'/core/assets/vendor/jquery/jquery.js';
     $variables['send_script'] = 'printable/js/script.js';
-   if(\Drupal::service('config.factory')->get('printable.settings')->get('close_window'))
-   $variables['close_script']='printable/js/close.js';//@todo close.js showing error
+    if (\Drupal::service('config.factory')->get('printable.settings')->get('close_window'))
+    $variables['close_script'] = 'printable/js/close.js';// close.js shows error
   }
 }
 
@@ -114,7 +113,7 @@ function template_preprocess_printable(&$variables) {
  */
 function printable_entity_view_mode_info_alter(&$view_modes) {
   $printable_manager = \Drupal::service('printable.entity_manager');
-  foreach($printable_manager->getPrintableEntities() as $entity_type => $entity_definition) {
+  foreach ($printable_manager->getPrintableEntities() as $entity_type => $entity_definition) {
     // Add an additional view mode to this entity.
     $view_modes[$entity_type]['printable'] = array(
       'label' => t('Printable'),
@@ -133,15 +132,15 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
   $printable_manager = \Drupal::service('printable.entity_manager');
   $link_builder = \Drupal::service('printable.link_builder');
   if ($printable_manager->isPrintableEntity($entity)) {
-    $printable_navigation = array( '#theme' => 'links__entity__printable', '#links' => $link_builder->buildLinks($entity));
-    
+    $printable_navigation = array('#theme' => 'links__entity__printable', '#links' => $link_builder->buildLinks($entity));
+
     // Add the built links to the entity being rendered.
     $build['printable_navigation'] = array(
-        '#markup' => drupal_render($printable_navigation),
-        '#weight' => 100,
-        '#cache' => [
-          'tags' => $entity->getEntityType()->getListCacheTags(),
-        ],
-      );
+      '#markup' => drupal_render($printable_navigation),
+      '#weight' => 100,
+      '#cache' => [
+      'tags' => $entity->getEntityType()->getListCacheTags(),
+      ],
+    );
   }
 }
