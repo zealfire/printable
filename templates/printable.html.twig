@@ -26,10 +26,12 @@
     <link type="text/css" rel="stylesheet" href="printable/css/drupal-printable.css" />
     {% if jquery is defined %}
       <script src="{{ jquery }}"></script>
+      <script src="http://localhost/newdrupal/core/assets/vendor/jquery/jquery.min.js"></script>
+      <script src="http://localhost/newdrupal/core/assets/vendor/jquery/jquery.min.map"></script>
       {% if close_script is defined %}
         <script src="{{ close_script }}"></script>
       {% else %}
-        <script src="printable/js/script.js"></script>
+        <script type="text/javascript" src="{{ send_script }}"></script>
       {% endif %}
     {% endif %}
   </head>
@@ -39,6 +41,5 @@
   <hr/>
   <strong>Source URL:</strong> <i>{{ source_url }}</i>
   {{ footer }}
-  {{ view_output }}
   </body>
 </html>
