@@ -17,7 +17,7 @@
   <head>
     <title>{{ title }}</title>
     <style>
-    .node_view{
+    .node_view ul li{
     display:none;
     }
     </style>
@@ -27,7 +27,7 @@
       <script src="{{ jquery }}"></script>
       <script src="http://localhost/newdrupal/core/assets/vendor/jquery/jquery.min.js"></script>
       {% if close_script is defined %}
-        <script src="{{ close_script }}"></script>
+        <script type="text/javascript" src="{{ close_script }}"></script>
       {% else %}
         <script type="text/javascript" src="{{ send_script }}"></script>
       {% endif %}
