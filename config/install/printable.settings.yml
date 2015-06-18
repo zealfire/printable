@@ -1,7 +1,7 @@
 printable_entities:
   - node
   - comment
-  - block
+  - user
 open_target_blank: TRUE
 css_include: ''
 extract_links: ''
