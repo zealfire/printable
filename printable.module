@@ -11,6 +11,12 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\entity\Entity\EntityDisplay;
 
+// Register autoloading of vendor libraries.
+$autoload = __DIR__ . '/vendor/autoload.php';
+if (file_exists($autoload)) {
+  require_once $autoload;
+}
+
 /**
  * Implements hook_permission().
  */
