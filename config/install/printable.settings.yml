@@ -1,7 +1,6 @@
 printable_entities:
   - node
   - comment
-  - user
 open_target_blank: TRUE
 css_include: ''
 extract_links: ''
