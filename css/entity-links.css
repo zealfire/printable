@@ -4,3 +4,10 @@
 .node_view a {
 	text-decoration: none;
 }
+.node_view ul.tryhere li:first-child {
+    /** the image will be vertically aligned in the center **/
+    background: url(../icons/print_icon.png) left center no-repeat;
+
+    /** move the text to the right **/
+    padding-left: 20px;
+}

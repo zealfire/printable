@@ -133,7 +133,13 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
   $printable_manager = \Drupal::service('printable.entity_manager');
   $link_builder = \Drupal::service('printable.link_builder');
   if ($printable_manager->isPrintableEntity($entity)) {
-    $printable_navigation = array('#theme' => 'links__entity__printable', '#links' => $link_builder->buildLinks($entity));
+    $printable_navigation = array(
+      '#theme' => 'links__entity__printable',
+      '#links' => $link_builder->buildLinks($entity),
+      '#attributes' => array(
+        'class' => array('tryhere'),
+        ),
+      );
 
     // Add the built links to the entity being rendered.
     $build['printable_navigation'] = array(
