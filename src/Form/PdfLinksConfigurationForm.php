@@ -53,7 +53,7 @@ class PdfLinksConfigurationForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'links_configuration';
+    return 'pdf_links_configuration';
   }
 
   /**
@@ -61,7 +61,6 @@ class PdfLinksConfigurationForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $printable_format = NULL) {
 
-    //https://www.drupal.org/node/2407153
     $form['settings']['print_pdf_link_pos'] = array(
       '#type' => 'checkboxes',
       '#title' =>'Link location',
