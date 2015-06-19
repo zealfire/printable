@@ -116,6 +116,20 @@ function template_preprocess_printable(&$variables) {
 }
 
 /**
+ * Preprocess variables for list of printable printer friendly page.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - items: Array of participant names.
+ */
+function template_preprocess_printable_footer(&$variables) {
+  $links = $variables['footer_content']; 
+  $split_links = explode(',', $links);
+  $newArray = array_unique($split_links);
+  $variables['newArray'] = $newArray;
+}
+
+/**
  * Implements hook_entity_view_mode_alter().
  */
 function printable_entity_view_mode_info_alter(&$view_modes) {
