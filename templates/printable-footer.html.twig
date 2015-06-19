@@ -2,15 +2,6 @@
   <br/>
   <br/>
   <strong> List of links present in page </strong>
-  {% set links = footer_content %}
-  {% set split_links = links | split(',') %}
-  {% set newArray = [] %}
-
-  {% for name in split_links %}
-     {% if name not in newArray %}
-      {% set newArray = newArray|merge([name]) %}
-     {% endif %}
-  {% endfor %}
   <ul>
    {% for key in newArray %}
     <li>{{ key }}</li>
