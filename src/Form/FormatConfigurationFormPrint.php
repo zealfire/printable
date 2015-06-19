@@ -91,9 +91,11 @@ class FormatConfigurationFormPrint extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    \Drupal::service('config.factory')->getEditable('printable.settings')->set('send_to_printer', $form_state->getValue('print_html_sendtoprinter'))->save();
-    \Drupal::service('config.factory')->getEditable('printable.settings')->set('close_window', $form_state->getValue('print_html_windowclose'))->save();
-    \Drupal::service('config.factory')->getEditable('printable.settings')->set('list_attribute', $form_state->getValue('print_html_display_sys_urllist'))->save();
+    \Drupal::service('config.factory')->getEditable('printable.settings')
+      ->set('send_to_printer', $form_state->getValue('print_html_sendtoprinter'))
+      ->set('close_window', $form_state->getValue('print_html_windowclose'))
+      ->set('list_attribute', $form_state->getValue('print_html_display_sys_urllist'))
+      ->save();
   }
 
 }

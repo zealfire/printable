@@ -112,10 +112,12 @@ class PrintableConfigurationForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    \Drupal::service('config.factory')->getEditable('printable.settings')->set('printable_entities', $form_state->getValue('printable_entities'))->save();
-    \Drupal::service('config.factory')->getEditable('printable.settings')->set('open_target_blank', $form_state->getValue('open_target_blank'))->save();
-    \Drupal::service('config.factory')->getEditable('printable.settings')->set('css_include', $form_state->getValue('css_include'))->save();
-    \Drupal::service('config.factory')->getEditable('printable.settings')->set('extract_links', $form_state->getValue('extract_links'))->save();
+    \Drupal::service('config.factory')->getEditable('printable.settings')
+      ->set('printable_entities', $form_state->getValue('printable_entities'))
+      ->set('open_target_blank', $form_state->getValue('open_target_blank'))
+      ->set('css_include', $form_state->getValue('css_include'))
+      ->set('extract_links', $form_state->getValue('extract_links'))
+      ->save();
     // Invalidate the block cache to update custom block-based derivatives.
     // @todo try to make configsaveevent later.
     \Drupal::service('plugin.manager.block')->clearCachedDefinitions();
