@@ -16,16 +16,11 @@
 <html{{ html_attributes }}>
   <head>
     <title>{{ title }}</title>
-    <style>
-    .node_view ul li{
-    display:none;
-    }
-    </style>
     <base href="{{ base_url }}" />
     <link type="text/css" rel="stylesheet" href="printable/css/drupal-printable.css" />
-    {% if jquery is defined %}
-      <script src="{{ jquery }}"></script>
-      {% if close_script is defined %}
+    {% if jquery_url %}
+      <script src="{{ jquery_url }}"></script>
+      {% if close_script %}
         <script type="text/javascript" src="{{ close_script }}"></script>
       {% else %}
         <script type="text/javascript" src="{{ send_script }}"></script>
