@@ -1,10 +1,10 @@
-{% if footer_content is not null %}
+{% if footer_links %}
   <br/>
   <br/>
   <strong> List of links present in page </strong>
   <ul>
-   {% for key in newArray %}
-    <li>{{ key }}</li>
+   {% for link in footer_links %}
+    <li>{{ link }}</li>
    {% endfor %}
   </ul>
 {% endif %}
