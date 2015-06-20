@@ -5,10 +5,12 @@
  * Install, update and uninstall functions for the printable module.
  */
 
+use Drupal\Core\Cache\Cache;
+
 /**
  * Implements hook_uninstall().
  */
 function printable_uninstall() {
-  // Clear printable data out of the cache.
-  \Drupal::cache('data')->deleteAll();
+  // Invalidate printable data.
+  Cache::invalidateTags([...]);
 }
