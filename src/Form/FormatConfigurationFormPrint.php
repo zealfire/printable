@@ -8,14 +8,13 @@
 namespace Drupal\printable\Form;
 
 use Drupal\printable\PrintableEntityManagerInterface;
-use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides shared configuration form for all printable formats.
  */
-class FormatConfigurationFormPrint extends FormBase {
+class FormatConfigurationFormPrint extends ConfigFormBase {
 
   /**
    * The printable entity manager.
@@ -50,10 +49,17 @@ class FormatConfigurationFormPrint extends FormBase {
     return 'printable_configuration_print';
   }
 
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
+    return ['printable.settings'];
+  }
+
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $printable_format = NULL) {
+    $config = $this->config('printable.settings');
 
     $form['settings'] = array(
       '#type' => 'fieldset',
@@ -62,7 +68,7 @@ class FormatConfigurationFormPrint extends FormBase {
     $form['settings']['print_html_sendtoprinter'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Send to printer'),
-      '#default_value' => $this->config('printable.settings')->get('send_to_printer'),
+      '#default_value' => $config->get('send_to_printer'),
       '#description' => $this->t("Automatically calls the browser's print function when the printer-friendly version is displayed."),
     );
 
@@ -91,7 +97,7 @@ class FormatConfigurationFormPrint extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    \Drupal::service('config.factory')->getEditable('printable.settings')
+    ...
       ->set('send_to_printer', $form_state->getValue('print_html_sendtoprinter'))
       ->set('close_window', $form_state->getValue('print_html_windowclose'))
       ->set('list_attribute', $form_state->getValue('print_html_display_sys_urllist'))
