@@ -21,8 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @Block(
  *   id = "printable_links_block",
  *   admin_label = @Translation("Printable Links Block"),
- *   category = @Translation("Printable"),
- *   deriver = "Drupal\printable\Plugin\Derivative\PrintableLinksBlock"
+ *   category = @Translation("Printable")
  * )
  */
 class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInterface {
@@ -48,6 +47,7 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, PrintableLinkBuilderInterface $link_builder) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    @todo Replace by DI. Don't use Drupal static methods in OO code.
     $this->request = \Drupal::request();
     $this->linkBuilder = $link_builder;
   }
@@ -67,6 +67,7 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
    */
   public function build() {
     $entity_type = $this->getDerivativeId();
+    @todo use DI instead of Drupal::routeMatch().
     if (\Drupal::routeMatch()->getMasterRouteMatch()->getParameter($entity_type) && $entity_type == 'comment') {
       return array(
         '#theme' => 'links__entity__printable',
