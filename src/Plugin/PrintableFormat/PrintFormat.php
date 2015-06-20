@@ -76,7 +76,7 @@ class PrintFormat extends PrintableFormatBase {
   protected function buildContent() {
     $build = parent::buildContent();
     $config = $this->getConfiguration();
-    // @todo add scripts over here and not in printable.module
+    // May be add scripts over here and not in printable.module.
     if ($this->configFactory->get('printable.settings')->get('send_to_printer')) {
     }
     return $build;
