@@ -49,6 +49,8 @@ class InlineLinkExtractor implements LinkExtractorInterface {
       // This method is deprecated, however it is the correct method to use here
       // as we only have the path.
       $href = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
+      @todo Use inline template to format the output.
+      @todo ::append() can not be used in rtl languages. Needs alternatives.
       $anchor->append(' (' . $href . ')');
     });
 
@@ -71,16 +73,14 @@ class InlineLinkExtractor implements LinkExtractorInterface {
    */
   public function listAttribute($content) {
     $this->crawler->addContent($content);
-    $this->links = "";
+    $links = [];
     $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
       $href = $anchor->attr('href');
-      // This method is deprecated, however it is the correct method to use here
-      // as we only have the path.
-      $href = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
-      $this->links .= $href. ",";
+      // @todo generateFromPath() is deprecated.
+      $links[] = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
     });
     $this->crawler->remove();
-    return substr($this->links, 0, strlen($this->links) - 1);
+    return implode(',', $links);
   }
 
 }
