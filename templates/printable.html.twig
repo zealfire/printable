@@ -16,6 +16,10 @@
 <html{{ html_attributes }}>
   <head>
     <title>{{ title }}</title>
+    <style>
+    .node_view ul li{
+    display:none;
+    }
     <base href="{{ base_url }}" />
     <link type="text/css" rel="stylesheet" href="printable/css/drupal-printable.css" />
     {% if jquery_url %}
