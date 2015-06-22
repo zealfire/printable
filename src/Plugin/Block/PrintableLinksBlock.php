@@ -7,6 +7,7 @@
 
 namespace Drupal\printable\Plugin\Block;
 
+// @todo Remove use statements of unused classes.
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\Annotation\Block;
 use Drupal\Core\Annotation\Translation;
@@ -26,6 +27,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
   /**
    * The request service.
    *
@@ -45,10 +47,11 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
    *
    * @param \Drupal\printable\PrintableLinkBuilderInterface $link_builder
    *   The printable link builder.
+   * @todo Update parameters
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, PrintableLinkBuilderInterface $link_builder) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, Request $request, PrintableLinkBuilderInterface $link_builder) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->request = \Drupal::request();
+    $this->request = $request;
     $this->linkBuilder = $link_builder;
   }
 
@@ -57,7 +60,10 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
-      $configuration, $plugin_id, $plugin_definition,
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('request_stack')->getCurrentRequest(),
       $container->get('printable.link_builder')
     );
   }
