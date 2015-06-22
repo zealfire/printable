@@ -39,7 +39,7 @@ class PrintableFormatConfigureTabs extends DeriverBase implements ContainerDeriv
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
     return new static(
-      $container->get('plugin.manager.printableformat')
+      $container->get('printable.format_plugin_manager')
     );
   }
 

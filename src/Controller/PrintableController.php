@@ -42,7 +42,7 @@ class PrintableController extends ControllerBase implements ContainerInjectionIn
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.printableformat')
+      $container->get('printable.format_plugin_manager')
     );
   }
 

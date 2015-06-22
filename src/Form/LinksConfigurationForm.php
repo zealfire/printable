@@ -45,7 +45,7 @@ class LinksConfigurationForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('printable.entity_manager'),
-      $container->get('plugin.manager.printableformat')
+      $container->get('printable.format_plugin_manager')
     );
   }
 
