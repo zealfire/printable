@@ -122,7 +122,8 @@ function template_preprocess_printable_footer(&$variables) {
   // Create source url over here.
   $source_url = $base_url. \Drupal::service('path.current')->getPath();
   $pos = strpos($source_url, "printable");
-  $source_url = substr($source_url, 0, $pos) . substr($source_url,$pos+16);
+  $pos_node = strpos($source_url, '/', $pos + 11);
+  $source_url = substr($source_url, 0, $pos) . substr($source_url, $pos_node+1);
   $variables['source_url'] = $source_url;
   $links = $variables['footer_content'];
   $split_links = explode(',', $links);
