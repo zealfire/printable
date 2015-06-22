@@ -65,18 +65,40 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
   /**
    * {@inheritdoc}
    */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+  	
+    $form += parent::buildConfigurationForm($form, $form_state);
+    $period = array(0, 60, 180, 300, 600, 900, 1800, 2700, 3600, 10800, 21600, 32400, 43200, 86400);
+    $period = array_map(array(\Drupal::service('date.formatter'), 'formatInterval'), array_combine($period, $period));
+    $period[0] = '<' . $this->t('no caching') . '>';
+    $period[\Drupal\Core\Cache\Cache::PERMANENT] = $this->t('Forever');
+    $form['cache'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Cache settings'),
+    );
+    $form['cache']['max_age'] = array(
+      '#type' => 'select',
+      '#title' => $this->t('Maximum age'),
+      '#description' => $this->t('The maximum time this block may be cached.'),
+      '#default_value' => $period[0],
+      '#options' => $period,
+    );
+  	return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build() {
     $entity_type = $this->getDerivativeId();
-    if (\Drupal::routeMatch()->getMasterRouteMatch()->getParameter($entity_type) && $entity_type == 'comment') {
+    $config = \Drupal::config('printable.settings');
+    if (\Drupal::routeMatch()->getMasterRouteMatch()->getParameter($entity_type)) {
       return array(
         '#theme' => 'links__entity__printable',
-        '#links' => $this->linkBuilder->buildLinks(\Drupal::routeMatch()->getMasterRouteMatch()->getParameter('comment')),
-      );
-    }
-    if ($this->request->attributes->has($entity_type)) {
-      return array(
-        '#theme' => 'links__entity__printable',
-        '#links' => $this->linkBuilder->buildLinks($this->request->attributes->get($entity_type)),
+        '#links' => $this->linkBuilder->buildLinks(\Drupal::routeMatch()->getMasterRouteMatch()->getParameter($entity_type)),
+        '#cache' => array(
+          'tags' => $config->getCacheTags(),
+          'max-age' => 0),
       );
     }
   }
