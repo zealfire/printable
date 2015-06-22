@@ -148,8 +148,9 @@ function printable_entity_view_mode_info_alter(&$view_modes) {
  * Implements hook_entity_view().
  */
 function printable_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode, $langcode) {
-  // Load the printable manager and check if a printable is available for this
-  // entity.
+
+  $config = \Drupal::config('printable.settings');
+  \Drupal::service('renderer')->addCacheableDependency($build, $config);
   $printable_manager = \Drupal::service('printable.entity_manager');
   $link_builder = \Drupal::service('printable.link_builder');
   if ($printable_manager->isPrintableEntity($entity)) {
