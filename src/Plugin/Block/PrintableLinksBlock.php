@@ -12,6 +12,7 @@ use Drupal\Core\Block\Annotation\Block;
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\printable\PrintableLinkBuilderInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -27,11 +28,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInterface {
   /**
-   * The request service.
+   * The route match.
    *
-   * @var \Symfony\Component\HttpFoundation\Request;
+   * @var \Drupal\Core\Routing\RouteMatchInterface
    */
-  protected $request;
+  protected $routeMatch;
 
   /**
    * The printable link builder.
@@ -46,9 +47,9 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
    * @param \Drupal\printable\PrintableLinkBuilderInterface $link_builder
    *   The printable link builder.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, PrintableLinkBuilderInterface $link_builder) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $routeMatch, PrintableLinkBuilderInterface $link_builder) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->request = \Drupal::request();
+    $this->routeMatch = $routeMatch;
     $this->linkBuilder = $link_builder;
   }
 
@@ -57,7 +58,10 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
-      $configuration, $plugin_id, $plugin_definition,
+      $configuration,
+      $plugin_id, 
+      $plugin_definition,
+      $container->get('current_route_match'),
       $container->get('printable.link_builder')
     );
   }
@@ -92,10 +96,10 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
   public function build() {
     $entity_type = $this->getDerivativeId();
     $config = \Drupal::config('printable.settings');
-    if (\Drupal::routeMatch()->getMasterRouteMatch()->getParameter($entity_type)) {
+    if ($this->routeMatch->getMasterRouteMatch()->getParameter($entity_type)) {
       return array(
         '#theme' => 'links__entity__printable',
-        '#links' => $this->linkBuilder->buildLinks(\Drupal::routeMatch()->getMasterRouteMatch()->getParameter($entity_type)),
+        '#links' => $this->linkBuilder->buildLinks($this->routeMatch->getMasterRouteMatch()->getParameter($entity_type)),
         '#cache' => array(
           'tags' => $config->getCacheTags(),
           'max-age' => 0),
