@@ -155,6 +155,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
       '#attached' => array(
         '#library' => array(
           '#css' => array(drupal_get_path('module', 'printable') . '/css/drupal-printable.css'),
+          // @todo replace #js by a dependency?, or perhaps better, the Printable module defines a library which will be attached here.
           '#js'  => array('core/jquery'),
         ),
       ),
@@ -164,8 +165,6 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
       $build['#attached']['css'][] = $include_path;
     }
 
-    // @todo remove this so we can unit test this method.
-    // system_page_build($build);
     return $build;
   }
 
@@ -177,6 +176,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    */
   protected function getOutput() {
     $content = $this->buildContent();
+    @todo Use the Renderer service instead of render().
     $rendered_page = render($content);
     if ($this->configFactory->get('printable.settings')->get('extract_links')) {
       $rendered_page = $this->linkExtractor->extract((string) $rendered_page);
