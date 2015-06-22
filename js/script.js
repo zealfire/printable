@@ -1,5 +1,3 @@
-(function ($) {
-  $(window).load(function() {
-    window.print();
-  })
-})(jQuery);
+document.addEventListener('DOMContentLoaded',function(){
+	window.print();
+});

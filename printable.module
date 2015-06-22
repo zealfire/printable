@@ -91,7 +91,7 @@ function template_preprocess_printable(&$variables) {
   $variables['block_output'] = \Drupal::entityManager()
   ->getViewBuilder('block')
   ->view($block);*/
-  // Trying this to render views in template, uncomment when need to test.
+  // Try this to render views in template, uncomment when need to test.
   // $variables['view_output'] = views_embed_view("comments_recent");
 
   // HTML element attributes.
@@ -101,8 +101,6 @@ function template_preprocess_printable(&$variables) {
   $variables['html_attributes'] = new Attribute($attributes);
 
   if (\Drupal::service('config.factory')->get('printable.settings')->get('send_to_printer')) {
-    // @todo make this automate
-    $variables['jquery_url'] = $base_url. '/core/assets/vendor/jquery/jquery.js';
     $variables['send_script'] = 'printable/js/script.js';
     if (\Drupal::service('config.factory')->get('printable.settings')->get('close_window')) {
       $variables['close_script'] = 'printable/js/close.js';

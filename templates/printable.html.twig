@@ -22,14 +22,11 @@
     }
     <base href="{{ base_url }}" />
     <link type="text/css" rel="stylesheet" href="printable/css/drupal-printable.css" />
-    {% if jquery_url %}
-      <script src="{{ jquery_url }}"></script>
       {% if close_script %}
         <script type="text/javascript" src="{{ close_script }}"></script>
       {% else %}
         <script type="text/javascript" src="{{ send_script }}"></script>
       {% endif %}
-    {% endif %}
   </head>
   <body>
   {{ header }}

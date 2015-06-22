@@ -1,9 +1,4 @@
-function ($) {
-	Drupal.behaviors.print = {
-		attach: function(context) {
-			$(window).load(function() {
-				window.print();
-			})
-		}
-	}
-}(jQuery);
+document.addEventListener('DOMContentLoaded',function(){
+	window.print();
+	window.close();
+});
