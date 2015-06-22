@@ -152,20 +152,12 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
         '#theme' => array('printable_footer__' . $this->getPluginId(), 'printable_footer'),
         '#footer_content' => $this->footer_content,
       ),
-      '#attached' => array(
-        '#library' => array(
-          '#css' => array(drupal_get_path('module', 'printable') . '/css/drupal-printable.css'),
-          '#js'  => array('core/jquery'),
-        ),
-      ),
     );
 
     if ($include_path = $this->printableCssInclude->getCssIncludePath()) {
       $build['#attached']['css'][] = $include_path;
     }
 
-    // @todo remove this so we can unit test this method.
-    // system_page_build($build);
     return $build;
   }
 
@@ -177,6 +169,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    */
   protected function getOutput() {
     $content = $this->buildContent();
+    // @todo add a renderer service over here.
     $rendered_page = render($content);
     if ($this->configFactory->get('printable.settings')->get('extract_links')) {
       $rendered_page = $this->linkExtractor->extract((string) $rendered_page);
