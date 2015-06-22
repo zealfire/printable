@@ -54,7 +54,7 @@ class RouteSubscriber implements EventSubscriberInterface {
     $collection = $event->getRouteCollection();
     foreach ($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {
       $route = new Route(
-        "/$entity_type/{entity}/printable/{printable_format}",
+        "/printable/{printable_format}/$entity_type/{entity}",
         array(
           '_controller' => 'Drupal\printable\Controller\PrintableController::showFormat',
           '_title' => 'Printable',
