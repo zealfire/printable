@@ -46,8 +46,7 @@ class InlineLinkExtractor implements LinkExtractorInterface {
 
     $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
       $href = $anchor->attr('href');
-      // This method is deprecated, however it is the correct method to use here
-      // as we only have the path.
+      // @todo deprecated method.
       $href = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
       $anchor->append(' (' . $href . ')');
     });
@@ -71,16 +70,14 @@ class InlineLinkExtractor implements LinkExtractorInterface {
    */
   public function listAttribute($content) {
     $this->crawler->addContent($content);
-    $this->links = "";
+    $this->links = array();
     $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
       $href = $anchor->attr('href');
-      // This method is deprecated, however it is the correct method to use here
-      // as we only have the path.
-      $href = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
-      $this->links .= $href. ",";
+      // @todo deprecated method.
+      $this->links[] =  $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
     });
     $this->crawler->remove();
-    return substr($this->links, 0, strlen($this->links) - 1);
+    return implode(',', $this->links);
   }
 
 }
