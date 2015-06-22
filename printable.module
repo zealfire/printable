@@ -5,11 +5,11 @@
  * Provides printer friendly content entities.
  */
 
-use Drupal\Component\Utility\String;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\entity\Entity\EntityDisplay;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 
 // Register autoloading of vendor libraries.
 $autoload = __DIR__ . '/vendor/autoload.php';
@@ -36,6 +36,7 @@ function printable_permission() {
  */
 function printable_theme() {
   $module_path = drupal_get_path('module', 'printable');
+    
   return array(
     'printable_navigation' => array(
       'variables' => array('printable_link' => NULL),
@@ -78,15 +79,17 @@ function printable_theme() {
  */
 function template_preprocess_printable(&$variables) {
   global $base_url;
-  $language_interface = \Drupal::languageManager()->getCurrentLanguage();
-  $variables['base_url'] = $base_url. '/' .drupal_get_path('module', 'printable');
-  $request = \Drupal::request();
-  if ($route = $request->attributes->get(\Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_OBJECT)) {
-    $title = \Drupal::service('title_resolver')->getTitle($request, $route);
-  }
-  $variables['title'] = $title;
+  $config = \Drupal::config('printable.settings');
 
-  // Use this to render block in twig template, uncomment when need to test
+  $variables['base_url'] = $base_url . '/' . drupal_get_path('module', 'printable');
+  
+  $request = \Drupal::request();
+  if ($route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT)) {
+    $variables['title'] = \Drupal::service('title_resolver')->getTitle($request, $route);
+  }
+
+  // @todo Uncommented code without '@todo' gets old. Either remove or add '@todo'.
+  // Use this to render block in twig template, uncomment when need to test.
   /*$block = \Drupal\block\Entity\Block::load('printablelinksblockcontent');
   $variables['block_output'] = \Drupal::entityManager()
   ->getViewBuilder('block')
@@ -95,16 +98,17 @@ function template_preprocess_printable(&$variables) {
   // $variables['view_output'] = views_embed_view("comments_recent");
 
   // HTML element attributes.
-  $attributes = array();
-  $attributes['lang'] = $language_interface->getId();
-  $attributes['dir'] = $language_interface->getDirection();
-  $variables['html_attributes'] = new Attribute($attributes);
+  $language_interface = \Drupal::languageManager()->getCurrentLanguage();
+  $variables['html_attributes'] = new Attribute(array(
+    'lang' => $language_interface->getId(),
+    'dir' => $language_interface->getDirection(),
+  ));
 
-  if (\Drupal::service('config.factory')->get('printable.settings')->get('send_to_printer')) {
-    // @todo make this automate
-    $variables['jquery_url'] = $base_url. '/core/assets/vendor/jquery/jquery.js';
+  if ($config->get('send_to_printer')) {
+    // @todo make this automate.
+    $variables['jquery_url'] = $base_url . '/core/assets/vendor/jquery/jquery.js';
     $variables['send_script'] = 'printable/js/script.js';
-    if (\Drupal::service('config.factory')->get('printable.settings')->get('close_window')) {
+    if ($config->get('close_window')) {
       $variables['close_script'] = 'printable/js/close.js';
     }  
   }
@@ -120,8 +124,10 @@ function template_preprocess_printable(&$variables) {
 function template_preprocess_printable_footer(&$variables) {
   global $base_url;
   // Create source url over here.
+  // @todo Add an example URL here or the format of the URL. It will help reading the process below.
   $source_url = $base_url. \Drupal::service('path.current')->getPath();
   $pos = strpos($source_url, "printable");
+  // @todo Replace the 'magic number' 11 below. For example by strlen('printable') + 2. Or (better?) use explode() + implode() to rebuild the URL.
   $pos_node = strpos($source_url, '/', $pos + 11);
   $source_url = substr($source_url, 0, $pos) . substr($source_url, $pos_node+1);
   $variables['source_url'] = $source_url;
@@ -159,12 +165,14 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
       '#theme' => 'links__entity__printable',
       '#links' => $link_builder->buildLinks($entity),
       '#attributes' => array(
+      // @todo Change this class name.
         'class' => array('tryhere'),
         ),
       );
 
     // Add the built links to the entity being rendered.
     $build['printable_navigation'] = array(
+      // @todo Don't use 'b' tag, use 'strong'.
       '#markup' => '<b class="node_view">' .drupal_render($printable_navigation). '<b>',
       '#attached' => array(
         'library' => 'printable/entity-links',
