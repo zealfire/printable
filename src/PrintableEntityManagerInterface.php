@@ -14,6 +14,17 @@ use Drupal\Core\Entity\EntityInterface;
  */
 interface PrintableEntityManagerInterface {
 
+   /**
+   * Gets the ID of the type of the entity.
+   *
+   * @param EntityInterface $entity
+   *   The entity to check a printable version is available for.
+   *
+   * @return string
+   *   The entity type ID.
+   */
+  public function getEntityName(EntityInterface $entity);
+
   /**
    * Get the entities that printable is available for.
    *
