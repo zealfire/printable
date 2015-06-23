@@ -50,13 +50,13 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
     $this->configFactory = $config_factory;
   }
 
-   /**
-   * {@inheritdoc}
-   */
-   public function getEntityName(EntityInterface $entity) {
-     return $entity->getEntityTypeId();
-   }
-   
+  /**
+    * {@inheritdoc}
+    */
+  public function getEntityName(EntityInterface $entity) {
+    return $entity->getEntityTypeId();
+  }
+
   /**
    * {@inheritdoc}
    */

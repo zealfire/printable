@@ -17,7 +17,7 @@ interface LinkExtractorInterface {
    *
    * @param string $string
    *   The HTML string to extract links from.
-   *   
+   *
    * @return string
    *   The HTML string, with links highlighted.
    */
