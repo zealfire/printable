@@ -60,7 +60,7 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $configuration,
-      $plugin_id, 
+      $plugin_id,
       $plugin_definition,
       $container->get('current_route_match'),
       $container->get('printable.link_builder')
@@ -71,7 +71,7 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-  	
+
     $form += parent::buildConfigurationForm($form, $form_state);
     $period = array(0, 60, 180, 300, 600, 900, 1800, 2700, 3600, 10800, 21600, 32400, 43200, 86400);
     $period = array_map(array(\Drupal::service('date.formatter'), 'formatInterval'), array_combine($period, $period));
@@ -88,7 +88,7 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
       '#default_value' => $period[0],
       '#options' => $period,
     );
-  	return $form;
+    return $form;
   }
 
   /**
@@ -103,7 +103,8 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
         '#links' => $this->linkBuilder->buildLinks($this->routeMatch->getMasterRouteMatch()->getParameter($entity_type)),
         '#cache' => array(
           'tags' => $config->getCacheTags(),
-          'max-age' => 0),
+          'max-age' => 0,
+        ),
       );
     }
   }
