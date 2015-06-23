@@ -69,7 +69,7 @@ class PdfLinksConfigurationForm extends FormBase {
       '#description' => $this->t('Choose the location of the link(s) to the printer-friendly version pages. The Links area is usually below the node content, whereas the Comment area is placed near the comments. The user area is near the user name. Select the options for which you want to disable the link. If you select any option then it means that you have enabled printable support for that entity in the configuration tab.'),
     );
     foreach ($this->config('printable.settings')->get('printable_pdf_link_locations') as $link_location) {
-      $form['settings']['print_pdf_link_pos']['#default_value'][$link_location] = $link_location;
+      $form['settings']['print_pdf_link_pos']['#default_value'][] = $link_location;
     }
     $form['settings']['submit'] = array(
       '#type' => 'submit',
