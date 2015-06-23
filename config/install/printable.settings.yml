@@ -1,6 +1,7 @@
 printable_entities:
   - node
   - comment
+  - user
 open_target_blank: TRUE
 css_include: ''
 extract_links: ''
@@ -11,3 +12,7 @@ pdf_location: ''
 send_to_printer: FALSE
 close_window: FALSE
 list_attribute: FALSE
+printable_print_link_locations:
+  - ''
+printable_pdf_link_locations:
+  - ''

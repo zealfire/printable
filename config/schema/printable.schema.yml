@@ -40,3 +40,15 @@ printable.settings:
     list_attribute:
       type: boolean
       label: 'List the attributes'
+    printable_print_link_locations:
+      type: sequence
+      label: 'Link locations'
+      sequence:
+        - type: string
+          label: 'Print link locations'
+    printable_pdf_link_locations:
+      type: sequence
+      label: 'Link locations'
+      sequence:
+        - type: string
+          label: 'Pdf link locations'

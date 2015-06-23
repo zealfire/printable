@@ -154,11 +154,15 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
   $printable_manager = \Drupal::service('printable.entity_manager');
   $link_builder = \Drupal::service('printable.link_builder');
   if ($printable_manager->isPrintableEntity($entity)) {
-    $printable_navigation = array(
-      '#theme' => 'links__entity__printable',
-      '#links' => $link_builder->buildLinks($entity),
-      '#attributes' => array(
-        'class' => array('tryhere'),
+    $setting = \Drupal::service('config.factory')->get('printable.settings')->get('printable_print_link_locations');
+    // Get the name of entity over here.
+    $entity_name=$printable_manager->getEntityName($entity);
+    if(in_array($entity_name, $setting)) {
+    	$printable_navigation = array(
+        '#theme' => 'links__entity__printable',
+        '#links' => $link_builder->buildLinks($entity),
+        '#attributes' => array(
+          'class' => array('tryhere'),
         ),
       );
 
