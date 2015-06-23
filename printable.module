@@ -123,10 +123,12 @@ function template_preprocess_printable_footer(&$variables) {
   $pos_node = strpos($source_url, '/', $pos + 11);
   $source_url = substr($source_url, 0, $pos) . substr($source_url, $pos_node+1);
   $variables['source_url'] = $source_url;
-  $links = $variables['footer_content'];
-  $split_links = explode(',', $links);
-  $newArray = array_unique($split_links);
-  $variables['footer_links'] = $newArray;
+  if (\Drupal::service('config.factory')->get('printable.settings')->get('list_attribute')) {
+    $links = $variables['footer_content'];
+    $split_links = explode(',', $links);
+    $newArray = array_unique($split_links);
+    $variables['footer_links'] = $newArray;
+  }
 }
 
 /**
