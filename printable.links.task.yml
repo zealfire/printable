@@ -1,4 +1,4 @@
-printable.configure:
+printable.configure_ui:
   route_name: printable.configure
   title: 'Configuration'
   base_route: printable.configure
@@ -9,3 +9,19 @@ printable.format_configure:
   base_route: printable.configure
   tab_root_id: printable.configure
   deriver: 'Drupal\printable\Plugin\Derivative\PrintableFormatConfigureTabs'
+
+printable.ui:
+  route_name: printable.ui
+  title: 'Links'
+  base_route: printable.configure
+  tab_root_id: printable.configure
+
+printable.print_ui:
+  route_name: printable.ui
+  title: 'Print'
+  parent_id: printable.ui
+
+printable.pdf_ui:
+  route_name: printable.pdf_ui
+  title: 'Pdf'
+  parent_id: printable.ui

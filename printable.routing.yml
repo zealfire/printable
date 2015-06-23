@@ -16,3 +16,15 @@ printable.format_configure_pdf:
     _form: '\Drupal\printable\Form\FormatConfigurationFormPdf'
   requirements:
     _permission: 'administer printable'
+printable.ui:
+  path: '/admin/config/user-interface/printable/links'
+  defaults:
+    _form: '\Drupal\printable\Form\LinksConfigurationForm'
+  requirements:
+    _permission: 'administer printable'
+printable.pdf_ui:
+  path: '/admin/config/user-interface/printable/links/pdf'
+  defaults:
+    _form: '\Drupal\printable\Form\PdfLinksConfigurationForm'
+  requirements:
+    _permission: 'administer printable'
