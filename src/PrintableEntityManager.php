@@ -51,8 +51,8 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
   }
 
   /**
-    * {@inheritdoc}
-    */
+   * {@inheritdoc}
+   */
   public function getEntityName(EntityInterface $entity) {
     return $entity->getEntityTypeId();
   }
