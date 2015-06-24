@@ -12,5 +12,5 @@ use Drupal\Core\Cache\Cache;
  */
 function printable_uninstall() {
   // @todo invalidate printable data, not doing now as not necessary currently.
-  //Cache::invalidateTags([...]);
+  // Cache::invalidateTags([...]);
 }

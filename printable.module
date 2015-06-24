@@ -78,9 +78,9 @@ function printable_theme() {
  */
 function template_preprocess_printable(&$variables) {
   global $base_url;
-  
+
   $config = \Drupal::config('printable.settings');
-  $variables['base_url'] = $base_url. '/' .drupal_get_path('module', 'printable');
+  $variables['base_url'] = $base_url . '/' . drupal_get_path('module', 'printable');
 
   $request = \Drupal::request();
   if ($route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT)) {
@@ -96,7 +96,6 @@ function template_preprocess_printable(&$variables) {
 
   // Try this to render views in template, uncomment when need to test.
   // $variables['view_output'] = views_embed_view("comments_recent");
-
   // HTML element attributes.
   $language_interface = \Drupal::languageManager()->getCurrentLanguage();
   $variables['html_attributes'] = new Attribute(array(
@@ -108,7 +107,7 @@ function template_preprocess_printable(&$variables) {
     $variables['send_script'] = 'printable/js/script.js';
     if ($config->get('close_window')) {
       $variables['close_script'] = 'printable/js/close.js';
-    }  
+    }
   }
 }
 
@@ -122,18 +121,18 @@ function template_preprocess_printable(&$variables) {
 function template_preprocess_printable_footer(&$variables) {
   global $base_url;
   // Create source url over here.
-  $source_url = $base_url. \Drupal::service('path.current')->getPath();
+  $source_url = $base_url . \Drupal::service('path.current')->getPath();
   $pos = strpos($source_url, "printable");
   $pos_node = strpos($source_url, '/', $pos + strlen('printable') + 2);
-  $source_url = substr($source_url, 0, $pos) . substr($source_url, $pos_node+1);
+  $source_url = substr($source_url, 0, $pos) . substr($source_url, $pos_node + 1);
   $variables['source_url'] = $source_url;
 
   // List all the urls over here.
   if (\Drupal::service('config.factory')->get('printable.settings')->get('list_attribute')) {
     $links = $variables['footer_content'];
     $split_links = explode(',', $links);
-    $newArray = array_unique($split_links);
-    $variables['footer_links'] = $newArray;
+    $newarray = array_unique($split_links);
+    $variables['footer_links'] = $newarray;
   }
 }
 
@@ -164,22 +163,22 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
   if ($printable_manager->isPrintableEntity($entity)) {
     $setting = \Drupal::service('config.factory')->get('printable.settings')->get('printable_print_link_locations');
     // Get the name of entity over here.
-    $entity_name=$printable_manager->getEntityName($entity);
-    if(in_array($entity_name, $setting)) {
-    	$printable_navigation = array(
-        '#theme' => 'links__entity__printable',
-        '#links' => $link_builder->buildLinks($entity),
-        '#attributes' => array(
-          'class' => array('pre_links'),
+    $entity_name = $printable_manager->getEntityName($entity);
+    if (in_array($entity_name, $setting)) {
+      $printable_navigation = array(
+       '#theme' => 'links__entity__printable',
+       '#links' => $link_builder->buildLinks($entity),
+       '#attributes' => array(
+         'class' => array('pre_links'),
         ),
       );
 
       // Add the built links to the entity being rendered.
       $build['printable_navigation'] = array(
-        '#markup' => '<strong class="node_view">' .drupal_render($printable_navigation). '</strong>',
+        '#markup' => '<strong class="node_view">' . drupal_render($printable_navigation) . '</strong>',
         '#attached' => array(
-        'library' => 'printable/entity-links',
-         ),
+          'library' => 'printable/entity-links',
+        ),
         '#weight' => 100,
         '#cache' => [
         'tags' => $entity->getEntityType()->getListCacheTags(),
