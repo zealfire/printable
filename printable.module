@@ -166,10 +166,10 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
     $entity_name = $printable_manager->getEntityName($entity);
     if (in_array($entity_name, $setting)) {
       $printable_navigation = array(
-       '#theme' => 'links__entity__printable',
-       '#links' => $link_builder->buildLinks($entity),
-       '#attributes' => array(
-         'class' => array('pre_links'),
+        '#theme' => 'links__entity__printable',
+        '#links' => $link_builder->buildLinks($entity),
+        '#attributes' => array(
+          'class' => array('pre_links'),
         ),
       );
 
