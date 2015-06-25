@@ -124,20 +124,34 @@ class PdfFormat extends PrintableFormatBase {
    */
   public function buildContent() {
    $content = parent::buildContent();
+   $this->pdfGenerator->addPage(render($content));
   }
 
   /**
    * {@inheritdoc}
    */
   public function mbuildContent($save_pdf, $filename) {
-  
   }
 
   /**
    * {@inheritdoc}
    */
   public function getResponse() {
-
+    $paper_size = (string)$this->configFactory->get('hardcopy.settings')->get('paper_size');
+    $paper_orientation = $this->configFactory->get('hardcopy.settings')->get('page_orientation');
+    $save_pdf = $this->configFactory->get('hardcopy.settings')->get('save_pdf');
+    $pdf_location = $this->configFactory->get('hardcopy.settings')->get('pdf_location');
+    $this->buildContent();
+    $this->pdfGenerator->setPageSize($paper_size);
+    $this->pdfGenerator->setPageOrientation($paper_orientation);
+    if($save_pdf){
+      $filename = $pdf_location;
+      if(empty($filename)){
+        $filename=str_replace("/","_",\Drupal::service('path.current')->getPath());
+        $filename=substr($filename, 1);
+      }
+      $this->pdfGenerator->stream("", $filename.'.pdf');
+    }  
   }
 
 }
