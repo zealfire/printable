@@ -109,6 +109,17 @@ function template_preprocess_printable(&$variables) {
       $variables['close_script'] = 'printable/js/close.js';
     }
   }
+
+  // This answers the question: The blocks I have in the 'content' region are not showing up! Why?.
+  $blocks = entity_load_multiple_by_properties('block', array('theme' => \Drupal::theme()->getActiveTheme()->getName(), 'region' => 'sidebar_first'));
+  uasort($blocks, 'Drupal\block\Entity\Block::sort');
+  $build = array();
+  foreach ($blocks as $key => $block) {
+    if ($block->access('view')) {
+      $build[$key] = entity_view($block, 'block');
+    }
+  }
+  $variables['sidebar_first'] = $build;
 }
 
 /**
