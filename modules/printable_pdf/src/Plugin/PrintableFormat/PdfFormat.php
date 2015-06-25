@@ -137,10 +137,10 @@ class PdfFormat extends PrintableFormatBase {
    * {@inheritdoc}
    */
   public function getResponse() {
-    $paper_size = (string)$this->configFactory->get('hardcopy.settings')->get('paper_size');
-    $paper_orientation = $this->configFactory->get('hardcopy.settings')->get('page_orientation');
-    $save_pdf = $this->configFactory->get('hardcopy.settings')->get('save_pdf');
-    $pdf_location = $this->configFactory->get('hardcopy.settings')->get('pdf_location');
+    $paper_size = (string)$this->configFactory->get('printable.settings')->get('paper_size');
+    $paper_orientation = $this->configFactory->get('printable.settings')->get('page_orientation');
+    $save_pdf = $this->configFactory->get('printable.settings')->get('save_pdf');
+    $pdf_location = $this->configFactory->get('printable.settings')->get('pdf_location');
     $this->buildContent();
     $this->pdfGenerator->setPageSize($paper_size);
     $this->pdfGenerator->setPageOrientation($paper_orientation);
