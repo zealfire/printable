@@ -13,7 +13,6 @@ use Drupal\printable\PrintableCssIncludeInterface;
 use Drupal\printable\LinkExtractor\LinkExtractorInterface;
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Render\Element\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\pdf_api\PdfGeneratorPluginManager;
