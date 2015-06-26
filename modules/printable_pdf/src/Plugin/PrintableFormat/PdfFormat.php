@@ -79,7 +79,7 @@ class PdfFormat extends PrintableFormatBase {
    */
   public function defaultConfiguration() {
     return array(
-      'pdf_generator' => 'mPDF',
+      'pdf_generator' => 'wkhtmktopdf',
     );
   }
   public function calculateDependencies(){}
