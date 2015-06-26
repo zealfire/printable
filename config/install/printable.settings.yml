@@ -6,6 +6,7 @@ open_target_blank: TRUE
 css_include: ''
 extract_links: ''
 save_pdf: FALSE
+pdf_tool: 'wkhtmltopdf'
 paper_size: 'A4'
 page_orientation: 'Portrait'
 pdf_location: ''
