@@ -156,29 +156,34 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
   $printable_manager = \Drupal::service('printable.entity_manager');
   $link_builder = \Drupal::service('printable.link_builder');
   if ($printable_manager->isPrintableEntity($entity)) {
-    $setting = \Drupal::service('config.factory')->get('printable.settings')->get('printable_print_link_locations');
+    $print_setting = \Drupal::service('config.factory')->get('printable.settings')->get('printable_print_link_locations');
+    $pdf_setting = \Drupal::service('config.factory')->get('printable.settings')->get('printable_pdf_link_locations');
     // Get the name of entity over here.
-    $entity_name=$printable_manager->getEntityName($entity);
-    if(in_array($entity_name, $setting)) {
-    	$printable_navigation = array(
+    $entity_name = $printable_manager->getEntityName($entity);
+    $printable_navigation = array(
         '#theme' => 'links__entity__printable',
         '#links' => $link_builder->buildLinks($entity),
         '#attributes' => array(
-          'class' => array('tryhere'),
+          'class' => array('pre_links'),
         ),
       );
-
-      // Add the built links to the entity being rendered.
-      $build['printable_navigation'] = array(
-        '#markup' => '<b class="node_view">' .drupal_render($printable_navigation). '<b>',
-        '#attached' => array(
-        'library' => 'printable/entity-links',
-         ),
-        '#weight' => 100,
-        '#cache' => [
-        'tags' => $entity->getEntityType()->getListCacheTags(),
-        ],
-      );
+    if (!in_array($entity_name, $print_setting)) {
+      unset($printable_navigation['#links']['print']);
     }
+    if (!in_array($entity_name, $pdf_setting)) {
+      unset($printable_navigation['#links']['pdf']);
+    }
+      
+    // Add the built links to the entity being rendered.
+    $build['printable_navigation'] = array(
+      '#markup' => '<strong class="node_view">' . drupal_render($printable_navigation) . '</strong>',
+      '#attached' => array(
+        'library' => 'printable/entity-links',
+      ),
+      '#weight' => 100,
+      '#cache' => [
+      'tags' => $entity->getEntityType()->getListCacheTags(),
+      ],
+    );
   }
 }
