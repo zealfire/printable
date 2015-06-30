@@ -62,7 +62,17 @@ class PrintableController extends ControllerBase implements ContainerInjectionIn
       $format = $this->printableFormatManager->createInstance($printable_format);
       $content = $this->entityManager()->getViewBuilder($entity->getEntityTypeId())->view($entity, 'printable');
       $format->setContent($content);
-      return $format->getResponse();
+      if($printable_format == 'print') {
+        return $format->getResponse();
+      }
+      else {
+        $format->getResponse($content);
+        $build = array(
+          '#type' => 'markup',
+          '#markup' => t('Pdf has been saved'),
+        );
+        return $build;
+      }
     }
     else {
       throw new NotFoundHttpException();
