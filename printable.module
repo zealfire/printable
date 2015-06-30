@@ -78,10 +78,12 @@ function printable_theme() {
  */
 function template_preprocess_printable(&$variables) {
   global $base_url;
-  $language_interface = \Drupal::languageManager()->getCurrentLanguage();
-  $variables['base_url'] = $base_url. '/' .drupal_get_path('module', 'printable');
+
+  $config = \Drupal::config('printable.settings');
+  $variables['base_url'] = $base_url . '/' . drupal_get_path('module', 'printable');
+
   $request = \Drupal::request();
-  if ($route = $request->attributes->get(\Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_OBJECT)) {
+  if ($route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT)) {
     $title = \Drupal::service('title_resolver')->getTitle($request, $route);
   }
   $variables['title'] = $title;
@@ -91,20 +93,21 @@ function template_preprocess_printable(&$variables) {
   $variables['block_output'] = \Drupal::entityManager()
   ->getViewBuilder('block')
   ->view($block);*/
+
   // Try this to render views in template, uncomment when need to test.
   // $variables['view_output'] = views_embed_view("comments_recent");
-
   // HTML element attributes.
-  $attributes = array();
-  $attributes['lang'] = $language_interface->getId();
-  $attributes['dir'] = $language_interface->getDirection();
-  $variables['html_attributes'] = new Attribute($attributes);
+  $language_interface = \Drupal::languageManager()->getCurrentLanguage();
+  $variables['html_attributes'] = new Attribute(array(
+    'lang' => $language_interface->getId(),
+    'dir' => $language_interface->getDirection(),
+  ));
 
-  if (\Drupal::service('config.factory')->get('printable.settings')->get('send_to_printer')) {
-    $variables['send_script'] = 'printable/js/script.js';
-    if (\Drupal::service('config.factory')->get('printable.settings')->get('close_window')) {
-      $variables['close_script'] = 'printable/js/close.js';
-    }  
+  if ($config->get('send_to_printer')) {
+    $variables['send_script'] = $variables['base_url'] . '/js/script.js';
+    if ($config->get('close_window')) {
+      $variables['close_script'] = $variables['base_url'] . '/js/close.js';
+    }
   }
 }
 
