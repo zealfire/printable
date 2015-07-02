@@ -123,13 +123,25 @@ class PdfFormat extends PrintableFormatBase {
    */
   public function buildContent() {
    $content = parent::buildContent();
-   $this->pdfGenerator->addPage(render($content));
+   $rendered_page = parent::extractLinks(render($content));
+   $this->pdfGenerator->addPage($rendered_page);
   }
 
   /**
    * {@inheritdoc}
    */
   public function mbuildContent($save_pdf, $filename) {
+    $content = parent::buildContent();
+    $rendered_page = parent::extractLinks(render($content));
+    if($save_pdf) {
+      if(empty($filename)) {
+        $filename=str_replace("/","_",\Drupal::service('path.current')->getPath());
+        $filename=substr($filename, 1);
+      }
+      $this->pdfGenerator->stream(utf8_encode(new Response($rendered_page)), $filename.'.pdf');
+    }
+    else
+      $this->pdfGenerator->send(utf8_encode(new Response($rendered_page)));
   }
 
   /**
