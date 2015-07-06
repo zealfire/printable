@@ -58,7 +58,13 @@ class PdfFormat extends PrintableFormatBase {
     parent::__construct($configuration,$plugin_id, $plugin_definition, $config_factory, $printable_css_include,$link_extractor);
     $config = $this->getConfiguration();
     $this->pdfGeneratorManager = $pdf_generator_manager;
-    $this->pdfGenerator = $this->pdfGeneratorManager->createInstance($config['pdf_generator']);
+    $pdf_library = (string)$this->configFactory->get('printable.settings')->get('pdf_tool');
+    if($pdf_library == $config['pdf_generator'])
+      $this->pdfGenerator = $this->pdfGeneratorManager->createInstance($config['pdf_generator']);
+    else if($pdf_library == 'mPDF')
+      $this->pdfGenerator = $this->pdfGeneratorManager->createInstance('mpdf');
+    else
+      $this->pdfGenerator = $this->pdfGeneratorManager->createInstance('tcpdf');
   }
 
   /**
@@ -79,7 +85,7 @@ class PdfFormat extends PrintableFormatBase {
    */
   public function defaultConfiguration() {
     return array(
-      'pdf_generator' => 'wkhtmktopdf',
+      'pdf_generator' => 'wkhtmltopdf'
     );
   }
   public function calculateDependencies(){}
@@ -148,20 +154,51 @@ class PdfFormat extends PrintableFormatBase {
    * {@inheritdoc}
    */
   public function getResponse() {
+    $pdf_library = (string)$this->configFactory->get('printable.settings')->get('pdf_tool');
     $paper_size = (string)$this->configFactory->get('printable.settings')->get('paper_size');
     $paper_orientation = $this->configFactory->get('printable.settings')->get('page_orientation');
     $save_pdf = $this->configFactory->get('printable.settings')->get('save_pdf');
     $pdf_location = $this->configFactory->get('printable.settings')->get('pdf_location');
-    $this->buildContent();
-    $this->pdfGenerator->setPageSize($paper_size);
-    $this->pdfGenerator->setPageOrientation($paper_orientation);
-    if($save_pdf){
-      $filename = $pdf_location;
-      if(empty($filename)){
-        $filename=str_replace("/","_",\Drupal::service('path.current')->getPath());
-        $filename=substr($filename, 1);
+    if ($pdf_library == 'wkhtmltopdf') {
+      $this->buildContent();
+      $this->pdfGenerator->setHeader();
+      $this->pdfGenerator->setPageSize($paper_size);
+      $this->pdfGenerator->setPageOrientation($paper_orientation);
+      $this->pdfGenerator->setFooter();
+      if($save_pdf){
+        $filename = $pdf_location;
+        if(empty($filename)){
+          $filename=str_replace("/","_",\Drupal::service('path.current')->getPath());
+          $filename=substr($filename, 1);
+        }
+        $this->pdfGenerator->stream("", $filename.'.pdf');
       }
-      $this->pdfGenerator->stream("", $filename.'.pdf');
+      else
+       $this->pdfGenerator->send();
+    }
+    else if ($pdf_library == 'mPDF'){
+      $this->pdfGenerator->setHeader();
+      $this->pdfGenerator->setPageSize($paper_size);
+      $this->pdfGenerator->setPageOrientation($paper_orientation);
+      $this->pdfGenerator->setFooter();
+      $filename = $pdf_location;
+      $this->mbuildContent($save_pdf,$filename);
+      $this->buildContent();
+    }
+    else {
+      $this->pdfGenerator->setPageOrientation($paper_orientation);
+      $this->buildContent();
+      $this->pdfGenerator->setFooter();
+      if($save_pdf) {
+        $filename = $pdf_location;
+        if(empty($filename)) {
+          $filename=str_replace("/","_",\Drupal::service('path.current')->getPath());
+          $filename=substr($filename, 1);
+        }
+        $this->pdfGenerator->stream("", $filename.'.pdf');
+      }
+      else
+       $this->pdfGenerator->send();
     }  
   }
 
