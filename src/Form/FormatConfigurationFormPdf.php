@@ -59,6 +59,13 @@ class FormatConfigurationFormPdf extends FormBase {
       '#type' => 'fieldset',
       '#title' => $this->t('PDF options'),
     );
+    $form['settings']['print_pdf_pdf_tool'] = array(
+      '#type' => 'radios',
+      '#title' => $this->t('PDF generation tool'),
+      '#options' => array('mPDF' => 'mPDF', 'wkhtmltopdf' => 'wkhtmltopdf', 'TCPDF' => 'TCPDF'),
+      '#default_value' => (string)$this->config('printable.settings')->get('pdf_tool'),
+      '#description' => $this->t('This option selects the PDF generation tool being used by this module to create the PDF version.'),
+    );
     $form['settings']['print_pdf_content_disposition'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Save the pdf'),
