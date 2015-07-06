@@ -139,6 +139,7 @@ class FormatConfigurationFormPdf extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     \Drupal::service('config.factory')->getEditable('printable.settings')
+      ->set('pdf_tool', $form_state->getValue('print_pdf_pdf_tool'))
       ->set('save_pdf', $form_state->getValue('print_pdf_content_disposition'))
       ->set('paper_size', (string)$form_state->getValue('print_pdf_paper_size'))
       ->set('page_orientation', $form_state->getValue('print_pdf_page_orientation'))
