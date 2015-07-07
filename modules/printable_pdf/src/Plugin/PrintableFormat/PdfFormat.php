@@ -131,12 +131,28 @@ class PdfFormat extends PrintableFormatBase {
    $content = parent::buildContent();
    $rendered_page = parent::extractLinks(render($content));
    $this->pdfGenerator->addPage($rendered_page);
+   $pdf_header = array(
+      '#theme' => 'printable_pdf_header',
+    );
+    $this->pdfGenerator->setHeader(render($pdf_header));
+    $pdf_footer = array(
+      '#theme' => 'printable_pdf_footer',
+    );
+    $this->pdfGenerator->setFooter(render($pdf_footer));
   }
 
   /**
    * {@inheritdoc}
    */
   public function mbuildContent($save_pdf, $filename) {
+    $pdf_header = array(
+      '#theme' => array('printable_pdf', 'printable_pdf_header'),
+    );
+    $this->pdfGenerator->setHeader(render($pdf_header));
+    $pdf_footer = array(
+      '#theme' => array('printable_pdf', 'printable_pdf_footer'),
+    );
+    $this->pdfGenerator->setFooter(render($pdf_footer));
     $content = parent::buildContent();
     $rendered_page = parent::extractLinks(render($content));
     if($save_pdf) {
@@ -161,10 +177,8 @@ class PdfFormat extends PrintableFormatBase {
     $pdf_location = $this->configFactory->get('printable.settings')->get('pdf_location');
     if ($pdf_library == 'wkhtmltopdf') {
       $this->buildContent();
-      $this->pdfGenerator->setHeader();
       $this->pdfGenerator->setPageSize($paper_size);
       $this->pdfGenerator->setPageOrientation($paper_orientation);
-      $this->pdfGenerator->setFooter();
       if($save_pdf){
         $filename = $pdf_location;
         if(empty($filename)){
@@ -177,10 +191,8 @@ class PdfFormat extends PrintableFormatBase {
        $this->pdfGenerator->send();
     }
     else if ($pdf_library == 'mPDF'){
-      $this->pdfGenerator->setHeader();
       $this->pdfGenerator->setPageSize($paper_size);
       $this->pdfGenerator->setPageOrientation($paper_orientation);
-      $this->pdfGenerator->setFooter();
       $filename = $pdf_location;
       $this->mbuildContent($save_pdf,$filename);
       $this->buildContent();
@@ -188,7 +200,7 @@ class PdfFormat extends PrintableFormatBase {
     else {
       $this->pdfGenerator->setPageOrientation($paper_orientation);
       $this->buildContent();
-      $this->pdfGenerator->setFooter();
+      $this->pdfGenerator->setFooter("");
       if($save_pdf) {
         $filename = $pdf_location;
         if(empty($filename)) {
@@ -198,7 +210,7 @@ class PdfFormat extends PrintableFormatBase {
         $this->pdfGenerator->stream("", $filename.'.pdf');
       }
       else
-       $this->pdfGenerator->send();
+       $this->pdfGenerator->send("");
     }  
   }
 
