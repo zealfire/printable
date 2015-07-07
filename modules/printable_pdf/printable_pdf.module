@@ -4,3 +4,24 @@
  * @file
  * Provides a printable format for generating PDFs.
  */
+
+/**
+ * Implements hook_theme().
+ */
+function printable_pdf_theme() {
+	$module_path = drupal_get_path('module', 'printable_pdf');
+  return array(
+    'printable_pdf_footer' => array(
+      'template' => 'printable-footer',
+      'pattern' => 'printable_footer__',
+      'variables' => array(),
+      'path' => $module_path . '/templates',
+    ),
+    'printable_pdf_header' => array(
+      'template' => 'printable-header',
+      'pattern' => 'printable_header__',
+      'variables' => array(),
+      'path' => $module_path . '/templates',
+    ),
+  );
+}
