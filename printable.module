@@ -160,8 +160,8 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
   $printable_manager = \Drupal::service('printable.entity_manager');
   $link_builder = \Drupal::service('printable.link_builder');
   if ($printable_manager->isPrintableEntity($entity)) {
-    $print_setting = \Drupal::service('config.factory')->get('printable.settings')->get('printable_print_link_locations');
-    $pdf_setting = \Drupal::service('config.factory')->get('printable.settings')->get('printable_pdf_link_locations');
+    $print_setting = $config->get('printable_print_link_locations');
+    $pdf_setting = $config->get('printable_pdf_link_locations');
     // Get the name of entity over here.
     $entity_name = $printable_manager->getEntityName($entity);
     $printable_navigation = array(
@@ -178,7 +178,7 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
       unset($printable_navigation['#links']['pdf']);
     }
       
-    // Add the built links to the entity being rendered.
+    // Add the build links to the entity being rendered.
     $build['printable_navigation'] = array(
       '#markup' => '<strong class="node_view">' . drupal_render($printable_navigation) . '</strong>',
       '#attached' => array(

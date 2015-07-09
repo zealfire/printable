@@ -68,7 +68,6 @@ class PrintableController extends ControllerBase implements ContainerInjectionIn
       else {
         $format->getResponse($content);
         $build = array(
-          '#type' => 'markup',
           '#markup' => t('Pdf has been saved'),
         );
         return $build;

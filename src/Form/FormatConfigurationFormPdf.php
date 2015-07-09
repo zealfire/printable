@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\Form\FormatConfigurationFormPdf
+ * Contains \Drupal\printable\Form\FormatConfigurationFormPdf.
  */
 
 namespace Drupal\printable\Form;
@@ -63,7 +63,7 @@ class FormatConfigurationFormPdf extends FormBase {
       '#type' => 'radios',
       '#title' => $this->t('PDF generation tool'),
       '#options' => array('mPDF' => 'mPDF', 'wkhtmltopdf' => 'wkhtmltopdf', 'TCPDF' => 'TCPDF'),
-      '#default_value' => (string)$this->config('printable.settings')->get('pdf_tool'),
+      '#default_value' => $this->config('printable.settings')->get('pdf_tool'),
       '#description' => $this->t('This option selects the PDF generation tool being used by this module to create the PDF version.'),
     );
     $form['settings']['print_pdf_content_disposition'] = array(
@@ -111,8 +111,8 @@ class FormatConfigurationFormPdf extends FormBase {
       'Letter',
       'Tabloid',
     );
-    foreach ($paper_sizes as $entity_type ) {
-      $form['settings']['print_pdf_paper_size']['#options'][$entity_type] = $entity_type;
+    foreach ($paper_sizes as $sizes ) {
+      $form['settings']['print_pdf_paper_size']['#options'][$sizes] = $sizes;
     }
     $form['settings']['print_pdf_page_orientation'] = array(
       '#type' => 'select',
@@ -125,7 +125,7 @@ class FormatConfigurationFormPdf extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('PDF filename'),
       '#default_value' => '',
-      '#description' => $this->t("Filename with its location can be filled.If left empty and Save the pdf option has been selected the generated filename defaults to the node's path.The .pdf extension will be appended automatically."),
+      '#description' => $this->t("Filename with its location can be entered. If left empty and Save the pdf option has been selected the generated filename defaults to the node's path.The .pdf extension will be appended automatically."),
     );
     $form['settings']['submit'] = array(
       '#type' => 'submit',

@@ -59,12 +59,17 @@ class PdfFormat extends PrintableFormatBase {
     $config = $this->getConfiguration();
     $this->pdfGeneratorManager = $pdf_generator_manager;
     $pdf_library = (string)$this->configFactory->get('printable.settings')->get('pdf_tool');
-    if($pdf_library == $config['pdf_generator'])
-      $this->pdfGenerator = $this->pdfGeneratorManager->createInstance($config['pdf_generator']);
-    else if($pdf_library == 'mPDF')
-      $this->pdfGenerator = $this->pdfGeneratorManager->createInstance('mpdf');
-    else
-      $this->pdfGenerator = $this->pdfGeneratorManager->createInstance('tcpdf');
+    switch ($pdf_library) {
+      case "wkhtmltopdf":
+        $this->pdfGenerator = $this->pdfGeneratorManager->createInstance($config['pdf_generator']);
+        break;
+      case "mPDF":
+        $this->pdfGenerator = $this->pdfGeneratorManager->createInstance('mpdf');
+        break;
+      case "TCPDF":
+        $this->pdfGenerator = $this->pdfGeneratorManager->createInstance('tcpdf');
+        break;
+    }
   }
 
   /**
@@ -88,6 +93,10 @@ class PdfFormat extends PrintableFormatBase {
       'pdf_generator' => 'wkhtmltopdf'
     );
   }
+
+  /**
+   * {@inheritdoc}
+   */
   public function calculateDependencies(){}
 
   /**
@@ -108,12 +117,6 @@ class PdfFormat extends PrintableFormatBase {
 
     return $form;
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateConfigurationForm(array &$form, FormStateInterface $form_state){}
-
 
   /**
    * {@inheritdoc}
@@ -190,14 +193,14 @@ class PdfFormat extends PrintableFormatBase {
       else
        $this->pdfGenerator->send();
     }
-    else if ($pdf_library == 'mPDF'){
+    else if ($pdf_library == 'mPDF') {
       $this->pdfGenerator->setPageSize($paper_size);
       $this->pdfGenerator->setPageOrientation($paper_orientation);
       $filename = $pdf_location;
       $this->mbuildContent($save_pdf,$filename);
       $this->buildContent();
     }
-    else {
+    else if($pdf_library == 'TCPDF') {
       $this->pdfGenerator->setPageOrientation($paper_orientation);
       $this->buildContent();
       $this->pdfGenerator->setFooter("");
