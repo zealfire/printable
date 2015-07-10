@@ -4,7 +4,7 @@ services:
     arguments: ['@entity.manager', '@config.factory', '@url_generator', '@printable.format_plugin_manager']
   printable.link_builder:
     class: Drupal\printable\PrintableLinkBuilder
-    arguments: ['@config.factory', '@url_generator', '@printable.format_plugin_manager']
+    arguments: ['@config.factory', '@printable.format_plugin_manager']
   printable.css_include:
     class: Drupal\printable\PrintableCssInclude
     arguments: ['@config.factory', '@theme_handler']
