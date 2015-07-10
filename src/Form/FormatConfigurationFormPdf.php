@@ -55,9 +55,6 @@ class FormatConfigurationFormPdf extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $printable_format = NULL) {
-    $form['settings'] = array(
-      '#type' => 'fieldset',
-    );
     $form['settings']['print_pdf_pdf_tool'] = array(
       '#type' => 'radios',
       '#title' => $this->t('PDF generation tool'),
