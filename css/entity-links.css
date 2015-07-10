@@ -4,12 +4,9 @@
 .node_view a {
   text-decoration: none;
 }
-<<<<<<< HEAD
 .node_view ul.pre_links li {
-	float: left;
+  float: left;
 }
-=======
->>>>>>> master
 .node_view ul.pre_links li:first-child {
   /** the image will be vertically aligned in the center **/
   background: url(../icons/print_icon.png) left center no-repeat;
