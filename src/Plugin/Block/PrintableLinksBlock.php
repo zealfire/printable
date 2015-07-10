@@ -33,7 +33,7 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
    *
    * @var \Drupal\Core\Routing\RouteMatchInterface
    */
-  protected $routeMatch;
+  protected $routematch;
 
   /**
    * The printable link builder.
@@ -48,9 +48,9 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
    * @param \Drupal\printable\PrintableLinkBuilderInterface $link_builder
    *   The printable link builder.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $routeMatch, PrintableLinkBuilderInterface $link_builder) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $routematch, PrintableLinkBuilderInterface $link_builder) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->routeMatch = $routeMatch;
+    $this->routematch = $routematch;
     $this->linkBuilder = $link_builder;
   }
 
@@ -73,7 +73,9 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
 
     $form += parent::buildConfigurationForm($form, $form_state);
-    $period = array(0, 60, 180, 300, 600, 900, 1800, 2700, 3600, 10800, 21600, 32400, 43200, 86400);
+    $period = array(0, 60, 180, 300, 600, 900, 1800, 2700, 3600, 10800, 21600,
+      32400, 43200, 86400,
+    );
     $period = array_map(array(\Drupal::service('date.formatter'), 'formatInterval'), array_combine($period, $period));
     $period[0] = '<' . $this->t('no caching') . '>';
     $period[\Drupal\Core\Cache\Cache::PERMANENT] = $this->t('Forever');
@@ -97,10 +99,10 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
   public function build() {
     $entity_type = $this->getDerivativeId();
     $config = \Drupal::config('printable.settings');
-    if ($this->routeMatch->getMasterRouteMatch()->getParameter($entity_type)) {
+    if ($this->routematch->getMasterRouteMatch()->getParameter($entity_type)) {
       return array(
         '#theme' => 'links__entity__printable',
-        '#links' => $this->linkBuilder->buildLinks($this->routeMatch->getMasterRouteMatch()->getParameter($entity_type)),
+        '#links' => $this->linkBuilder->buildLinks($this->routematch->getMasterRouteMatch()->getParameter($entity_type)),
         '#cache' => array(
           'tags' => $config->getCacheTags(),
           'max-age' => 0,

@@ -22,6 +22,9 @@ printable.settings:
     save_pdf:
       type: boolean
       label: 'Save or inline pdf'
+    pdf_tool:
+      type: string
+      label: 'Tool to be used in generating pdf'    
     paper_size:
       type: string
       label: 'Page size'
