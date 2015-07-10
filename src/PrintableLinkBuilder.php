@@ -69,7 +69,8 @@ class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
 
       // Add target "blank" if the configuration option is set.
       if ($this->configFactory->get('printable.settings')->get('open_target_blank')) {
-        $links[$key]['attributes']['target'] = '_blank';
+        if ($key == 'print' or !$this->configFactory->get('printable.settings')->get('save_pdf'))
+          $links[$key]['attributes']['target'] = '_blank';
       }
     }
     return $links;
