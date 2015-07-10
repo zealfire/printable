@@ -58,7 +58,7 @@ class FormatConfigurationFormPdf extends FormBase {
     $form['settings']['print_pdf_pdf_tool'] = array(
       '#type' => 'radios',
       '#title' => $this->t('PDF generation tool'),
-      '#options' => array('mPDF' => 'mPDF', 'TCPDF' => 'TCPDF'),
+      '#options' => array('mPDF' => 'mPDF', 'wkhtmltopdf' => 'wkhtmltopdf', 'TCPDF' => 'TCPDF'),
       '#default_value' => $this->config('printable.settings')->get('pdf_tool'),
       '#description' => $this->t('This option selects the PDF generation tool being used by this module to create the PDF version.'),
     );
@@ -107,11 +107,6 @@ class FormatConfigurationFormPdf extends FormBase {
       'Letter',
       'Tabloid',
     );
-    // 'wkhtmltopdf' => 'wkhtmltopdf', 
-    $module_path = drupal_get_path('module', 'pdf_api');    
-    if (file_exists($module_path . '/vendor/mikehaertl/phpwkhtmltopdf/src/Pdf.php')) {
-      $form['settings']['print_pdf_pdf_tool']['#options'] += array('wkhtmltopdf' => 'wkhtmltopdf');
-    }
     foreach ($paper_sizes as $sizes ) {
       $form['settings']['print_pdf_paper_size']['#options'][$sizes] = $sizes;
     }
