@@ -162,6 +162,25 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   }
 
   /**
+   * Extracts the links present in HTML string.
+   *
+   * @param string $content
+   *   The HTML of the page to be added.
+   *
+   * @return string
+   *   The HTML string with presence of links dependending on configuration.
+   */
+  protected function extractLinks($content) {
+    if ($this->configFactory->get('printable.settings')->get('extract_links')) {
+      $rendered_page = $this->linkExtractor->extract((string) $content);
+    }
+    else {
+      $rendered_page = $this->linkExtractor->removeAttribute((string) $content, 'href');
+    }
+    return $rendered_page;
+  }
+
+  /**
    * Get the HTML output of the whole page and pass to the response object.
    *
    * @return string
@@ -170,14 +189,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   protected function getOutput() {
     $content = $this->buildContent();
     // @todo add a renderer service over here.
-    $rendered_page = render($content);
-    if ($this->configFactory->get('printable.settings')->get('extract_links')) {
-      $rendered_page = $this->linkExtractor->extract((string) $rendered_page);
-    }
-    else {
-      $rendered_page = $this->linkExtractor->removeAttribute((string) $rendered_page, 'href');
-    }
-    return $rendered_page;
+    return $this->extractLinks(render($content));
   }
 
 }

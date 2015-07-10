@@ -6,7 +6,11 @@ open_target_blank: TRUE
 css_include: ''
 extract_links: ''
 save_pdf: FALSE
+<<<<<<< HEAD
+pdf_tool: 'mPDF'
+=======
 pdf_tool: 'wkhtmltopdf'
+>>>>>>> master
 paper_size: 'A4'
 page_orientation: 'Portrait'
 pdf_location: ''
