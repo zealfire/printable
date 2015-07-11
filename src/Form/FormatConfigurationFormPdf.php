@@ -10,6 +10,7 @@ namespace Drupal\printable\Form;
 use Drupal\printable\PrintableEntityManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Doctrine\Common\ClassLoader;
 use Drupal\pdf_api\PdfGeneratorPluginManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -55,13 +56,32 @@ class FormatConfigurationFormPdf extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $printable_format = NULL) {
-    $form['settings']['print_pdf_pdf_tool'] = array(
-      '#type' => 'radios',
-      '#title' => $this->t('PDF generation tool'),
-      '#options' => array('mPDF' => 'mPDF', 'wkhtmltopdf' => 'wkhtmltopdf', 'TCPDF' => 'TCPDF'),
-      '#default_value' => $this->config('printable.settings')->get('pdf_tool'),
-      '#description' => $this->t('This option selects the PDF generation tool being used by this module to create the PDF version.'),
-    );
+    $wkhtmltopdf_present =ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf'); 
+    $mpdf_present =ClassLoader::classExists('mPDF');
+    $tcpdf_present =ClassLoader::classExists('TCPDF');
+    if ($wkhtmltopdf_present || $mpdf_present || $tcpdf_present ) {
+      $form['settings']['print_pdf_pdf_tool'] = array(
+        '#type' => 'radios',
+        '#title' => $this->t('PDF generation tool'),
+        '#options' => array(),
+        '#default_value' => $this->config('printable.settings')->get('pdf_tool'),
+        '#description' => $this->t('This option selects the PDF generation tool being used by this module to create the PDF version.'),
+      );
+      if ($mpdf_present)
+        $form['settings']['print_pdf_pdf_tool']['#options'] += array('mPDF' => 'mPDF');
+      if ($tcpdf_present)
+        $form['settings']['print_pdf_pdf_tool']['#options'] += array('TCPDF' => 'TCPDF');
+      if ($wkhtmltopdf_present)
+        $form['settings']['print_pdf_pdf_tool']['#options'] += array('wkhtmltopdf' => 'wkhtmltopdf');
+    }
+    else {
+      $form['settings']['print_pdf_pdf_tool'] = array(
+        '#type' => 'radios',
+        '#title' => $this->t('PDF generation tool'),
+        '#options' => array(),
+        '#description' => $this->t('You are seeing no PDF generating tool because you have not installed any third party library using composer.'),
+      ); 
+    }
     $form['settings']['print_pdf_content_disposition'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Save the pdf'),
@@ -106,7 +126,7 @@ class FormatConfigurationFormPdf extends FormBase {
       'Legal',
       'Letter',
       'Tabloid',
-    );
+    );    
     foreach ($paper_sizes as $sizes ) {
       $form['settings']['print_pdf_paper_size']['#options'][$sizes] = $sizes;
     }
