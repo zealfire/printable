@@ -88,16 +88,6 @@ function template_preprocess_printable(&$variables) {
     $title = \Drupal::service('title_resolver')->getTitle($request, $route);
   }
   $variables['title'] = $title;
-
-  // Use this to render block in twig template, uncomment when need to test
-  /*$block = \Drupal\block\Entity\Block::load('printablelinksblockcontent');
-  $variables['block_output'] = \Drupal::entityManager()
-  ->getViewBuilder('block')
-  ->view($block);*/
-
-  // Try this to render views in template, uncomment when need to test.
-  // $variables['view_output'] = views_embed_view("comments_recent");
-  // HTML element attributes.
   $language_interface = \Drupal::languageManager()->getCurrentLanguage();
   $variables['html_attributes'] = new Attribute(array(
     'lang' => $language_interface->getId(),

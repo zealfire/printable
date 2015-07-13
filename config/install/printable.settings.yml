@@ -14,6 +14,6 @@ send_to_printer: FALSE
 close_window: FALSE
 list_attribute: FALSE
 printable_print_link_locations:
-  - ''
+  - 'node'
 printable_pdf_link_locations:
   - ''
