@@ -68,7 +68,6 @@ class PrintableController extends ControllerBase implements ContainerInjectionIn
       }
       else {
         $format->getResponse($content);
-        drupal_set_message($this->t('PDF has been saved.'));
         $source_url = \Drupal::request()->getRequestUri();
         $pos = strpos($source_url, "printable");
         $pos_node = strpos($source_url, '/', $pos + 11);
