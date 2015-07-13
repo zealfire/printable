@@ -8,6 +8,7 @@
 namespace Drupal\printable\Plugin;
 
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\printable\LinkExtractor\LinkExtractorInterface;
@@ -54,7 +55,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    * @param \Drupal\printable\PrintableCssIncludeInterface $printable_css_include
    *   The printable CSS include manager.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, ConfigFactory $config_factory, PrintableCssIncludeInterface $printable_css_include, LinkExtractorInterface $link_extractor) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, ConfigFactoryInterface $config_factory, PrintableCssIncludeInterface $printable_css_include, LinkExtractorInterface $link_extractor) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->configFactory = $config_factory;

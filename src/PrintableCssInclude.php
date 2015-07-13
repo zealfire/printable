@@ -9,6 +9,7 @@ namespace Drupal\printable;
 
 use Drupal\printable\PrintableCssIncludeInterface;
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 
 /**
@@ -38,7 +39,7 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
    * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
    *   The theme handler service.
    */
-  public function __construct(ConfigFactory $config_factory, ThemeHandlerInterface $theme_handler) {
+  public function __construct(ConfigFactoryInterface $config_factory, ThemeHandlerInterface $theme_handler) {
     $this->configFactory = $config_factory;
     $this->themeHandler = $theme_handler;
   }

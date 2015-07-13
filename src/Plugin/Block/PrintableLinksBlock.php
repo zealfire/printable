@@ -98,15 +98,10 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
    */
   public function build() {
     $entity_type = $this->getDerivativeId();
-    $config = \Drupal::config('printable.settings');
     if ($this->routematch->getMasterRouteMatch()->getParameter($entity_type)) {
       return array(
         '#theme' => 'links__entity__printable',
         '#links' => $this->linkBuilder->buildLinks($this->routematch->getMasterRouteMatch()->getParameter($entity_type)),
-        '#cache' => array(
-          'tags' => $config->getCacheTags(),
-          'max-age' => 0,
-        ),
       );
     }
   }
