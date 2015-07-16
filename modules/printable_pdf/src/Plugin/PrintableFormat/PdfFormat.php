@@ -59,17 +59,8 @@ class PdfFormat extends PrintableFormatBase {
     $config = $this->getConfiguration();
     $this->pdfGeneratorManager = $pdf_generator_manager;
     $pdf_library = (string)$this->configFactory->get('printable.settings')->get('pdf_tool');
-    switch ($pdf_library) {
-      case "wkhtmltopdf":
-        $this->pdfGenerator = $this->pdfGeneratorManager->createInstance($config['pdf_generator']);
-        break;
-      case "mPDF":
-        $this->pdfGenerator = $this->pdfGeneratorManager->createInstance('mpdf');
-        break;
-      case "TCPDF":
-        $this->pdfGenerator = $this->pdfGeneratorManager->createInstance('tcpdf');
-        break;
-    }
+    $pdf_library = strtolower($pdf_library);
+    $this->pdfGenerator = $this->pdfGeneratorManager->createInstance($pdf_library);
   }
 
   /**
@@ -154,7 +145,7 @@ class PdfFormat extends PrintableFormatBase {
   }
 
   /**
-   * Get  the HTML content for PDF generation
+   * Get the HTML content for PDF generation
    *
    * @return string
    *  HTML content for PDF.
