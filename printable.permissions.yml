@@ -1,6 +1,6 @@
 administer printable:
-  title: 'Access the printable module pages'
-  description: 'Get an overview of all printable module pages.'
+  title: 'Administer the printable module'
+  description: 'Helps to administer the pages of printable module.'
 view printer friendly versions:
   title: 'Access printer friendly version pages'
   description: 'Access the printable pages of the module.'
