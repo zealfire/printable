@@ -28,6 +28,27 @@ class PrintableTest extends WebTestBase {
    */
   public function setUp() {
     parent::setUp();
-    $this->user = $this->drupalCreateUser(array('access content'));
+    $this->user = $this->drupalCreateUser(array('administer printable'));
   }
+
+  /**
+   * Tests the custom form
+   */
+  public function testCustomFormWorks() {
+    $this->drupalLogin($this->user);
+    $this->drupalGet('admin/config/user-interface/printable/print');
+    $this->assertResponse(200);
+ 
+    $config = $this->config('printable.settings');
+    $this->assertFieldByName('print_html_sendtoprinter', $config->get('printable.send_to_printer'), 'The field was found with the correct value.');
+ 
+    $this->drupalPostForm(NULL, array(
+      'print_html_sendtoprinter' => 1
+    ), t('Submit'));
+    $this->verbose($config->get('printable.send_to_printer'));
+    $this->drupalGet('admin/config/user-interface/printable/print');
+    $this->assertResponse(200);
+    $this->assertFieldByName('print_html_sendtoprinter', 1, 'The field was found with the correct value.');
+  }
+
 }
