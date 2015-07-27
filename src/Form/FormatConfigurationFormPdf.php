@@ -59,6 +59,7 @@ class FormatConfigurationFormPdf extends FormBase {
     $wkhtmltopdf_present =ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf'); 
     $mpdf_present =ClassLoader::classExists('mPDF');
     $tcpdf_present =ClassLoader::classExists('TCPDF');
+    $dompdf_present =ClassLoader::classExists('DOMPDF');
     if ($wkhtmltopdf_present || $mpdf_present || $tcpdf_present) {
       $form['settings']['print_pdf_pdf_tool'] = array(
         '#type' => 'radios',
@@ -73,6 +74,8 @@ class FormatConfigurationFormPdf extends FormBase {
         $form['settings']['print_pdf_pdf_tool']['#options'] += array('TCPDF' => 'TCPDF');
       if ($wkhtmltopdf_present)
         $form['settings']['print_pdf_pdf_tool']['#options'] += array('wkhtmltopdf' => 'wkhtmltopdf');
+      if ($dompdf_present)
+        $form['settings']['print_pdf_pdf_tool']['#options'] += array('dompdf' => 'dompdf');
     }
     else {
       $form['settings']['print_pdf_pdf_tool'] = array(
