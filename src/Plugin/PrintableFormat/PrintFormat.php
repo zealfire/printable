@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   description = @Translation("Print description.")
  * )
  */
+  // @todo Add a meaningful description above.
 class PrintFormat extends PrintableFormatBase {
 
   /**
@@ -75,9 +76,11 @@ class PrintFormat extends PrintableFormatBase {
    */
   protected function buildContent() {
     $build = parent::buildContent();
+    // @todo '$config' is not used here. Remove or refactor.
     $config = $this->getConfiguration();
-    // May be add scripts over here and not in printable.module.
+    // @todo Maybe add scripts over here and not in printable.module.
     if ($this->configFactory->get('printable.settings')->get('send_to_printer')) {
+      // @todo This code is incomplete.
     }
     return $build;
   }

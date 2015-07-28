@@ -90,6 +90,8 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
       '#default_value' => $period[0],
       '#options' => $period,
     );
+    // @todo Is all this code copied to set a different default cache value?
+    //   Just override the default value that is returned by the parent.
     return $form;
   }
 
@@ -102,6 +104,7 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
       return array(
         '#theme' => 'links__entity__printable',
         '#links' => $this->linkBuilder->buildLinks($this->routematch->getMasterRouteMatch()->getParameter($entity_type)),
+        // @todo The content of this block is different per page. Add a cache context to make Drupal create cache variations per page.
       );
     }
   }
