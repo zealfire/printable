@@ -148,9 +148,11 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
         '#theme' => array('printable_header__' . $this->getPluginId(), 'printable_header'),
         '#logo_url' => theme_get_setting('logo.url'),
       ),
+      // @todo Undefined property 'content'.
       '#content' => $this->content,
       '#footer' => array(
         '#theme' => array('printable_footer__' . $this->getPluginId(), 'printable_footer'),
+        // @todo Undefined property 'footer_content'.
         '#footer_content' => $this->footer_content,
       ),
     );
@@ -173,9 +175,13 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    */
   protected function extractLinks($content) {
     if ($this->configFactory->get('printable.settings')->get('extract_links')) {
+      // @todo Why cast to string. According to the function description,
+      //   $content is a string. If the crawler fails with non-string, fix it
+      //   there, not here.
       $rendered_page = $this->linkExtractor->extract((string) $content);
     }
     else {
+      // @todo Casting to string, see above.
       $rendered_page = $this->linkExtractor->removeAttribute((string) $content, 'href');
     }
     return $rendered_page;

@@ -49,6 +49,7 @@ class InlineLinkExtractor implements LinkExtractorInterface {
       // @todo deprecated method.
       $href = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
       $anchor->append(' (' . $href . ')');
+      // @todo Appending a string will give wrong results in right-to-left languages.
     });
 
     return (string) $this->crawler;
