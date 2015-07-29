@@ -34,6 +34,13 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   protected $configFactory;
 
   /**
+   * A render array of the content to be output by the printable format.
+   *
+   * @param array $content
+   */
+  protected $content;
+
+  /**
    * Printable CSS include manager.
    *
    * @var \Drupal\printable\PrintableCssIncludeInterface
@@ -173,10 +180,10 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    */
   protected function extractLinks($content) {
     if ($this->configFactory->get('printable.settings')->get('extract_links')) {
-      $rendered_page = $this->linkExtractor->extract((string) $content);
+      $rendered_page = $this->linkExtractor->extract($content);
     }
     else {
-      $rendered_page = $this->linkExtractor->removeAttribute((string) $content, 'href');
+      $rendered_page = $this->linkExtractor->removeAttribute($content, 'href');
     }
     return $rendered_page;
   }

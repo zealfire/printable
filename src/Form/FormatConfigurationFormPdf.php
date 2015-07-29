@@ -60,7 +60,7 @@ class FormatConfigurationFormPdf extends FormBase {
     $mpdf_present =ClassLoader::classExists('mPDF');
     $tcpdf_present =ClassLoader::classExists('TCPDF');
     $dompdf_present =ClassLoader::classExists('DOMPDF');
-    if ($wkhtmltopdf_present || $mpdf_present || $tcpdf_present) {
+    if ($wkhtmltopdf_present || $mpdf_present || $tcpdf_present || $dompdf_present) {
       $form['settings']['print_pdf_pdf_tool'] = array(
         '#type' => 'radios',
         '#title' => $this->t('PDF generation tool'),
