@@ -41,6 +41,13 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   protected $content;
 
   /**
+   * A string containing the list of links present in the page.
+   *
+   * @param string $footer_content
+   */
+  protected $footer_content;
+
+  /**
    * Printable CSS include manager.
    *
    * @var \Drupal\printable\PrintableCssIncludeInterface
