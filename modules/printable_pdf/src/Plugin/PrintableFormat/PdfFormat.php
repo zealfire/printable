@@ -160,8 +160,9 @@ class PdfFormat extends PrintableFormatBase {
    * Set formatted header and footer.
    */
   public function formattedHeaderFooter() {
-    // And this can be used by users who do not want default one.
-    $this->pdfGenerator->getObject()->SetFooter(render($this->getFooterContent()));
+    // And this can be used by users who do not want default one, this example
+    // is for wkhtmltopdf generator.
+    $this->pdfGenerator->getObject()->setOptions(array('footer-center' => render($this->getFooterContent())));
   }
 
   /**
