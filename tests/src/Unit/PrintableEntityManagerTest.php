@@ -36,6 +36,8 @@ class PrintableEntityManagerTest extends UnitTestCase {
 
   /**
    * Tests getting the printable entities.
+   *
+   * @covers ::GetPrintableEntities
    */
   public function testGetPrintableEntities() {
     // Construct a printable entity manager and it's dependencies.

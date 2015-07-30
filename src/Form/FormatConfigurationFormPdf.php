@@ -56,11 +56,11 @@ class FormatConfigurationFormPdf extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $printable_format = NULL) {
-    $wkhtmltopdf_present =ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf'); 
-    $mpdf_present =ClassLoader::classExists('mPDF');
-    $tcpdf_present =ClassLoader::classExists('TCPDF');
-    $dompdf_present =ClassLoader::classExists('DOMPDF');
-    if ($wkhtmltopdf_present || $mpdf_present || $tcpdf_present) {
+    $wkhtmltopdf_present = ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf'); 
+    $mpdf_present = ClassLoader::classExists('mPDF');
+    $tcpdf_present = ClassLoader::classExists('TCPDF');
+    $dompdf_present = ClassLoader::classExists('DOMPDF');
+    if ($wkhtmltopdf_present || $mpdf_present || $tcpdf_present || $dompdf_present) {
       $form['settings']['print_pdf_pdf_tool'] = array(
         '#type' => 'radios',
         '#title' => $this->t('PDF generation tool'),

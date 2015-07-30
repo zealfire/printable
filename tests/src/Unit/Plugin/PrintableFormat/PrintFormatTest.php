@@ -67,6 +67,8 @@ class PrintFormatTest extends UnitTestCase {
 
   /**
    * Tests getting the plugin label from the plugin.
+   *
+   * @covers ::GetLabel
    */
   public function testGetLabel() {
     $format = new PrintFormat($this->configuration, $this->pluginId, $this->pluginDefinition, $this->getConfigFactoryStub(), $this->getCssIncludeStub(), $this->getLinkExtractorIncludeStub());
@@ -75,6 +77,8 @@ class PrintFormatTest extends UnitTestCase {
 
   /**
    * Tests getting the plugin description from the plugin.
+   *
+   * @covers ::GetDescription
    */
   public function testGetDescription() {
     $format = new PrintFormat($this->configuration, $this->pluginId, $this->pluginDefinition, $this->getConfigFactoryStub(), $this->getCssIncludeStub(), $this->getLinkExtractorIncludeStub());
@@ -83,6 +87,8 @@ class PrintFormatTest extends UnitTestCase {
 
   /**
    * Tests getting the default configuration for this plugin.
+   *
+   * @covers ::DefaultConfiguration
    */
   public function testDefaultConfiguration() {
     $format = new PrintFormat($this->configuration, $this->pluginId, $this->pluginDefinition, $this->getConfigFactoryStub(), $this->getCssIncludeStub(), $this->getLinkExtractorIncludeStub());
@@ -91,6 +97,8 @@ class PrintFormatTest extends UnitTestCase {
 
   /**
    * Tests getting the current configuration for this plugin.
+   *
+   * @covers ::GetConfiguration
    */
   public function testGetConfiguration() {
     $format = new PrintFormat($this->configuration, $this->pluginId, $this->pluginDefinition, $this->getConfigFactoryStub(), $this->getCssIncludeStub(), $this->getLinkExtractorIncludeStub(), $this->getLinkExtractorIncludeStub());
@@ -100,6 +108,8 @@ class PrintFormatTest extends UnitTestCase {
   /**
    * Tests that any additional configuration passed is internally stored and can
    * be accessed.
+   *
+   * @covers ::GetPassedInConfiguration
    */
   public function testGetPassedInConfiguration() {
     $format = new PrintFormat(array('test_configuration_value' => TRUE), $this->pluginId, $this->pluginDefinition, $this->getConfigFactoryStub(), $this->getCssIncludeStub(), $this->getLinkExtractorIncludeStub());
@@ -108,6 +118,8 @@ class PrintFormatTest extends UnitTestCase {
 
   /**
    * Test that default configuration can be modified and changes accessed.
+   *
+   * @covers ::SetConfiguration
    */
   public function testSetConfiguration() {
     $new_configuration = array('show_print_dialogue' => FALSE);
