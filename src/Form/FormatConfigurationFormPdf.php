@@ -150,7 +150,7 @@ class FormatConfigurationFormPdf extends FormBase {
     if ($wkhtmltopdf_present && $pdf_tool == 'wkhtmltopdf')
       $form['settings']['path_to_binary'] = array(
         '#type' => 'textfield',
-        '#title' => $this->t('Binary file path'),
+        '#title' => $this->t('Path to binary file'),
         '#default_value' => $this->config('printable.settings')->get('path_to_binary'),
         '#description' => $this->t("Enter the path to binary file for wkhtmltopdf over here."),
       );
