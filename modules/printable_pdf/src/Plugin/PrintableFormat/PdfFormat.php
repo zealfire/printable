@@ -172,12 +172,13 @@ class PdfFormat extends PrintableFormatBase {
     $pdf_library = (string)$this->configFactory->get('printable.settings')->get('pdf_tool');
     $paper_size = (string)$this->configFactory->get('printable.settings')->get('paper_size');
     $paper_orientation = $this->configFactory->get('printable.settings')->get('page_orientation');
+    $path_to_binary = $this->configFactory->get('printable.settings')->get('path_to_binary');
     $save_pdf = $this->configFactory->get('printable.settings')->get('save_pdf');
     $pdf_location = $this->configFactory->get('printable.settings')->get('pdf_location');
     $pdf_content = $this->buildPdfContent();
     $footer_content = $this->getFooterContent();
     $header_content = $this->getHeaderContent();
-    $this->pdfGenerator->setter($pdf_content, $pdf_location, $save_pdf, $paper_orientation, $paper_size, $footer_content, $header_content);
+    $this->pdfGenerator->setter($pdf_content, $pdf_location, $save_pdf, $paper_orientation, $paper_size, $footer_content, $header_content, $path_to_binary);
   }
 
 }
