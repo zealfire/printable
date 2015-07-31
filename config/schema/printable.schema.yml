@@ -28,6 +28,9 @@ printable.settings:
     paper_size:
       type: string
       label: 'Page size'
+    path_to_binary:
+      type: string
+      label: 'Path to binary file'
     page_orientation:
       type: string
       label: 'Page orientation'
