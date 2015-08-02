@@ -33,9 +33,9 @@ class PrintablePdfFormTest extends WebTestBase {
   }
 
   /**
-   * Tests the Print form
+   * Tests the PDF form
    */
-  public function testPrintFormWorks() {
+  public function testPdfFormWorks() {
     $this->drupalLogin($this->user);
     $this->drupalGet('admin/config/user-interface/printable/pdf');
     $this->assertResponse(200);
