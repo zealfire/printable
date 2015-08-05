@@ -10,7 +10,7 @@ use Drupal\node\Tests\NodeTestBase;
  *
  * @group printable
  */
-class PrintableNodeTest extends NodeTestBase {
+class PrintablePageTest extends NodeTestBase {
 
   /**
    * Modules to install.
@@ -76,7 +76,7 @@ class PrintableNodeTest extends NodeTestBase {
     ), t('Submit'));
     $this->drupalGet('admin/config/user-interface/printable/pdf');
     $this->assertResponse(200);
-    $this->assertNoRaw($base_url. 'node/' . $node->id(), 'Source Url not discovered in the printable page');
+    $this->assertNoRaw($base_url. 'node/' . $node->id(), 'Source Url discovered in the printable page');
   }
 
 }
