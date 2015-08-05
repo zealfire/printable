@@ -6,18 +6,18 @@ use Drupal\Core\Database\Database;
 use Drupal\node\Tests\NodeTestBase;
  
 /**
- * Tests the printable module functionality
+ * Tests the printable_pdf module functionality
  *
  * @group printable
  */
-class PrintablePageTest extends NodeTestBase {
+class PrintablePdfTest extends NodeTestBase {
 
   /**
    * Modules to install.
    *
    * @var array
    */
-  public static $modules = array('printable', 'node_test_exception', 'dblog', 'system');
+  public static $modules = array('printable', 'printable_pdf', 'node_test_exception', 'dblog', 'system');
  
   /**
    * Perform any initial set up tasks that run before every test method
@@ -57,27 +57,20 @@ class PrintablePageTest extends NodeTestBase {
     // Verify that pages do not show submitted information by default.
     $this->drupalGet('node/' . $node->id());
     $this->assertResponse(200);
-    // see https://api.drupal.org/api/drupal/core%21modules%21simpletest%21src%21AssertContentTrait.php/trait/AssertContentTrait/8
-    $this->drupalGet('printable/print/node/' . $node->id());
-    $this->assertResponse(200);
-    // Checks the presence of title in the page.
-    $this->assertRaw($edit['title[0][value]'], 'Title discovered successfully in the printable page');
-    // Checks the presence of image in the header.
-    $this->assertRaw(theme_get_setting('logo.url'), 'Image discovered successfully in the printable page');
-    // Checks the presence of body in the page.
-    $this->assertRaw($edit['body[0][value]'], 'Body discovered successfully in the printable page');
-    // Check if footer is rendering correctly.
-    $this->assertNoRaw($base_url. 'node/' . $node->id(), 'Source Url not discovered in the printable page');
-    $this->verbose($base_url);
-    // Enable the option of showing links present in the footer of page.
-    $this->drupalGet('admin/config/user-interface/printable/print');
+
+    // Set the PDF generating tool. 
+    $this->drupalGet('admin/config/user-interface/printable/pdf');
     $this->drupalPostForm(NULL, array(
-      'print_html_display_sys_urllist' => 1
+      'print_pdf_pdf_tool' => 'mPDF'
     ), t('Submit'));
     $this->drupalGet('admin/config/user-interface/printable/pdf');
     $this->assertResponse(200);
 
-    $this->assertNoRaw($base_url. 'node/' . $node->id(), 'Source Url discovered in the printable page');
+    $config = $this->config('printable.settings');
+    $this->verbose($config->get('printable.pdf_tool'));
+    // Test whether PDF page is being generated.
+    $this->drupalGet('printable/pdf/node/' . $node->id());
+    $this->assertResponse(200);
   }
 
 }
