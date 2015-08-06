@@ -9,6 +9,7 @@ save_pdf: FALSE
 pdf_tool: ''
 paper_size: 'A4'
 page_orientation: 'Portrait'
+path_to_binary: ''
 pdf_location: ''
 send_to_printer: FALSE
 close_window: FALSE

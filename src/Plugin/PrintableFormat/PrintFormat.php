@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   id = "print",
  *   module = "printable",
  *   title = @Translation("Print"),
- *   description = @Translation("Print description.")
+ *   description = @Translation("Printable version of page.")
  * )
  */
 class PrintFormat extends PrintableFormatBase {
@@ -75,10 +75,6 @@ class PrintFormat extends PrintableFormatBase {
    */
   protected function buildContent() {
     $build = parent::buildContent();
-    $config = $this->getConfiguration();
-    // May be add scripts over here and not in printable.module.
-    if ($this->configFactory->get('printable.settings')->get('send_to_printer')) {
-    }
     return $build;
   }
 

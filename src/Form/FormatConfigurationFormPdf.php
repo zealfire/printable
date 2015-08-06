@@ -56,11 +56,12 @@ class FormatConfigurationFormPdf extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $printable_format = NULL) {
-    $wkhtmltopdf_present =ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf'); 
-    $mpdf_present =ClassLoader::classExists('mPDF');
-    $tcpdf_present =ClassLoader::classExists('TCPDF');
-    $dompdf_present =ClassLoader::classExists('DOMPDF');
-    if ($wkhtmltopdf_present || $mpdf_present || $tcpdf_present) {
+    $wkhtmltopdf_present = ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf'); 
+    $mpdf_present = ClassLoader::classExists('mPDF');
+    $tcpdf_present = ClassLoader::classExists('TCPDF');
+    $dompdf_present = ClassLoader::classExists('DOMPDF');
+    $pdf_tool = $this->config('printable.settings')->get('pdf_tool');
+    if ($wkhtmltopdf_present || $mpdf_present || $tcpdf_present || $dompdf_present) {
       $form['settings']['print_pdf_pdf_tool'] = array(
         '#type' => 'radios',
         '#title' => $this->t('PDF generation tool'),
@@ -146,6 +147,13 @@ class FormatConfigurationFormPdf extends FormBase {
       '#default_value' => '',
       '#description' => $this->t("Filename with its location can be entered. If left empty and Save the pdf option has been selected the generated filename defaults to the node's path.The .pdf extension will be appended automatically."),
     );
+    if ($wkhtmltopdf_present && $pdf_tool == 'wkhtmltopdf')
+      $form['settings']['path_to_binary'] = array(
+        '#type' => 'textfield',
+        '#title' => $this->t('Path to binary file'),
+        '#default_value' => $this->config('printable.settings')->get('path_to_binary'),
+        '#description' => $this->t("Enter the path to binary file for wkhtmltopdf over here."),
+      );
     $form['settings']['submit'] = array(
       '#type' => 'submit',
       '#value' => 'Submit',
@@ -157,6 +165,7 @@ class FormatConfigurationFormPdf extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $pdf_tool = $this->config('printable.settings')->get('pdf_tool');
     \Drupal::service('config.factory')->getEditable('printable.settings')
       ->set('pdf_tool', $form_state->getValue('print_pdf_pdf_tool'))
       ->set('save_pdf', $form_state->getValue('print_pdf_content_disposition'))
@@ -164,6 +173,11 @@ class FormatConfigurationFormPdf extends FormBase {
       ->set('page_orientation', $form_state->getValue('print_pdf_page_orientation'))
       ->set('pdf_location', $form_state->getValue('print_pdf_filename'))
       ->save();
+    if (ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf') && $pdf_tool == 'wkhtmltopdf') {
+      \Drupal::service('config.factory')->getEditable('printable.settings')
+      ->set('path_to_binary', $form_state->getValue('path_to_binary'))
+      ->save();
+    }
   }
 
 }

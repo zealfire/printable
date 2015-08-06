@@ -30,6 +30,8 @@ class PrintableFormatConfigureTabsTest extends UnitTestCase {
 
   /**
    * Tests getting the plugin label from the plugin.
+   *
+   * @covers ::GetDerivativeDefinitions
    */
   public function testGetDerivativeDefinitions() {
     $printable_format_manager = $this->getMockBuilder('Drupal\printable\PrintableFormatPluginManager')

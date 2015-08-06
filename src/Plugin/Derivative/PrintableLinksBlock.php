@@ -49,7 +49,7 @@ class PrintableLinksBlock extends DeriverBase implements ContainerDeriverInterfa
   public function getDerivativeDefinitions($base_plugin_definition) {
     foreach ($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {
       $this->derivatives[$entity_type] = $base_plugin_definition;
-      $this->derivatives[$entity_type]['admin_label'] .= ' (' . $entity_definition->getLabel() . ')';
+      $this->derivatives[$entity_type]['admin_label'] .= t(' (' . $entity_definition->getLabel() . ')');
     }
     return $this->derivatives;
   }
