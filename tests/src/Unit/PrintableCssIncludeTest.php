@@ -49,6 +49,8 @@ class PrintableCssIncludeTest extends UnitTestCase {
       ->method('listInfo')
       ->will($this->returnValue($theme_info));
 
+    // @todo Use a mock method for extractCssIncludeToken and getThemePath.
+    // @todo Add separate tests for extractCssIncludeToken and getThemePath.
     $css_include = new PrintableCssInclude($config, $theme_handler);
 
     $this->assertEquals($expected, $css_include->getCssIncludePath());
