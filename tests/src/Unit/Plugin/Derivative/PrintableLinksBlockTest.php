@@ -31,7 +31,7 @@ class PrintableLinksBlockTest extends UnitTestCase {
   /**
    * Tests getting the plugin label from the plugin.
    *
-   * @covers ::GetDerivativeDefinitions
+   * @covers PrintableLinksBlock::GetDerivativeDefinitions
    */
   public function testGetDerivativeDefinitions() {
     $entity_definition = $this->getMockBuilder('Drupal\Core\Entity\EntityType')

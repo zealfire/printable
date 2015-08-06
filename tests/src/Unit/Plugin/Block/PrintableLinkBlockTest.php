@@ -45,7 +45,7 @@ class PrintableLinkBlockTest extends UnitTestCase {
   /**
    * Tests the block build method.
    *
-   * @covers ::build
+   * @covers PrintableLinksBlock::build
    */
   public function testBuild() {
     $routematch = $this->getMockBuilder('Drupal\Core\Routing\CurrentRouteMatch')
