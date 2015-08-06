@@ -28,13 +28,6 @@ class PrintableEntityManagerTest extends UnitTestCase {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    parent::setUp();
-  }
-
-  /**
    * Tests getting the printable entities.
    *
    * @covers PrintableEntityManager::GetPrintableEntities
