@@ -48,6 +48,9 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
    * {@inheritdoc}
    */
   public function getCssIncludePath() {
+    // @todo ConfigBase::get() returns mixed, but
+    //   PrintableCssIncludeInterface::getCssIncludePath() should return string.
+    //   Change this method (preferred) or change the interface definition.
     if ($include_path = $this->configFactory->get('printable.settings')->get('css_include')) {
       if ($token = $this->extractCssIncludeToken($include_path)) {
         list(, $theme) = explode(':', trim($token, '[]'));
