@@ -56,17 +56,20 @@ class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
    * {@inheritdoc}
    */
   public function buildLinks(EntityInterface $entity = NULL) {
-    // Build the array of links to be added to the entity.
+
     $links = array();
+    $printable_settings = $this->configFactory->get('printable.settings');
+    
+    // Build the array of links to be added to the entity.
     foreach ($this->printableFormatManager->getDefinitions() as $key => $definition) {
       $links[$key] = array(
         'title' => $definition['title'],
         'url' => Url::fromRoute('printable.show_format.' . $entity->getEntityTypeId(), array('printable_format' => $key, 'entity' => $entity->id())),
       );
       // Add target "blank" if the configuration option is set.
-      if ($this->configFactory->get('printable.settings')->get('open_target_blank')) {
-        if ($key == 'print' or !$this->configFactory->get('printable.settings')->get('save_pdf'))
-          $links[$key]['attributes']['target'] = '_blank';
+      if ($printable_settings->get('open_target_blank')) {
+        if ($key == 'print' or !$printable_settings->get('save_pdf'))
+           $links[$key]['attributes']['target'] = '_blank';
       }
     }
     return $links;
