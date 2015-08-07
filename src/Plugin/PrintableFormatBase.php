@@ -123,6 +123,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    */
   public function setConfiguration(array $configuration) {
     $this->configuration = $configuration;
+    // @todo I expect this should use ConfigFactory::getEditable not ConfigFactory::get
     $this->configFactory->get('printable.format')->set($this->getPluginId(), $this->configuration)->save();
   }
 

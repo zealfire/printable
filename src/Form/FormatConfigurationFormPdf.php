@@ -56,7 +56,7 @@ class FormatConfigurationFormPdf extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $printable_format = NULL) {
-    $wkhtmltopdf_present = ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf'); 
+    $wkhtmltopdf_present = ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf');
     $mpdf_present = ClassLoader::classExists('mPDF');
     $tcpdf_present = ClassLoader::classExists('TCPDF');
     $dompdf_present = ClassLoader::classExists('DOMPDF');
@@ -79,12 +79,13 @@ class FormatConfigurationFormPdf extends FormBase {
         $form['settings']['print_pdf_pdf_tool']['#options'] += array('dompdf' => 'dompdf');
     }
     else {
+      // @todo Make this a warning message.
       $form['settings']['print_pdf_pdf_tool'] = array(
         '#type' => 'radios',
         '#title' => $this->t('PDF generation tool'),
         '#options' => array(),
         '#description' => $this->t('You are seeing no PDF generating tool because you have not installed any third party library using composer.'),
-      ); 
+      );
     }
     $form['settings']['print_pdf_content_disposition'] = array(
       '#type' => 'checkbox',
@@ -130,7 +131,7 @@ class FormatConfigurationFormPdf extends FormBase {
       'Legal',
       'Letter',
       'Tabloid',
-    );    
+    );
     foreach ($paper_sizes as $sizes ) {
       $form['settings']['print_pdf_paper_size']['#options'][$sizes] = $sizes;
     }

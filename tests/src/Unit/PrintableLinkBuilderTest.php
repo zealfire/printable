@@ -39,8 +39,15 @@ class PrintableLinkBuilderTest extends UnitTestCase {
   /**
    * Tests generating the render array of printable links.
    *
-   * @covers ::BuildLinks
+   * @covers PrintableLinkBuilder::BuildLinks
    */
+  // @todo PrintableLinkBuilder::BuildLinks has 5 possible routes. This test
+  //   only covers one.
+  //   1. first if() is false.
+  //   2. first if() is true, second if $key == 'print', 'save_pdf' = true
+  //   3. first if() is true, second if $key != 'print', 'save_pdf' = false
+  //   4. first if() is true, second if $key == 'print', 'save_pdf' = false
+  //   5. first if() is true, second if $key != 'print', 'save_pdf' = true
   public function testBuildLinks() {
     $definitions = array(
       'foo' => array(

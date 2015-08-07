@@ -28,22 +28,18 @@ class PrintableEntityManagerTest extends UnitTestCase {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    parent::setUp();
-  }
-
-  /**
    * Tests getting the printable entities.
    *
-   * @covers ::GetPrintableEntities
+   * @covers PrintableEntityManager::GetPrintableEntities
    */
   public function testGetPrintableEntities() {
     // Construct a printable entity manager and it's dependencies.
     $entity_definition = $this->getMockBuilder('Drupal\Core\Entity\EntityType')
       ->disableOriginalConstructor()
       ->getMock();
+    // @todo Use a mock method for PrintableEntityManager::getCompatibleEntities.
+    //   That reduces the scope of this test and makes it independent of any
+    //   changes in that method.
     $entity_definition->expects($this->any())
       ->method('hasHandlerClass')
       ->will($this->returnValue(True));
@@ -69,5 +65,7 @@ class PrintableEntityManagerTest extends UnitTestCase {
     );
     $this->assertEquals($expected_entity_definitions, $printable_entity_manager->getPrintableEntities());
   }
+
+  // @todo Add a test for PrintableEntityManager::getCompatibleEntities.
 
 }

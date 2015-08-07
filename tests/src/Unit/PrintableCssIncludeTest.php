@@ -31,6 +31,8 @@ class PrintableCssIncludeTest extends UnitTestCase {
   /**
    * Tests getting the plugin label from the plugin.
    *
+   * @covers PrintableCssInclude::getCssIncludePath
+   *
    * @dataProvider providerTestGetCssIncludePath
    */
   public function testGetCssIncludePath($include, $expected) {
@@ -47,6 +49,8 @@ class PrintableCssIncludeTest extends UnitTestCase {
       ->method('listInfo')
       ->will($this->returnValue($theme_info));
 
+    // @todo Use a mock method for extractCssIncludeToken and getThemePath.
+    // @todo Add separate tests for extractCssIncludeToken and getThemePath.
     $css_include = new PrintableCssInclude($config, $theme_handler);
 
     $this->assertEquals($expected, $css_include->getCssIncludePath());

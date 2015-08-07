@@ -1,6 +1,7 @@
 name: Printable PDF
 type: module
 description: 'Provides a printable format for generating PDFs.'
+configure:
 package: Printable
 core: 8.x
 dependencies:
