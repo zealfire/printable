@@ -56,7 +56,7 @@ class FormatConfigurationFormPdf extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $printable_format = NULL) {
-    $wkhtmltopdf_present = ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf'); 
+    $wkhtmltopdf_present = ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf');
     $mpdf_present = ClassLoader::classExists('mPDF');
     $tcpdf_present = ClassLoader::classExists('TCPDF');
     $dompdf_present = ClassLoader::classExists('DOMPDF');
@@ -125,7 +125,7 @@ class FormatConfigurationFormPdf extends FormBase {
       'Legal',
       'Letter',
       'Tabloid',
-    );    
+    );
     foreach ($paper_sizes as $sizes ) {
       $form['settings']['print_pdf_paper_size']['#options'][$sizes] = $sizes;
     }
