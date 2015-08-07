@@ -78,13 +78,8 @@ class FormatConfigurationFormPdf extends FormBase {
       if ($dompdf_present)
         $form['settings']['print_pdf_pdf_tool']['#options'] += array('dompdf' => 'dompdf');
     }
-    else {
-      $form['settings']['print_pdf_pdf_tool'] = array(
-        '#type' => 'radios',
-        '#title' => $this->t('PDF generation tool'),
-        '#options' => array(),
-        '#description' => $this->t('You are seeing no PDF generating tool because you have not installed any third party library using composer.'),
-      ); 
+    else { 
+      drupal_set_message($this->t('You are seeing no PDF generating tool because you have not installed any third party library using composer.'));
     }
     $form['settings']['print_pdf_content_disposition'] = array(
       '#type' => 'checkbox',
