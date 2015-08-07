@@ -160,7 +160,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
       '#theme' => array('printable__' . $this->getPluginId(), 'printable'),
       '#header' => array(
         '#theme' => array('printable_header__' . $this->getPluginId(), 'printable_header'),
-        '#logo_url' => theme_get_setting('logo.url'),
+        //'#logo_url' => '',/*theme_get_setting('logo.url')*/
       ),
       '#content' => $this->content,
       '#footer' => array(
