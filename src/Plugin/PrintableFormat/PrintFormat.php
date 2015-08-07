@@ -70,12 +70,4 @@ class PrintFormat extends PrintableFormatBase {
     $this->blockSubmit($form, $form_state);
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  protected function buildContent() {
-    $build = parent::buildContent();
-    return $build;
-  }
-
 }
