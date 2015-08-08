@@ -9,6 +9,7 @@
         }
     ],
     "require": {
-        "wa72/htmlpagedom": "~1.1"
+        "wa72/htmlpagedom": "~1.1",
+        "smalot/pdfparser": "*"
     }
 }
