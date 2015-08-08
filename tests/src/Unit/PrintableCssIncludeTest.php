@@ -31,6 +31,8 @@ class PrintableCssIncludeTest extends UnitTestCase {
   /**
    * Tests getting the plugin label from the plugin.
    *
+   * @covers PrintableCssInclude::getCssIncludePath
+   *
    * @dataProvider providerTestGetCssIncludePath
    */
   public function testGetCssIncludePath($include, $expected) {

@@ -39,7 +39,7 @@ class PrintableLinkBuilderTest extends UnitTestCase {
   /**
    * Tests generating the render array of printable links.
    *
-   * @covers ::BuildLinks
+   * @covers PrintableLinkBuilder::BuildLinks
    */
   public function testBuildLinks() {
     $definitions = array(
