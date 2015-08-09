@@ -3,8 +3,13 @@
 namespace Drupal\printable\Tests;
  
 use Drupal\Core\Database\Database;
-use Drupal\node\Tests\NodeTestBase;
- 
+use Drupal\node\Tests\NodeTestBase;// Register autoloading of vendor libraries.
+
+$autoload = __DIR__ . '/vendor/autoload.php';
+if (file_exists($autoload)) {
+  require_once $autoload;
+}
+
 /**
  * Tests the printable_pdf module functionality
  *
@@ -17,7 +22,7 @@ class PrintablePdfTest extends NodeTestBase {
    *
    * @var array
    */
-  public static $modules = array('printable', 'printable_pdf', 'node_test_exception', 'dblog', 'system');
+  public static $modules = array('printable', 'printable_pdf', 'pdf_api', 'node_test_exception', 'dblog', 'system');
  
   /**
    * Perform any initial set up tasks that run before every test method
@@ -29,7 +34,7 @@ class PrintablePdfTest extends NodeTestBase {
   }
 
   /**
-   * Tests that the 'printable/print/node/{node}' path returns the right content
+   * Tests that the 'printable/pdf/node/{node}' path returns the right content
    */
   public function testCustomPageExists() {
     global $base_url;
@@ -61,16 +66,42 @@ class PrintablePdfTest extends NodeTestBase {
     // Set the PDF generating tool. 
     $this->drupalGet('admin/config/user-interface/printable/pdf');
     $this->drupalPostForm(NULL, array(
-      'print_pdf_pdf_tool' => 'mPDF'
+      'print_pdf_pdf_tool' => 'mPDF',
+      'print_pdf_content_disposition' => 1,
+      'print_pdf_filename' => 'modules/custom/printable/src/Tests/testPDF'
     ), t('Submit'));
     $this->drupalGet('admin/config/user-interface/printable/pdf');
     $this->assertResponse(200);
 
-    $config = $this->config('printable.settings');
-    $this->verbose($config->get('printable.pdf_tool'));
     // Test whether PDF page is being generated.
     $this->drupalGet('printable/pdf/node/' . $node->id());
+    $parser = new \Smalot\PdfParser\Parser();
+    $pdf    = $parser->parseFile('testPDF.pdf');
+ 
+    $text = $pdf->getText();
+
+    $node_type_storage->load('article')->delete();
+    $this->drupalGet('node/add');
+
+    $new_edit = array();
+    $new_edit['title[0][value]'] = $this->randomMachineName(8);
+    $bodytext = $text;
+    $new_edit['body[0][value]'] = $bodytext;
+    $this->drupalPostForm('node/add/page', $new_edit, t('Save'));
+    $node = $this->drupalGetNodeByTitle($new_edit['title[0][value]']);
+
+    $node = $this->drupalGetNodeByTitle($new_edit['title[0][value]']);
+    $this->drupalGet('node/' . $node->id());
     $this->assertResponse(200);
+
+    // Checks the presence of title in the page.
+    $this->assertRaw($edit['title[0][value]'], 'Title discovered successfully in the printable page');
+
+    // Checks the presence of body in the page.
+    $this->assertRaw($edit['body[0][value]'], 'Body discovered successfully in the printable page');
+    
+    // Check if footer is rendering correctly.
+    $this->assertRaw($base_url. 'node/' . $node->id(), 'Source Url not discovered in the printable page');
   }
 
 }
