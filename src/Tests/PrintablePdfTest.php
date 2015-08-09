@@ -101,7 +101,7 @@ class PrintablePdfTest extends NodeTestBase {
     $this->assertRaw($edit['body[0][value]'], 'Body discovered successfully in the printable page');
     
     // Check if footer is rendering correctly.
-    $this->assertRaw($base_url. 'node/' . $node->id(), 'Source Url not discovered in the printable page');
+    $this->assertRaw($base_url. 'node/' . $node->id(), 'Source Url discovered in the printable page');
   }
 
 }
