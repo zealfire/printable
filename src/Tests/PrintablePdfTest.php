@@ -80,7 +80,6 @@ class PrintablePdfTest extends NodeTestBase {
  
     $text = $pdf->getText();
 
-    $node_type_storage->load('article')->delete();
     $this->drupalGet('node/add');
 
     $new_edit = array();
@@ -88,13 +87,11 @@ class PrintablePdfTest extends NodeTestBase {
     $bodytext = $text;
     $new_edit['body[0][value]'] = $bodytext;
     $this->drupalPostForm('node/add/page', $new_edit, t('Save'));
-    $node = $this->drupalGetNodeByTitle($new_edit['title[0][value]']);
-
-    $node = $this->drupalGetNodeByTitle($new_edit['title[0][value]']);
-    $this->drupalGet('node/' . $node->id());
+    $new_node = $this->drupalGetNodeByTitle($new_edit['title[0][value]']);
+    $this->drupalGet('node/' . $new_node->id());
     $this->assertResponse(200);
 
-    // Checks the presence of body in the page.
+    //Checks the presence of body in the page.
     $this->assertRaw($edit['body[0][value]'], 'Body discovered successfully in the printable page');
     
     // Check if footer is rendering correctly.
