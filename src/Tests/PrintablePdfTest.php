@@ -76,7 +76,7 @@ class PrintablePdfTest extends NodeTestBase {
     // Test whether PDF page is being generated.
     $this->drupalGet('printable/pdf/node/' . $node->id());
     $parser = new \Smalot\PdfParser\Parser();
-    $pdf    = $parser->parseFile('testPDF.pdf');
+    $pdf    = $parser->parseFile('modules/custom/printable/src/Tests/testPDF.pdf');
  
     $text = $pdf->getText();
 
@@ -93,9 +93,6 @@ class PrintablePdfTest extends NodeTestBase {
     $node = $this->drupalGetNodeByTitle($new_edit['title[0][value]']);
     $this->drupalGet('node/' . $node->id());
     $this->assertResponse(200);
-
-    // Checks the presence of title in the page.
-    $this->assertRaw($edit['title[0][value]'], 'Title discovered successfully in the printable page');
 
     // Checks the presence of body in the page.
     $this->assertRaw($edit['body[0][value]'], 'Body discovered successfully in the printable page');
