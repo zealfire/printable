@@ -1,5 +1,10 @@
 <?php
- 
+
+/**
+ * @file
+ * Contains \Drupal\printable\Tests\PrintableBlockTest.
+ */
+
 namespace Drupal\printable\Tests;
  
 
@@ -28,17 +33,22 @@ class PrintableBlockTest extends NodeTestBase {
   public static $modules = array('printable', 'block', 'views');
  
   /**
-   * Perform any initial set up tasks that run before every test method
+   * Perform any initial set up tasks that run before every test method.
    */
   public function setUp() {
     parent::setUp();
 
     // Create users and test node.
-    $this->adminUser = $this->drupalCreateUser(array('administer content types', 'administer nodes', 'administer blocks', 'access content overview'));$this->webUser = $this->drupalCreateUser(array('access content', 'create article content'));
+    $this->adminUser = $this->drupalCreateUser(array('administer content types',
+      'administer nodes', 
+      'administer blocks', 
+      'access content overview'
+      ));
+    $this->webUser = $this->drupalCreateUser(array('access content', 'create article content'));
   }
 
   /**
-   * Tests the functionality of the Printable block
+   * Tests the functionality of the Printable block.
    */
   public function testPrintableBlock() {
     $this->drupalLogin($this->adminUser);
@@ -48,7 +58,7 @@ class PrintableBlockTest extends NodeTestBase {
       'region' => 'sidebar_first',
       'visibility[node_type][bundles][article]' => 'article',
     ];
-    $theme =  \Drupal::service('theme_handler')->getDefault();
+    $theme = \Drupal::service('theme_handler')->getDefault();
     $this->drupalPostForm("admin/structure/block/add/printable_links_block%3Anode/$theme", $edit, t('Save block'));
 
     $block = Block::load($edit['id']);

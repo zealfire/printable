@@ -1,12 +1,17 @@
 <?php
- 
+
+/**
+ * @file
+ * Contains \Drupal\printable\Tests\PrintableLinkTest.
+ */
+
 namespace Drupal\printable\Tests;
- 
+
 use Drupal\Core\Database\Database;
 use Drupal\node\Tests\NodeTestBase;
- 
+
 /**
- * Tests the printable module functionality
+ * Tests the printable module functionality.
  *
  * @group printable
  */
@@ -18,13 +23,17 @@ class PrintableLinkTest extends NodeTestBase {
    * @var array
    */
   public static $modules = array('printable', 'node_test_exception', 'dblog');
- 
+
   /**
-   * Perform any initial set up tasks that run before every test method
+   * Perform any initial set up tasks that run before every test method.
    */
   public function setUp() {
     parent::setUp();
-    $user = $this->drupalCreateUser(array('create page content', 'edit own page content', 'view printer friendly versions', 'administer printable'));
+    $user = $this->drupalCreateUser(array('create page content',
+            'edit own page content',
+            'view printer friendly versions',
+            'administer printable',
+            ));
     $this->drupalLogin($user);
   }
 
@@ -36,7 +45,7 @@ class PrintableLinkTest extends NodeTestBase {
     $this->assertResponse(200);
     // Enable the print link in content area.
     $this->drupalPostForm(NULL, array(
-      'print_print_link_pos' => 'node'
+      'print_print_link_pos' => 'node',
       ), t('Submit'));
     $this->drupalGet('admin/config/user-interface/printable/pdf');
     $this->assertResponse(200);
@@ -65,7 +74,6 @@ class PrintableLinkTest extends NodeTestBase {
     $this->assertResponse(200);
 
     $this->assertRaw('Print', 'Print link discovered successfully in the printable page');
-    //$this->assertRaw('PDF', 'PDF link discovered successfully in the printable page');
   }
 
 }

@@ -1,7 +1,12 @@
 <?php
- 
+
+/**
+ * @file
+ * Contains \Drupal\printable\Tests\PrintableBlocPageTest.
+ */
+
 namespace Drupal\printable\Tests;
- 
+
 use Drupal\Core\Database\Database;
 use Drupal\node\Tests\NodeTestBase;
  
@@ -17,19 +22,27 @@ class PrintablePageTest extends NodeTestBase {
    *
    * @var array
    */
-  public static $modules = array('printable', 'node_test_exception', 'dblog', 'system');
- 
+  public static $modules = array('printable',
+                  'node_test_exception',
+                  'dblog',
+                  'system',
+                  );
+
   /**
-   * Perform any initial set up tasks that run before every test method
+   * Perform any initial set up tasks that run before every test method.
    */
   public function setUp() {
     parent::setUp();
-    $web_user = $this->drupalCreateUser(array('create page content', 'edit own page content', 'view printer friendly versions', 'administer printable'));
+    $web_user = $this->drupalCreateUser(array('create page content',
+      'edit own page content',
+      'view printer friendly versions',
+      'administer printable',
+      ));
     $this->drupalLogin($web_user);
   }
 
   /**
-   * Tests that the 'printable/print/node/{node}' path returns the right content
+   * Tests that the 'printable/print/node/{node}' path returns the right content.
    */
   public function testCustomPageExists() {
     global $base_url;
@@ -57,7 +70,6 @@ class PrintablePageTest extends NodeTestBase {
     // Verify that pages do not show submitted information by default.
     $this->drupalGet('node/' . $node->id());
     $this->assertResponse(200);
-    // see https://api.drupal.org/api/drupal/core%21modules%21simpletest%21src%21AssertContentTrait.php/trait/AssertContentTrait/8
     $this->drupalGet('printable/print/node/' . $node->id());
     $this->assertResponse(200);
     // Checks the presence of title in the page.
@@ -67,17 +79,17 @@ class PrintablePageTest extends NodeTestBase {
     // Checks the presence of body in the page.
     $this->assertRaw($edit['body[0][value]'], 'Body discovered successfully in the printable page');
     // Check if footer is rendering correctly.
-    $this->assertNoRaw($base_url. 'node/' . $node->id(), 'Source Url not discovered in the printable page');
+    $this->assertNoRaw($base_url . 'node/' . $node->id(), 'Source Url not discovered in the printable page');
     $this->verbose($base_url);
     // Enable the option of showing links present in the footer of page.
     $this->drupalGet('admin/config/user-interface/printable/print');
     $this->drupalPostForm(NULL, array(
-      'print_html_display_sys_urllist' => 1
+      'print_html_display_sys_urllist' => 1,
     ), t('Submit'));
     $this->drupalGet('admin/config/user-interface/printable/pdf');
     $this->assertResponse(200);
 
-    $this->assertNoRaw($base_url. 'node/' . $node->id(), 'Source Url discovered in the printable page');
+    $this->assertNoRaw($base_url . 'node/' . $node->id(), 'Source Url discovered in the printable page');
   }
 
 }

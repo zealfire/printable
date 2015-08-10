@@ -1,10 +1,15 @@
 <?php
- 
+
+/**
+ * @file
+ * Contains \Drupal\printable\Tests\PrintableUninstallTest.
+ */
+
 namespace Drupal\printable\Tests;
- 
+
 use Drupal\Core\Database\Database;
 use Drupal\node\Tests\NodeTestBase;
- 
+
 /**
  * Tests the whether printable module uninstall successfully. 
  *
@@ -18,18 +23,21 @@ class PrintableUninstallTest extends NodeTestBase {
    * @var array
    */
   public static $modules = array('printable', 'node_test_exception', 'dblog');
- 
+
   /**
-   * Perform any initial set up tasks that run before every test method
+   * Perform any initial set up tasks that run before every test method.
    */
   public function setUp() {
     parent::setUp();
-    $web_user = $this->drupalCreateUser(array('create page content', 'edit own page content', 'view printer friendly versions'));
+    $web_user = $this->drupalCreateUser(array('create page content',
+      'edit own page content',
+      'view printer friendly versions',
+      ));
     $this->drupalLogin($web_user);
   }
 
   /**
-   * Tests that the 'printable/print/node/{node}' path returns the right content
+   * Tests that the 'printable/print/node/{node}' path returns the right content.
    */
   public function testCustomPageExists() {
     $node_type_storage = \Drupal::entityManager()->getStorage('node_type');
@@ -58,7 +66,8 @@ class PrintableUninstallTest extends NodeTestBase {
 
     $this->drupalGet('printable/print/node/' . $node->id());
     $this->assertResponse(200);
-    // Uninstall the printable module and check the printable version of node is also deleted.
+    // Uninstall the printable module and check the printable version of node
+    // is also deleted.
     \Drupal::service('module_installer')->uninstall(array('printable'));
     $this->drupalGet('printable/print/node/' . $node->id());
     $this->assertResponse(404);
