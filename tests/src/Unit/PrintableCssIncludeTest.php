@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\Tests\printable\Unit\PrintableCssIncludeTest;
+ * Contains Drupal\Tests\printable\Unit\PrintableCssIncludeTest.
  */
 
 namespace Drupal\Tests\printable\Unit;
@@ -24,7 +24,7 @@ class PrintableCssIncludeTest extends UnitTestCase {
     return array(
       'name' => 'Printable CSS Include',
       'descriptions' => 'Tests the printable CSS include class.',
-      'group' => 'Printable'
+      'group' => 'Printable',
     );
   }
 
@@ -64,4 +64,5 @@ class PrintableCssIncludeTest extends UnitTestCase {
       array('foo/bar/css/test.css', 'foo/bar/css/test.css'),
     );
   }
+
 }

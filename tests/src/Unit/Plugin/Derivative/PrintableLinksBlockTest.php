@@ -56,7 +56,7 @@ class PrintableLinksBlockTest extends UnitTestCase {
       ->will($this->returnValue('Bar'));
     $derivative = new PrintableLinksBlock($printable_format_manager);
     $base_plugin_definition = array(
-      'admin_label' => 'Printable Links Block'
+      'admin_label' => 'Printable Links Block',
     );
 
     $expected = array(
@@ -69,4 +69,5 @@ class PrintableLinksBlockTest extends UnitTestCase {
     );
     $this->assertEquals($expected, $derivative->getDerivativeDefinitions($base_plugin_definition));
   }
+
 }

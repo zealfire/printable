@@ -61,7 +61,7 @@ class PrintFormatTest extends UnitTestCase {
     return array(
       'name' => 'Printable Format Base',
       'descriptions' => 'Tests the printable format base class.',
-      'group' => 'Printable'
+      'group' => 'Printable',
     );
   }
 
@@ -106,8 +106,8 @@ class PrintFormatTest extends UnitTestCase {
   }
 
   /**
-   * Tests that any additional configuration passed is internally stored and can
-   * be accessed.
+   * Tests that any additional configuration passed is internally stored and
+   * can be accessed.
    *
    * @covers PrintFormat::GetPassedInConfiguration
    */
@@ -149,7 +149,7 @@ class PrintFormatTest extends UnitTestCase {
   }
 
   /**
-   * Get the CSS include stub
+   * Get the CSS include stub.
    */
   protected function getCssIncludeStub() {
     return $this->getMockBuilder('Drupal\printable\PrintableCssIncludeInterface')
@@ -158,11 +158,12 @@ class PrintFormatTest extends UnitTestCase {
   }
 
   /**
-   * Get the Link extractor stub
+   * Get the Link extractor stub.
    */
   protected function getLinkExtractorIncludeStub() {
     return $this->getMockBuilder('Drupal\printable\LinkExtractor\LinkExtractorInterface')
       ->disableOriginalConstructor()
       ->getMock();
   }
+
 }

@@ -12,6 +12,7 @@ use Drupal\printable\PrintableEntityManager;
 
 /**
  * Tests the printable entity manager plugin.
+ *
  * @group Printable
  */
 class PrintableEntityManagerTest extends UnitTestCase {
@@ -23,7 +24,7 @@ class PrintableEntityManagerTest extends UnitTestCase {
     return array(
       'name' => 'Printable Entity Manager',
       'descriptions' => 'Tests the printable entity manager class.',
-      'group' => 'Printable'
+      'group' => 'Printable',
     );
   }
 
@@ -46,15 +47,15 @@ class PrintableEntityManagerTest extends UnitTestCase {
       ->getMock();
     $entity_definition->expects($this->any())
       ->method('hasHandlerClass')
-      ->will($this->returnValue(True));
+      ->will($this->returnValue(TRUE));
     $entity_manager = $this->getMock('Drupal\Core\Entity\EntityManagerInterface');
     $entity_manager->expects($this->once())
       ->method('getDefinitions')
       ->will($this->returnValue(array(
         'node' => $entity_definition,
         'comment' => $entity_definition,
-      ))
-    );
+        ))
+      );
     $config = $this->getConfigFactoryStub(array(
       'printable.settings' => array(
         'printable_entities' => array('node', 'comment', 'bar'),

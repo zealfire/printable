@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\Tests\printable\Unit\PrintableLinkBuilderTest
+ * Contains Drupal\Tests\printable\Unit\PrintableLinkBuilderTest.
  */
 
 namespace Drupal\Tests\printable\Unit;
@@ -74,11 +74,12 @@ class PrintableLinkBuilderTest extends UnitTestCase {
 
     $links = $link_builder->buildLinks($entity);
     $this->assertEquals(2, count($links));
-    foreach($definitions as $key => $definition) {
+    foreach ($definitions as $key => $definition) {
       $link = $links[$key];
       $this->assertEquals($definition['title'], $link['title']);
       $this->assertEquals(Url::fromRoute('printable.show_format.' . $entity_type, array('printable_format' => $key, 'entity' => $entity_id)), $link['url']);
       $this->assertEquals('_blank', $link['attributes']['target']);
     }
   }
+
 }

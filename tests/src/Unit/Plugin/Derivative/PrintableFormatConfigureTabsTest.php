@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\printable\Tests\Plugin\Derivative\PrintableFormatConfigureTabsTest
+ * Contains Drupal\Tests\printable\Unit\Plugin\Derivative\PrintableFormatConfigureTabsTest.
  */
 
 namespace Drupal\Tests\printable\Unit\Plugin\Derivative;
@@ -53,7 +53,7 @@ class PrintableFormatConfigureTabsTest extends UnitTestCase {
       'foo' => array(
         'title' => 'Foo',
         'route_parameters' => array('printable_format' => 'foo'),
-        'route_name' => 'printable.format_configure_foo', 
+        'route_name' => 'printable.format_configure_foo',
       ),
       'bar' => array(
         'title' => 'Bar',
@@ -63,4 +63,5 @@ class PrintableFormatConfigureTabsTest extends UnitTestCase {
     );
     $this->assertEquals($expected, $derivative->getDerivativeDefinitions(array()));
   }
+
 }

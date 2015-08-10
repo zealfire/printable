@@ -24,6 +24,9 @@ class PrintableLinkBlockTest extends UnitTestCase {
 
   protected $pluginDefinition = array();
 
+  /**
+   * {@inheritdoc}
+   */
   public function __construct() {
     parent::__construct();
     $this->pluginId = 'printable_links_block:node';
@@ -80,4 +83,5 @@ class PrintableLinkBlockTest extends UnitTestCase {
     );
     $this->assertEquals($expected_build, $block->build());
   }
+
 }
