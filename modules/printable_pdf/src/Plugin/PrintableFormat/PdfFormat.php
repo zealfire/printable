@@ -56,7 +56,6 @@ class PdfFormat extends PrintableFormatBase {
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, ConfigFactory $config_factory, PdfGeneratorPluginManager $pdf_generator_manager, PrintableCssIncludeInterface $printable_css_include, LinkExtractorInterface $link_extractor) {
     parent::__construct($configuration,$plugin_id, $plugin_definition, $config_factory, $printable_css_include,$link_extractor);
-    $config = $this->getConfiguration();
     $this->pdfGeneratorManager = $pdf_generator_manager;
     $pdf_library = (string)$this->configFactory->get('printable.settings')->get('pdf_tool');
     $pdf_library = strtolower($pdf_library);
@@ -162,14 +161,14 @@ class PdfFormat extends PrintableFormatBase {
   public function formattedHeaderFooter() {
     // And this can be used by users who do not want default one, this example
     // is for wkhtmltopdf generator.
-    $this->pdfGenerator->getObject()->setOptions(array('footer-center' => render($this->getFooterContent())));
+    //$this->pdfGenerator->getObject()->setOptions(array('footer-center' => render($this->getFooterContent())));
+    $this->pdfGenerator->getObject()->SetFooter('This is a footer on left side||'.'This is a footer on right side');
   }
 
   /**
    * {@inheritdoc}
    */
   public function getResponse() {
-    $pdf_library = (string)$this->configFactory->get('printable.settings')->get('pdf_tool');
     $paper_size = (string)$this->configFactory->get('printable.settings')->get('paper_size');
     $paper_orientation = $this->configFactory->get('printable.settings')->get('page_orientation');
     $path_to_binary = $this->configFactory->get('printable.settings')->get('path_to_binary');
@@ -178,6 +177,7 @@ class PdfFormat extends PrintableFormatBase {
     $pdf_content = $this->buildPdfContent();
     $footer_content = $this->getFooterContent();
     $header_content = $this->getHeaderContent();
+    //$this->formattedHeaderFooter();
     $this->pdfGenerator->setter($pdf_content, $pdf_location, $save_pdf, $paper_orientation, $paper_size, $footer_content, $header_content, $path_to_binary);
   }
 

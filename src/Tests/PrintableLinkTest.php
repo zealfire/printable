@@ -34,7 +34,6 @@ class PrintableLinkTest extends NodeTestBase {
   public function testPrintLinkExists() {
     $this->drupalGet('admin/config/user-interface/printable/links');
     $this->assertResponse(200);
-    $config = $this->config('printable.settings');
     // Enable the print link in content area.
     $this->drupalPostForm(NULL, array(
       'print_print_link_pos' => 'node'
@@ -56,6 +55,10 @@ class PrintableLinkTest extends NodeTestBase {
 
     // Check that the Basic page has been created.
     $this->assertRaw(t('!post %title has been created.', array('!post' => 'Basic page', '%title' => $edit['title[0][value]'])), 'Basic page created.');
+
+    // Check that the node exists in the database.
+    $node = $this->drupalGetNodeByTitle($edit['title[0][value]']);
+    $this->assertTrue($node, 'Node found in database.');
 
     // Verify that pages do not show submitted information by default.
     $this->drupalGet('node/' . $node->id());

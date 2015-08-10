@@ -3,7 +3,7 @@
 namespace Drupal\printable\Tests;
  
 use Drupal\Core\Database\Database;
-use Drupal\node\Tests\NodeTestBase;// Register autoloading of vendor libraries.
+use Drupal\node\Tests\NodeTestBase;
 
 $autoload = __DIR__ . '/vendor/autoload.php';
 if (file_exists($autoload)) {
