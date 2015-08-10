@@ -87,7 +87,7 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
     // the entity manager.
     if (empty($this->compatibleEntities)) {
       foreach ($this->entityManager->getDefinitions() as $entity_type => $entity_definition) {
-      // If this entity has a render controller, it has a printable version.
+        // If this entity has a render controller, it has a printable version.
         if ($entity_definition->hasHandlerClass('view_builder')) {
           $this->compatibleEntities[$entity_type] = $entity_definition;
         }

@@ -30,7 +30,6 @@ class PdfLinksConfigurationForm extends FormBase {
    *
    * @param \Drupal\printable\PrintableEntityManagerInterface $printable_entity_manager
    *   The printable entity manager.
-   *
    * @param \Drupal\printable\PrintableFormatPluginManager $printable_format_manager
    *   The printable format plugin manager.
    */

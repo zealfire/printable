@@ -112,16 +112,16 @@ function template_preprocess_printable(&$variables) {
 function template_preprocess_printable_footer(&$variables) {
   global $base_url;
   // Create source url over here.
-  $source_url = $base_url. \Drupal::service('path.current')->getPath();
+  $source_url = $base_url . \Drupal::service('path.current')->getPath();
   $pos = strpos($source_url, "printable");
   $pos_node = strpos($source_url, '/', $pos + 11);
-  $source_url = substr($source_url, 0, $pos) . substr($source_url, $pos_node+1);
+  $source_url = substr($source_url, 0, $pos) . substr($source_url, $pos_node + 1);
   $variables['source_url'] = $source_url;
   if (\Drupal::service('config.factory')->get('printable.settings')->get('list_attribute')) {
     $links = $variables['footer_content'];
     $split_links = explode(',', $links);
-    $newArray = array_unique($split_links);
-    $variables['footer_links'] = $newArray;
+    $new_array = array_unique($split_links);
+    $variables['footer_links'] = $new_array;
   }
 }
 
@@ -155,19 +155,19 @@ function printable_entity_view(array &$build, EntityInterface $entity, EntityVie
     // Get the name of entity over here.
     $entity_name = $printable_manager->getEntityName($entity);
     $printable_navigation = array(
-        '#theme' => 'links__entity__printable',
-        '#links' => $link_builder->buildLinks($entity),
-        '#attributes' => array(
-          'class' => array('pre_links'),
-        ),
-      );
+      '#theme' => 'links__entity__printable',
+      '#links' => $link_builder->buildLinks($entity),
+      '#attributes' => array(
+        'class' => array('pre_links'),
+      ),
+    );
     if (!in_array($entity_name, $print_setting)) {
       unset($printable_navigation['#links']['print']);
     }
     if (!in_array($entity_name, $pdf_setting)) {
       unset($printable_navigation['#links']['pdf']);
     }
-      
+
     // Add the build links to the entity being rendered.
     $build['printable_navigation'] = array(
       '#markup' => '<strong class="node_view">' . drupal_render($printable_navigation) . '</strong>',

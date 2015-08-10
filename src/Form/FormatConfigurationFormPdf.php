@@ -78,7 +78,7 @@ class FormatConfigurationFormPdf extends FormBase {
       if ($dompdf_present)
         $form['settings']['print_pdf_pdf_tool']['#options'] += array('dompdf' => 'dompdf');
     }
-    else { 
+    else {
       drupal_set_message($this->t('You are seeing no PDF generating tool because you have not installed any third party library using composer.'));
     }
     $form['settings']['print_pdf_content_disposition'] = array(
@@ -91,7 +91,7 @@ class FormatConfigurationFormPdf extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Paper size'),
       '#options' => array(),
-      '#default_value' => (string)$this->config('printable.settings')->get('paper_size'),
+      '#default_value' => (string) $this->config('printable.settings')->get('paper_size'),
       '#description' => $this->t('Choose the paper size of the generated PDF.'),
     );
     $paper_sizes = array(
@@ -126,7 +126,7 @@ class FormatConfigurationFormPdf extends FormBase {
       'Letter',
       'Tabloid',
     );
-    foreach ($paper_sizes as $sizes ) {
+    foreach ($paper_sizes as $sizes) {
       $form['settings']['print_pdf_paper_size']['#options'][$sizes] = $sizes;
     }
     $form['settings']['print_pdf_page_orientation'] = array(
@@ -164,14 +164,14 @@ class FormatConfigurationFormPdf extends FormBase {
     \Drupal::service('config.factory')->getEditable('printable.settings')
       ->set('pdf_tool', $form_state->getValue('print_pdf_pdf_tool'))
       ->set('save_pdf', $form_state->getValue('print_pdf_content_disposition'))
-      ->set('paper_size', (string)$form_state->getValue('print_pdf_paper_size'))
+      ->set('paper_size', (string) $form_state->getValue('print_pdf_paper_size'))
       ->set('page_orientation', $form_state->getValue('print_pdf_page_orientation'))
       ->set('pdf_location', $form_state->getValue('print_pdf_filename'))
       ->save();
     if (ClassLoader::classExists('mikehaertl\wkhtmlto\Pdf') && $pdf_tool == 'wkhtmltopdf') {
       \Drupal::service('config.factory')->getEditable('printable.settings')
-      ->set('path_to_binary', $form_state->getValue('path_to_binary'))
-      ->save();
+        ->set('path_to_binary', $form_state->getValue('path_to_binary'))
+        ->save();
     }
   }
 

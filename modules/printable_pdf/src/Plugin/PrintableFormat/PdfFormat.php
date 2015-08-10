@@ -55,9 +55,9 @@ class PdfFormat extends PrintableFormatBase {
    *   The PDF generator plugin manager service.
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, ConfigFactory $config_factory, PdfGeneratorPluginManager $pdf_generator_manager, PrintableCssIncludeInterface $printable_css_include, LinkExtractorInterface $link_extractor) {
-    parent::__construct($configuration,$plugin_id, $plugin_definition, $config_factory, $printable_css_include,$link_extractor);
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $config_factory, $printable_css_include, $link_extractor);
     $this->pdfGeneratorManager = $pdf_generator_manager;
-    $pdf_library = (string)$this->configFactory->get('printable.settings')->get('pdf_tool');
+    $pdf_library = (string) $this->configFactory->get('printable.settings')->get('pdf_tool');
     $pdf_library = strtolower($pdf_library);
     $this->pdfGenerator = $this->pdfGeneratorManager->createInstance($pdf_library);
   }
@@ -80,7 +80,7 @@ class PdfFormat extends PrintableFormatBase {
    */
   public function defaultConfiguration() {
     return array(
-      'pdf_generator' => 'wkhtmltopdf'
+      'pdf_generator' => 'wkhtmltopdf',
     );
   }
 
@@ -118,10 +118,10 @@ class PdfFormat extends PrintableFormatBase {
   }
 
   /**
-   * Get  the header content
+   * Get  the header content.
    *
    * @return string
-   *  Content of header.
+   *   Content of header.
    */
   public function getHeaderContent() {
     $pdf_header = array(
@@ -131,10 +131,10 @@ class PdfFormat extends PrintableFormatBase {
   }
 
   /**
-   * Get  the footer content
+   * Get  the footer content.
    *
    * @return string
-   *  Content of footer.
+   *   Content of footer.
    */
   public function getFooterContent() {
     $pdf_footer = array(
@@ -144,10 +144,10 @@ class PdfFormat extends PrintableFormatBase {
   }
 
   /**
-   * Get the HTML content for PDF generation
+   * Get the HTML content for PDF generation.
    *
    * @return string
-   *  HTML content for PDF.
+   *   HTML content for PDF.
    */
   public function buildPdfContent() {
     $content = parent::buildContent();
@@ -161,15 +161,14 @@ class PdfFormat extends PrintableFormatBase {
   public function formattedHeaderFooter() {
     // And this can be used by users who do not want default one, this example
     // is for wkhtmltopdf generator.
-    //$this->pdfGenerator->getObject()->setOptions(array('footer-center' => render($this->getFooterContent())));
-    $this->pdfGenerator->getObject()->SetFooter('This is a footer on left side||'.'This is a footer on right side');
+    $this->pdfGenerator->getObject()->SetFooter('This is a footer on left side||' . 'This is a footer on right side');
   }
 
   /**
    * {@inheritdoc}
    */
   public function getResponse() {
-    $paper_size = (string)$this->configFactory->get('printable.settings')->get('paper_size');
+    $paper_size = (string) $this->configFactory->get('printable.settings')->get('paper_size');
     $paper_orientation = $this->configFactory->get('printable.settings')->get('page_orientation');
     $path_to_binary = $this->configFactory->get('printable.settings')->get('path_to_binary');
     $save_pdf = $this->configFactory->get('printable.settings')->get('save_pdf');
@@ -177,7 +176,7 @@ class PdfFormat extends PrintableFormatBase {
     $pdf_content = $this->buildPdfContent();
     $footer_content = $this->getFooterContent();
     $header_content = $this->getHeaderContent();
-    //$this->formattedHeaderFooter();
+    // $this->formattedHeaderFooter();
     $this->pdfGenerator->setter($pdf_content, $pdf_location, $save_pdf, $paper_orientation, $paper_size, $footer_content, $header_content, $path_to_binary);
   }
 
