@@ -67,9 +67,8 @@ class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
         'url' => Url::fromRoute('printable.show_format.' . $entity->getEntityTypeId(), array('printable_format' => $key, 'entity' => $entity->id())),
       );
       // Add target "blank" if the configuration option is set.
-      if ($printable_settings->get('open_target_blank')) {
-        if ($key == 'print' or !$printable_settings->get('save_pdf'))
-           $links[$key]['attributes']['target'] = '_blank';
+      if ($printable_settings->get('open_target_blank') && ($key == 'print' or !$printable_settings->get('save_pdf'))) {
+        $links[$key]['attributes']['target'] = '_blank';
       }
     }
     return $links;

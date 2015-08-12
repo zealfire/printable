@@ -46,7 +46,6 @@ class InlineLinkExtractor implements LinkExtractorInterface {
 
     $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
       $href = $anchor->attr('href');
-      // @todo deprecated method.
       $href = $this->urlGenerator->generateFromPath($href, array('absolute' => TRUE));
       $anchor->append(' (' . $href . ')');
     });

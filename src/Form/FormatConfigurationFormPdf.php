@@ -69,18 +69,18 @@ class FormatConfigurationFormPdf extends FormBase {
         '#default_value' => $this->config('printable.settings')->get('pdf_tool'),
         '#description' => $this->t('This option selects the PDF generation tool being used by this module to create the PDF version.'),
       );
-      if ($mpdf_present)
-        $form['settings']['print_pdf_pdf_tool']['#options'] += array('mPDF' => 'mPDF');
-      if ($tcpdf_present)
-        $form['settings']['print_pdf_pdf_tool']['#options'] += array('TCPDF' => 'TCPDF');
-      if ($wkhtmltopdf_present)
-        $form['settings']['print_pdf_pdf_tool']['#options'] += array('wkhtmltopdf' => 'wkhtmltopdf');
-      if ($dompdf_present)
-        $form['settings']['print_pdf_pdf_tool']['#options'] += array('dompdf' => 'dompdf');
     }
     else {
       drupal_set_message($this->t('You are seeing no PDF generating tool because you have not installed any third party library using composer.'));
     }
+    if ($mpdf_present)
+      $form['settings']['print_pdf_pdf_tool']['#options'] += array('mPDF' => 'mPDF');
+    if ($tcpdf_present)
+      $form['settings']['print_pdf_pdf_tool']['#options'] += array('TCPDF' => 'TCPDF');
+    if ($wkhtmltopdf_present)
+      $form['settings']['print_pdf_pdf_tool']['#options'] += array('wkhtmltopdf' => 'wkhtmltopdf');
+    if ($dompdf_present)
+      $form['settings']['print_pdf_pdf_tool']['#options'] += array('dompdf' => 'dompdf');
     $form['settings']['print_pdf_content_disposition'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Save the pdf'),
