@@ -73,14 +73,18 @@ class FormatConfigurationFormPdf extends FormBase {
     else {
       drupal_set_message($this->t('You are seeing no PDF generating tool because you have not installed any third party library using composer.'));
     }
-    if ($mpdf_present)
+    if ($mpdf_present) {
       $form['settings']['print_pdf_pdf_tool']['#options'] += array('mPDF' => 'mPDF');
-    if ($tcpdf_present)
+    }
+    if ($tcpdf_present) {
       $form['settings']['print_pdf_pdf_tool']['#options'] += array('TCPDF' => 'TCPDF');
-    if ($wkhtmltopdf_present)
+    }
+    if ($wkhtmltopdf_present) {
       $form['settings']['print_pdf_pdf_tool']['#options'] += array('wkhtmltopdf' => 'wkhtmltopdf');
-    if ($dompdf_present)
+    }
+    if ($dompdf_present) {
       $form['settings']['print_pdf_pdf_tool']['#options'] += array('dompdf' => 'dompdf');
+    }
     $form['settings']['print_pdf_content_disposition'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Save the pdf'),
@@ -142,13 +146,14 @@ class FormatConfigurationFormPdf extends FormBase {
       '#default_value' => '',
       '#description' => $this->t("Filename with its location can be entered. If left empty and Save the pdf option has been selected the generated filename defaults to the node's path.The .pdf extension will be appended automatically."),
     );
-    if ($wkhtmltopdf_present && $pdf_tool == 'wkhtmltopdf')
+    if ($wkhtmltopdf_present && $pdf_tool == 'wkhtmltopdf') {
       $form['settings']['path_to_binary'] = array(
         '#type' => 'textfield',
         '#title' => $this->t('Path to binary file'),
         '#default_value' => $this->config('printable.settings')->get('path_to_binary'),
         '#description' => $this->t("Enter the path to binary file for wkhtmltopdf over here."),
       );
+    }
     $form['settings']['submit'] = array(
       '#type' => 'submit',
       '#value' => 'Submit',
