@@ -42,7 +42,7 @@ class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
   /**
    * Constructs a new PrintableLinkBuilder object.
    *
-   * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory service.
    * @param \Drupal\printable\PrintableFormatPluginManager $printable_format_manager
    *   The printable format plugin manager.
@@ -59,7 +59,7 @@ class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
 
     $links = array();
     $printable_settings = $this->configFactory->get('printable.settings');
-    
+
     // Build the array of links to be added to the entity.
     foreach ($this->printableFormatManager->getDefinitions() as $key => $definition) {
       $links[$key] = array(

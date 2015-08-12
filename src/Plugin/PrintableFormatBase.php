@@ -43,9 +43,9 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   /**
    * A string containing the list of links present in the page.
    *
-   * @param string $footer_content
+   * @param string $footerContent
    */
-  protected $footer_content;
+  protected $footerContent;
 
   /**
    * Printable CSS include manager.
@@ -64,7 +64,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   /**
    * {@inheritdoc}
    *
-   * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory service.
    * @param \Drupal\printable\PrintableCssIncludeInterface $printable_css_include
    *   The printable CSS include manager.
@@ -123,7 +123,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    */
   public function setConfiguration(array $configuration) {
     $this->configuration = $configuration;
-    $this->configFactory->get('printable.format')->set($this->getPluginId(), $this->configuration)->save();
+    $this->configFactory->getEditable('printable.format')->set($this->getPluginId(), $this->configuration)->save();
   }
 
   /**
@@ -136,9 +136,9 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    */
   public function setContent(array $content) {
     $this->content = $content;
-    $this->footer_content = NULL;
+    $this->footerContent = NULL;
     if ($this->configFactory->get('printable.settings')->get('list_attribute')) {
-      $this->footer_content = $this->linkExtractor->listAttribute((string) render($this->content));
+      $this->footerContent = $this->linkExtractor->listAttribute((string) render($this->content));
     }
   }
 
@@ -160,12 +160,12 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
       '#theme' => array('printable__' . $this->getPluginId(), 'printable'),
       '#header' => array(
         '#theme' => array('printable_header__' . $this->getPluginId(), 'printable_header'),
-        '#logo_url' => theme_get_setting('logo.url')
+        '#logo_url' => theme_get_setting('logo.url'),
       ),
       '#content' => $this->content,
       '#footer' => array(
         '#theme' => array('printable_footer__' . $this->getPluginId(), 'printable_footer'),
-        '#footer_content' => $this->footer_content,
+        '#footer_content' => $this->footerContent,
       ),
     );
 

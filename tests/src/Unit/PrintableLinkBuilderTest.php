@@ -25,7 +25,7 @@ class PrintableLinkBuilderTest extends UnitTestCase {
     return array(
       'name' => 'Printable Link Builder',
       'descriptions' => 'Tests the printable link builder class.',
-      'group' => 'Printable'
+      'group' => 'Printable',
     );
   }
 

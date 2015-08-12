@@ -106,8 +106,7 @@ class PrintFormatTest extends UnitTestCase {
   }
 
   /**
-   * Tests that any additional configuration passed is internally stored and
-   * can be accessed.
+   * Tests that additional configuration is internally stored and accessible.
    *
    * @covers PrintFormat::GetPassedInConfiguration
    */

@@ -50,7 +50,6 @@ class PdfFormat extends PrintableFormatBase {
    *
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
    *   The config factory service.
-   *
    * @param \Drupal\pdf_api\PdfGeneratorPluginManager $pdf_generator_manager
    *   The PDF generator plugin manager service.
    */

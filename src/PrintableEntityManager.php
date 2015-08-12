@@ -43,7 +43,7 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
    *
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    *   The entity manager service.
-   * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory service.
    */
   public function __construct(EntityManagerInterface $entity_manager, ConfigFactoryInterface $config_factory) {

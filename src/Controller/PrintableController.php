@@ -63,7 +63,7 @@ class PrintableController extends ControllerBase implements ContainerInjectionIn
       $format = $this->printableFormatManager->createInstance($printable_format);
       $content = $this->entityManager()->getViewBuilder($entity->getEntityTypeId())->view($entity, 'printable');
       $format->setContent($content);
-      if($printable_format == 'print') {
+      if ($printable_format == 'print') {
         return $format->getResponse();
       }
       else {
@@ -71,7 +71,7 @@ class PrintableController extends ControllerBase implements ContainerInjectionIn
         $source_url = \Drupal::request()->getRequestUri();
         $pos = strpos($source_url, "printable");
         $pos_node = strpos($source_url, '/', $pos + 11);
-        $source_url = substr($source_url, 0, $pos) . substr($source_url, $pos_node+1);
+        $source_url = substr($source_url, 0, $pos) . substr($source_url, $pos_node + 1);
         return new RedirectResponse($source_url);
       }
     }

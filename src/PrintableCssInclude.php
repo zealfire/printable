@@ -34,7 +34,7 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
   /**
    * Constructs a new PrintableCssInclude object.
    *
-   * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory service.
    * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
    *   The theme handler service.
