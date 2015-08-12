@@ -9,9 +9,9 @@ namespace Drupal\printable\Tests;
 
 use Drupal\Core\Database\Database;
 use Drupal\node\Tests\NodeTestBase;
- 
+
 /**
- * Tests the printable module functionality
+ * Tests the printable module functionality.
  *
  * @group printable
  */
@@ -23,10 +23,10 @@ class PrintablePageTest extends NodeTestBase {
    * @var array
    */
   public static $modules = array('printable',
-                  'node_test_exception',
-                  'dblog',
-                  'system',
-                  );
+    'node_test_exception',
+    'dblog',
+    'system',
+  );
 
   /**
    * Perform any initial set up tasks that run before every test method.
@@ -42,7 +42,7 @@ class PrintablePageTest extends NodeTestBase {
   }
 
   /**
-   * Tests that the 'printable/print/node/{node}' path returns the right content.
+   * Tests that the printable/print/node/{node} path returns the right content.
    */
   public function testCustomPageExists() {
     global $base_url;

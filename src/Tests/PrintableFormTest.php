@@ -4,11 +4,11 @@
  * @file
  * Contains \Drupal\printable\Tests\PrintableFormTest.
  */
- 
+
 namespace Drupal\printable\Tests;
 
 use Drupal\simpletest\WebTestBase;
- 
+
 /**
  * Tests the printable module functionality.
  *
@@ -27,7 +27,7 @@ class PrintableFormTest extends WebTestBase {
    * A simple user with 'administer printable' permission.
    */
   private $user;
- 
+
   /**
    * Perform any initial set up tasks that run before every test method.
    */

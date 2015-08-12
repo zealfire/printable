@@ -11,7 +11,7 @@ use Drupal\Core\Database\Database;
 use Drupal\node\Tests\NodeTestBase;
 
 /**
- * Tests the whether printable module uninstall successfully. 
+ * Tests the whether printable module uninstall successfully.
  *
  * @group printable
  */
@@ -37,7 +37,7 @@ class PrintableUninstallTest extends NodeTestBase {
   }
 
   /**
-   * Tests that the 'printable/print/node/{node}' path returns the right content.
+   * Tests that the printable/print/node/{node} path returns the right content.
    */
   public function testCustomPageExists() {
     $node_type_storage = \Drupal::entityManager()->getStorage('node_type');

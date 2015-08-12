@@ -33,7 +33,7 @@ class PrintablePdfTest extends NodeTestBase {
     'node_test_exception',
     'dblog',
     'system',
-    );
+  );
 
   /**
    * Perform any initial set up tasks that run before every test method.
@@ -78,7 +78,7 @@ class PrintablePdfTest extends NodeTestBase {
     $this->drupalGet('node/' . $node->id());
     $this->assertResponse(200);
 
-    // Set the PDF generating tool. 
+    // Set the PDF generating tool.
     $this->drupalGet('admin/config/user-interface/printable/pdf');
     $this->drupalPostForm(NULL, array(
       'print_pdf_pdf_tool' => 'mPDF',

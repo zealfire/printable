@@ -6,7 +6,7 @@
  */
 
 namespace Drupal\printable\Tests;
- 
+
 
 use Drupal\node\Tests\NodeTestBase;
 use Drupal\block\Entity\Block;
@@ -17,7 +17,7 @@ use Drupal\block\Entity\Block;
  * @group printable
  */
 class PrintableBlockTest extends NodeTestBase {
- 
+
   /**
    * An administrative user for testing.
    *
@@ -31,7 +31,7 @@ class PrintableBlockTest extends NodeTestBase {
    * @var array
    */
   public static $modules = array('printable', 'block', 'views');
- 
+
   /**
    * Perform any initial set up tasks that run before every test method.
    */
@@ -40,10 +40,10 @@ class PrintableBlockTest extends NodeTestBase {
 
     // Create users and test node.
     $this->adminUser = $this->drupalCreateUser(array('administer content types',
-      'administer nodes', 
-      'administer blocks', 
-      'access content overview'
-      ));
+      'administer nodes',
+      'administer blocks',
+      'access content overview',
+    ));
     $this->webUser = $this->drupalCreateUser(array('access content', 'create article content'));
   }
 
