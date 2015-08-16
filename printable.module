@@ -75,7 +75,8 @@ function printable_theme() {
  *
  * @param array $variables
  *   An associative array containing:
- *   - items: Array of participant names.
+ *   - elements: Array of participant names.
+ *     Array keys: #base_url, #title, #html_attributes, #send_script.
  */
 function template_preprocess_printable(&$variables) {
   global $base_url;
@@ -106,8 +107,9 @@ function template_preprocess_printable(&$variables) {
  * Preprocess variables for list of printable printer friendly page.
  *
  * @param array $variables
- *   An associative array containing:
- *   - items: Array of participant names.
+ *   An associative array containing
+ *   - elements: Array of participant names.
+ *     Array keys: #source_url, #footer_links, #footer_content.
  */
 function template_preprocess_printable_footer(&$variables) {
   global $base_url;
