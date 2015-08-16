@@ -79,13 +79,16 @@ class PrintablePageTest extends NodeTestBase {
     // Checks the presence of body in the page.
     $this->assertRaw($edit['body[0][value]'], 'Body discovered successfully in the printable page');
     // Check if footer is rendering correctly.
-    $this->assertRaw($base_url . '/node/' . $node->id(), 'Source Url not discovered in the printable page');
+    $this->assertRaw($base_url . '/node/' . $node->id(), 'Source Url discovered in the printable page');
     $this->verbose($base_url);
     // Enable the option of showing links present in the footer of page.
     $this->drupalGet('admin/config/user-interface/printable/print');
     $this->drupalPostForm(NULL, array(
       'print_html_display_sys_urllist' => 1,
     ), t('Submit'));
+
+    $this->drupalGet('printable/print/node/' . $node->id());
+    $this->assertResponse(200);
 
     // Checks whether the URLs in the footer region are rendering properly. 
     $this->assertRaw('List of links present in page', 'Main heading for displaying URLs discovered in the printable page');
