@@ -72,24 +72,26 @@ class PrintablePageTest extends NodeTestBase {
     $this->assertResponse(200);
     $this->drupalGet('printable/print/node/' . $node->id());
     $this->assertResponse(200);
-    // Checks the presence of title in the page.
+    // Checks the presence of header in the page.
     $this->assertRaw($edit['title[0][value]'], 'Title discovered successfully in the printable page');
     // Checks the presence of image in the header.
     $this->assertRaw(theme_get_setting('logo.url'), 'Image discovered successfully in the printable page');
     // Checks the presence of body in the page.
     $this->assertRaw($edit['body[0][value]'], 'Body discovered successfully in the printable page');
     // Check if footer is rendering correctly.
-    $this->assertNoRaw($base_url . 'node/' . $node->id(), 'Source Url not discovered in the printable page');
+    $this->assertRaw($base_url . '/node/' . $node->id(), 'Source Url not discovered in the printable page');
     $this->verbose($base_url);
     // Enable the option of showing links present in the footer of page.
     $this->drupalGet('admin/config/user-interface/printable/print');
     $this->drupalPostForm(NULL, array(
       'print_html_display_sys_urllist' => 1,
     ), t('Submit'));
-    $this->drupalGet('admin/config/user-interface/printable/pdf');
-    $this->assertResponse(200);
 
-    $this->assertNoRaw($base_url . 'node/' . $node->id(), 'Source Url discovered in the printable page');
+    // Checks whether the URLs in the footer region are rendering properly. 
+    $this->assertRaw('List of links present in page', 'Main heading for displaying URLs discovered in the printable page');
+    $this->assertRaw($base_url . '/node/' . $node->id(), 'First link discovered successfully');
+    $this->assertRaw($base_url . '/user/1', 'Second link discovered successfully');
+    $this->assertRaw($base_url . '/printable/print/node/' . $node->id(), 'Third link discovered successfully');
   }
 
 }
