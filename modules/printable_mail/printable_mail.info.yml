@@ -1,0 +1,7 @@
+name: Printable mail
+type: module
+description: 'Provides a printable format for sending mail.'
+package: Printable
+core: 8.x
+dependencies:
+  - printable
