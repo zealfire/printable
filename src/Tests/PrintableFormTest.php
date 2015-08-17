@@ -10,7 +10,7 @@ namespace Drupal\printable\Tests;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests the printable module functionality.
+ * Tests the configuration form of printable module.
  *
  * @group printable
  */

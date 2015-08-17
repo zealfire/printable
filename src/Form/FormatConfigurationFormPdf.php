@@ -15,7 +15,7 @@ use Drupal\pdf_api\PdfGeneratorPluginManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides shared configuration form for all printable formats.
+ * Provides configuration form for PDF format.
  */
 class FormatConfigurationFormPdf extends FormBase {
 

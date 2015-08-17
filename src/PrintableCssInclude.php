@@ -13,7 +13,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 
 /**
- * Helper class for the printable module.
+ * Supports CSS file usage within the printable module.
  */
 class PrintableCssInclude implements PrintableCssIncludeInterface {
 

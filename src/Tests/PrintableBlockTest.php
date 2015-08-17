@@ -65,7 +65,7 @@ class PrintableBlockTest extends NodeTestBase {
     $visibility = $block->getVisibility();
     $this->assertTrue(isset($visibility['node_type']['bundles']['article']), 'Visibility settings were saved to configuration');
 
-    // Test deleting the block from the edit form.
+    // Test deleting the block via edit form.
     $this->drupalGet('admin/structure/block/manage/' . $edit['id']);
     $this->clickLink(t('Delete'));
     $this->assertRaw(t('Are you sure you want to delete the block %name?', array('%name' => $edit['settings[label]'])));

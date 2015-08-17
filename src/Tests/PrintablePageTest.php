@@ -93,8 +93,8 @@ class PrintablePageTest extends NodeTestBase {
     // Checks whether the URLs in the footer region are rendering properly. 
     $this->assertRaw('List of links present in page', 'Main heading for displaying URLs discovered in the printable page');
     $this->assertRaw($base_url . '/node/' . $node->id(), 'First link discovered successfully');
-    $this->assertRaw($base_url . '/user/1', 'Second link discovered successfully');
-    $this->assertRaw($base_url . '/printable/print/node/' . $node->id(), 'Third link discovered successfully');
+    $this->assertRaw('/user/1', 'Second link discovered successfully');
+    $this->assertRaw('/printable/print/node/' . $node->id(), 'Third link discovered successfully');
   }
 
 }

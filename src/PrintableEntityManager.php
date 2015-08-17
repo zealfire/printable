@@ -13,7 +13,7 @@ use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityInterface;
 
 /**
- * Helper class for the printable module.
+ * Selects the entities which will be supported by the printable module.
  */
 class PrintableEntityManager implements PrintableEntityManagerInterface {
 

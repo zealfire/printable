@@ -183,7 +183,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    *   The HTML of the page to be added.
    *
    * @return string
-   *   The HTML string with presence of links dependending on configuration.
+   *   The HTML string with presence of links depending on configuration.
    */
   protected function extractLinks($content) {
     if ($this->configFactory->get('printable.settings')->get('extract_links')) {

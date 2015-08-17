@@ -14,7 +14,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides shared configuration form for all printable formats.
+ * Provides configuration form for selecting location of links.
  */
 class LinksConfigurationForm extends FormBase {
 

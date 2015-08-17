@@ -13,7 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides shared configuration form for all printable formats.
+ * Provides configuration form for print format.
  */
 class FormatConfigurationFormPrint extends FormBase {
 

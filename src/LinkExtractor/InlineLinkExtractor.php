@@ -12,7 +12,7 @@ use Drupal\printable\LinkExtractor\LinkExtractorInterface;
 use wa72\htmlpagedom\HtmlPageCrawler;
 
 /**
- * Link extractor.
+ * Helps in extracting the links within the page.
  */
 class InlineLinkExtractor implements LinkExtractorInterface {
 

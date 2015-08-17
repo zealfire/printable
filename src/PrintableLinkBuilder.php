@@ -14,7 +14,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 
 /**
- * Helper class for the printable module.
+ * Helps in preparing the link for entities in the printable module.
  */
 class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
 
