@@ -1,0 +1,14 @@
+{
+    "name": "drupal/printable_pdf",
+    "description": "Generates PDF version of nodes",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Alok Pandey",
+            "email": "iamalok185@gmail.com"
+        }
+    ],
+    "require": {
+        "gufy/pdftohtml-php":"~2"
+    }
+}

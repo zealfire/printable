@@ -167,6 +167,7 @@ class PdfFormat extends PrintableFormatBase {
    * {@inheritdoc}
    */
   public function getResponse() {
+    // Stores the options selected by user to be applied on generated PDF.
     $paper_size = (string) $this->configFactory->get('printable.settings')->get('paper_size');
     $paper_orientation = $this->configFactory->get('printable.settings')->get('page_orientation');
     $path_to_binary = $this->configFactory->get('printable.settings')->get('path_to_binary');
