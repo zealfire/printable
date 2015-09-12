@@ -7,4 +7,4 @@ The module makes use of external PHP library for easy manipulation of HTML docum
 So please install Composer Manager module to download external dependencies. The instructions to use
 Composer Manager are given over <a href="https://www.drupal.org/node/2405811">here</a>.
 
-The printable_pdf module has an dependency on pdf_api module which can be accessed over <a href="https://github.com/zealfire/pdf_api">here</a>.
+The printable_pdf submodule has an dependency on pdf_api module which can be accessed over <a href="https://github.com/zealfire/pdf_api">here</a>.
